@@ -1,0 +1,112 @@
+import React, { Component } from 'react';
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+  Image
+} from 'react-native';
+
+const backgroundImage = require('../images/submit-background.png');
+
+export default class SubmitScreen extends Component {
+
+  submitting() {
+    console.log(this);
+  }
+
+  static navigationOptions = ({ navigation }) => ({
+    headerStyle: {
+       backgroundColor: '#faf8ec'
+    },
+    title: 'Submit',
+    headerLeft:
+        <Button
+          title='Back'
+          onPress={() => { navigation.navigate('Details'); }}
+          backgroundColor='rgba(0,0,0,0)'
+          color='rgba(0,122,255,1)'
+        />,
+    style: {
+      marginTop: Platform.OS === 'android' ? 24 : 0
+    }
+  })
+
+  render() {
+
+    return (
+
+      <View style={styles.container}>
+
+        <Image source={backgroundImage} style={styles.backgroundImage}>
+
+          <View style={styles.containerTwo}>
+
+            <Text style={styles.textStyle}>
+              Proof read before submitting
+            </Text>
+
+            <View style={styles.buttonContainer}>
+
+              <TouchableOpacity onPress={this.submitting.bind(this)}>
+                <Text style={styles.buttonText}>Submit</Text>
+              </TouchableOpacity>
+
+            </View>
+
+          </View>
+
+        </Image>
+
+      </View>
+
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#81c4de'
+  },
+  backgroundImage: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
+    justifyContent: 'center',
+  },
+  containerTwo: {
+    flex: 3
+  },
+  buttonContainer: {
+    alignSelf: 'stretch',
+    margin: 20,
+    padding: 10,
+    borderColor: '#fff',
+    backgroundColor: '#ff4546',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#fff'
+  },
+  image: {
+    width: 400,
+    height: 350,
+    alignItems: 'flex-start',
+    justifyContent: 'center'
+  },
+  textStyle: {
+    fontSize: 20,
+    color: '#fff',
+    marginTop: 10,
+    marginBottom: 5,
+    textAlign: 'center'
+  }
+});
