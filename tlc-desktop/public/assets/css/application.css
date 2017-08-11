@@ -27,12 +27,13 @@ strong {
 .app-navbar {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  border-bottom: thin solid #000000;
 }
 .app-navbar .form-control {
   box-shadow: none;
 }
 .app-navbar .navbar-brand img {
-  width: 85px;
+  width: 37px;
 }
 .app-navbar .navbar-collapse {
   max-height: inherit;

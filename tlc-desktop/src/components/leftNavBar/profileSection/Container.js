@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Content from './Content';
 
+const backgroundImage = require('./images/instagram_11.jpg');
+
 export default class ProfileCard extends Component {
 	render() {
 		return (
-			<div className="card card-profile mb-4">
-        <div className="card-header" style={{backgroundImage: "url(assets/img/iceland.jpg);"}}></div>
-        <Content />
+			<div {...this.props}>
+        <div className="card-header" style={{backgroundImage: 'backgroundImage' }}></div>
+        <Content className="card-block text-center" />
       </div>
 		);
 	}

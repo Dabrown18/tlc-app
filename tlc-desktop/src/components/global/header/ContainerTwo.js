@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import Header from './components/global/header/Container';
-import LeftNavBar from './components/leftNavBar/Container';
-import NewsFeed from './components/newsFeed/Container';
-import RightNavBar from './components/rightNavBar/Container';
+import Header from './Container';
 
-export default class App extends Component {
+export default class ContainerTwo extends Component {
 	render() {
 		return (
-			<div>
-				<div className="growl" id="app-growl"></div>
+			<div {...this.props}></div>
 					
-					<Header className="navbar navbar-toggleable-sm fixed-top navbar-inverse bg-primary app-navbar" />
-
+					<Header className="navbar navbar-toggleable-sm fixed-top navbar-inverse bg-primary app-navbar"/>
 
 					<div className="modal fade" id="msgModal" tabIndex="-1" role="dialog" aria-labelledby="msgModal" aria-hidden="true">
 					  <div className="modal-dialog">
@@ -289,21 +284,6 @@ export default class App extends Component {
 					    </div>
 					  </div>
 					</div>
-
-
-					<div className="container pt-4">
-					  <div className="row">
-					    
-					    <LeftNavBar />
-
-					    <NewsFeed />
-
-					    <RightNavBar className="col-lg-3"/>
-					    
-					  </div>
-					</div>
-
-			</div>
 		);
 	}
 }
