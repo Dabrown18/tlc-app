@@ -9,7 +9,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
-import BookmarkScreen from '../screens/BookmarkScreen';
+import NotificationsScreen from '../screens/NotificationsScreen';
 import AddStoryScreen from '../screens/AddStoryScreen';
 import CategoryScreen from '../screens/CategoryScreen';
 import ImageScreen from '../screens/ImageScreen';
@@ -61,11 +61,11 @@ export const MainNavigator = TabNavigator({
               tabBarIcon: ({ tintColor }) => <Icon name="add" size={35} color={tintColor} />,
             },
           },
-          Bookmark: {
-            screen: BookmarkScreen,
+          Notifications: {
+            screen: NotificationsScreen,
             navigationOptions: {
-              tabBarLabel: 'Bookmark',
-              tabBarIcon: ({ tintColor }) => <Icon name="bookmark" size={35} color={tintColor} />,
+              tabBarLabel: 'Notifications',
+              tabBarIcon: ({ tintColor }) => <Icon name="notifications" size={35} color={tintColor} />,
             },
            },
           Profile: {
