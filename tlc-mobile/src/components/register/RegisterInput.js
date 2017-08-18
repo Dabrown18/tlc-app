@@ -90,18 +90,6 @@ export default class RegisterInput extends Component {
 
         </View>
 
-        <View>
-
-          <TouchableOpacity
-              style ={styles.registerContainer}
-              onPress={() => this.props.navigator.push({ name : 'signup' })}
-              onPress={() => this.onRegisterPressed()}
-          >
-            <Text style={styles.registerText}>Get Started</Text>
-          </TouchableOpacity>
-
-        </View>
-
       </View>
 		);
 	}

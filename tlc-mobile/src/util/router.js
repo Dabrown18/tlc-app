@@ -6,7 +6,8 @@ import LoginScreen from '../screens/LoginScreen';
 import SearchScreen from '../screens/SearchScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import RegisterScreen from '../screens/RegisterScreen';
+import RegisterScreen from '../screens/RegisterScreen'
+import RegisterScreenTwo from '../screens/RegisterScreenTwo';;
 import SettingsScreen from '../screens/SettingsScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
@@ -29,7 +30,8 @@ export const MainNavigator = TabNavigator({
       Login: { screen: LoginScreen },
       Register: {
         screen: StackNavigator({
-          Register: { screen: RegisterScreen}
+          Register: { screen: RegisterScreen},
+          PartTwo: { screen: RegisterScreenTwo}
         })
       },
       Main: {

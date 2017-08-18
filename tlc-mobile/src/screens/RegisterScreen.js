@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import RegisterInput from '../components/register/RegisterInput';
+import ContinueButton from '../components/register/Button';
 import Spinner from '../components/Spinner';
 import backgroundImage from '../images/login-background.jpg'
 
@@ -55,7 +56,7 @@ export default class Register extends Component {
     headerStyle: {
        backgroundColor: '#fff'
     },
-    title: 'Register',
+    title: "Let's Get Started",
     headerLeft:
         <Button
             title='Back'
@@ -68,6 +69,10 @@ export default class Register extends Component {
     }
   })
 
+  continue = () => {
+    this.props.navigation.navigate('PartTwo');
+  };
+
     render() {
         return (
             <KeyboardAvoidingView
@@ -77,6 +82,7 @@ export default class Register extends Component {
               <Image source={backgroundImage} style={styles.backgroundImage}>
                 <Animated.Image source={Logo} style={[styles.logo, { height: this.imageHeight }]} />
                 <RegisterInput />
+                <ContinueButton onPress={this.continue}/>
               </Image>
             </KeyboardAvoidingView>
         );
