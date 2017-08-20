@@ -13,8 +13,8 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 
-import RegisterInput from '../components/register/RegisterInput';
-import ContinueButton from '../components/register/Button';
+import RegisterForm from '../components/register/RegisterForm';
+import MyButton from '../components/Button/index';
 import Spinner from '../components/Spinner';
 import backgroundImage from '../images/login-background.jpg'
 
@@ -69,43 +69,59 @@ export default class Register extends Component {
     }
   })
 
-  continue = () => {
+  next = () => {
     this.props.navigation.navigate('PartTwo');
   };
 
     render() {
         return (
-            <KeyboardAvoidingView
-              style={styles.container}
-              behavior="padding"
-            >
-              <Image source={backgroundImage} style={styles.backgroundImage}>
-                <Animated.Image source={Logo} style={[styles.logo, { height: this.imageHeight }]} />
-                <RegisterInput />
-                <ContinueButton onPress={this.continue}/>
-              </Image>
-            </KeyboardAvoidingView>
+          <KeyboardAvoidingView
+            style={styles.container}
+            behavior="padding"
+          >
+            <Image source={backgroundImage} style={styles.backgroundImage}>
+              <Animated.Image source={Logo} style={[styles.logo, { height: this.imageHeight }]} />
+              <RegisterForm />
+              <MyButton 
+                next 
+                style={styles.btn} 
+                onPress={this.next}
+              >
+            <Text style={styles.btnText}>Next</Text>
+          </MyButton>
+            </Image>
+          </KeyboardAvoidingView>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#faf8ec',
-    },
-    backgroundImage: {
-      flex: 1,
-      alignSelf: 'stretch',
-      width: null,
-      paddingTop: 40,
-    },
-    logo: {
-      width: 350,
-      height: 100,
-      alignItems: 'flex-start',
-      justifyContent: 'center',
-      resizeMode: 'contain',
-      marginBottom: 15
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#faf8ec',
+  },
+  backgroundImage: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
+    paddingTop: 40,
+  },
+  logo: {
+    width: 350,
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    resizeMode: 'contain',
+    marginBottom: 15,
+    margin: 10
+  },
+  btnText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: "#fff",
+    fontWeight: 'bold'
+  },
+  btn: {
+    margin: 10
+  }
 });

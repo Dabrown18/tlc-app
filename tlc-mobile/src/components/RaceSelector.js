@@ -24,6 +24,7 @@ export default class RaceSelector extends Component {
 		return (
 			<View>
 				<View style={styles.pickerContainer}>
+
 					<Picker 
 						itemStyle={{borderRadius: 8, color:'white'}} 
 						enabled={true}

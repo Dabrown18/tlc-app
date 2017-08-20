@@ -9,7 +9,8 @@ import {
   Text
 } from 'react-native';
 
-import LoginInput from '../components/login/LoginInput';
+import MyButton from '../components/Button/index';
+import LoginForm from '../components/login/LoginForm';
 
 const backgroundImage = require('../images/login-background.jpg');
 const logo = require('../images/logo.png');
@@ -29,13 +30,15 @@ export default class LoginScreen extends Component {
 
             <Image source={logo} style={styles.logo}/>
 
-            <LoginInput />
+            <LoginForm />
 
-            <View style={styles.registerContainer}>
-              <TouchableOpacity style={styles.registerContainer} onPress={this.register}>
-                <Text style={styles.registerText}>Register</Text>
-              </TouchableOpacity>
-            </View>
+            <MyButton 
+              next 
+              style={styles.btn} 
+              onPress={this.register}
+            >
+              <Text style={styles.btnText}>Register</Text>
+            </MyButton>
 
         </Image>
 
@@ -45,42 +48,33 @@ export default class LoginScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#faf8ec',
-    },
-    backgroundImage: {
-      flex: 1,
-      alignSelf: 'stretch',
-      width: null,
-      paddingTop: 40,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    logo: {
-      width: 350,
-      height: 100,
-      alignItems: 'flex-start',
-      justifyContent: 'center',
-      resizeMode: 'contain'
-    },
-    registerContainer: {
-      alignSelf: 'stretch',
-      margin: 20,
-      borderColor: '#fff',
-      backgroundColor: '#89b2e0',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 8
-    },
-    registerText: {
-      fontSize: 20,
-      textAlign: 'center',
-      color: "#fff"
-    },
-    errorTextStyle: {
-      fontSize: 20,
-      alignSelf: 'center',
-      color: 'red'
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#faf8ec',
+  },
+  backgroundImage: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
+    paddingTop: 40,
+  },
+  logo: {
+    width: 350,
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    resizeMode: 'contain',
+    marginTop: 70,
+    marginBottom: 15,
+    margin: 10
+  },
+  btnText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: "#fff",
+    fontWeight: 'bold'
+  },
+  btn: {
+    margin: 10
+  }
 });

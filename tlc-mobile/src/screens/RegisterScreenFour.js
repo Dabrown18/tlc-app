@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import {
 	View,
-  Text,
 	Button,
+  Text,
 	Platform,
 	Image,
 	StyleSheet
 } from 'react-native';
 
 import MyButton from '../components/Button/index';
-import RaceSelector from '../components/RaceSelector';
 import backgroundImage from '../images/login-background.jpg';
 
-export default class RegisterScreenTwo extends Component {
+export default class RegisterScreenFour extends Component {
+
 	static navigationOptions = ({ navigation }) => ({
     headerStyle: {
        backgroundColor: '#fff'
     },
-    title: 'Race/Ethnicity',
+    title: "Let's Begin",
     headerLeft:
         <Button
             title='Back'
-            onPress={() => { navigation.navigate('Register'); }}
+            onPress={() => { navigation.navigate('PartThree'); }}
             backgroundColor='rgba(0,0,0,0)'
             color='rgba(0,122,255,1)'
         />,
@@ -30,22 +30,16 @@ export default class RegisterScreenTwo extends Component {
     }
   })
 
-  next = () => {
-    this.props.navigation.navigate('PartThree');
-  };
-
 	render() {
 		return (
 			<View style={styles.container}>
 				<Image source={backgroundImage} style={styles.backgroundImage}>
-					<RaceSelector />
-          <MyButton 
-            next 
-            style={styles.btn} 
-            onPress={this.next}
-          >
-            <Text style={styles.btnText}>Next</Text>
-          </MyButton>
+					<MyButton 
+						next
+						style={styles.btn} 
+					>
+						<Text style={styles.btnText}>Get Started</Text>
+					</MyButton>
 				</Image>
 			</View>
 		);
@@ -55,7 +49,7 @@ export default class RegisterScreenTwo extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-    backgroundColor: '#faf8ec',
+    	backgroundColor: '#faf8ec',
 	},
   backgroundImage: {
     flex: 1,
@@ -71,5 +65,11 @@ const styles = StyleSheet.create({
   },
   btn: {
     margin: 10
+  },
+  selector: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
+
