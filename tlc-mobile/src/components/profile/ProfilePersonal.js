@@ -6,6 +6,7 @@ import {
 	StyleSheet
 } from 'react-native';
 
+import Social from './Social';
 import Name from './editProfile/Name';
 
 export default class ProfilePersonal extends Component {
@@ -30,15 +31,7 @@ export default class ProfilePersonal extends Component {
 			<View style={styles.personal}>
 				<Text style={styles.name}>{firstName} {lastName}</Text>
 				<Text style={styles.occupation}>{occupation.toUpperCase()}</Text>
-				<Text style={styles.websiteText}>
-        		WEBSITE:
-          	<Text
-          		style={styles.website}
-          		onPress={() => Linking.openURL('http://www.Triune-health.de')}
-          	>
-            	{website.toLowerCase()}
-          	</Text>
-      	</Text>
+      	<Social />
 			</View>
 		);
 	}
@@ -46,7 +39,7 @@ export default class ProfilePersonal extends Component {
 
 const styles = StyleSheet.create({
 	personal: {
-		padding: 30,
+		padding: 20,
 	},
 	name: {
 		color: '#fff',
@@ -59,7 +52,8 @@ const styles = StyleSheet.create({
   	marginTop: 5,
 	},
 	websiteText: {
-  	marginRight: 1,
+	marginTop: 2,
+  	marginRight: 2,
   	color: '#fff'
 	},
 	website: {

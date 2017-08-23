@@ -6,9 +6,9 @@ import {
   StyleSheet
 } from 'react-native';
 
-import Followers from './followers/Followers';
-import Likes from './likes/Likes';
-import Comments from './comments/Comments';
+import Followers from './Followers';
+import Likes from './Likes';
+import Comments from './Comments';
 
 import FollowersScreen from '../../screens/FollowersScreen';
 

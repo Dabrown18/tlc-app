@@ -89,7 +89,7 @@ export default class LoginForm extends Component {
     return (
       <View style={styles.inputContainer}>
 
-          <Email />
+          <Email onChangeText={email => this.setState({ email })} />
 
           <Password />
 

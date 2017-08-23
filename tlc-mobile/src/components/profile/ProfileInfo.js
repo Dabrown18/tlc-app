@@ -6,6 +6,7 @@ import {
 
 import ProfilePersonal from './ProfilePersonal';
 import ProfileStats from './ProfileStats';
+import Social from './Social';
 
 export default class ProfileInfo extends Component {
 	render() {

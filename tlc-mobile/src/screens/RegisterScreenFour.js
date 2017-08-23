@@ -30,6 +30,10 @@ export default class RegisterScreenFour extends Component {
     }
   })
 
+  next = () => {
+    this.props.navigation.navigate('Profile');
+  };
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -37,6 +41,7 @@ export default class RegisterScreenFour extends Component {
 					<MyButton 
 						next
 						style={styles.btn} 
+            onPress={this.next}
 					>
 						<Text style={styles.btnText}>Get Started</Text>
 					</MyButton>
