@@ -1,0 +1,9 @@
+{
+  "name": "tlc-koa-backend",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "koa": "^2.3.0",
+    "mongoose": "^4.11.9"
+  }
+}
