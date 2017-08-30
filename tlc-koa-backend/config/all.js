@@ -9,5 +9,7 @@ module.exports = {
   PROD: process.env.NODE_ENV === 'production',
 
   // True if we should enable displaying of hello text for ping purposes
-  SHOW_HELLO: true
+  SHOW_HELLO: true,
+
+  SALT_ROUNDS: 10,
 };

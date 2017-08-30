@@ -1,5 +1,7 @@
+const config = require('../../config');
 const bcrypt = require('bcrypt');
 const uid = require('uid-safe');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
 
@@ -9,7 +11,7 @@ module.exports = {
    * @returns {string}
    */
   hashPassword(password) {
-    return bcrypt.hash(password, SALT_ROUNDS);
+    return bcrypt.hash(password, config.SALT_ROUNDS);
   },
 
   /**
@@ -29,5 +31,12 @@ module.exports = {
    */
   generateSafeUID(byteLength) {
     return uid(byteLength);
+  },
+
+  generateJwtToken(obj, validDays) {
+    return jwt.sign(obj, config.TOKEN_SIGN_SECRET, {
+      expiresIn: validDays * 24 * 60 * 60
+    });
   }
+
 };
