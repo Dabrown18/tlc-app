@@ -20,18 +20,20 @@ module.exports = {
   },
 
   async getByEmail(email) {
-    return await models.user.findOne({ email });
+    return await models.user.findOne({ email }).exec();
   },
 
   async getByUsername(username) {
-    return await models.user.findOne({ username });
+    return await models.user.findOne({ username }).exec();
   },
 
   stripSensitiveInfo(user) {
-    if (user) {
-      delete user.password;
-      delete user.__v;
+    const userJson = user && user.toObject ? user.toObject() : user;
+
+    if (userJson) {
+      delete userJson.password;
+      delete userJson.__v;
     }
-    return user;
+    return userJson;
   }
 };
