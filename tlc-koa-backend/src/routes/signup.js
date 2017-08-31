@@ -1,5 +1,7 @@
 var router = require('koa-router')();
 const UserService = require('../services/user-service');
+const templates = require('../templates');
+const SendGrid = require('../helpers/sendgrid');
 
 async function signup(ctx) {
   try {
@@ -27,6 +29,14 @@ async function signup(ctx) {
     }
 
     const user = await UserService.addUser(username, firstName, lastName, email, ethnicity, birthDate, gender, password);
+
+    await SendGrid.sendEmail({
+      from: 'noreply@theladieschampion.com',
+      to: email,
+      subject: 'Welcome to The Ladies Champion',
+      html: templates.signup({username})
+    });
+
     return ctx.ok(UserService.stripSensitiveInfo(user));
   } catch( e ) {
     console.log(e);
