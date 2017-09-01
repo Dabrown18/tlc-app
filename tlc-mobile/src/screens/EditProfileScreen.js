@@ -13,35 +13,30 @@ import {
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+import Username from '../components/editProfile/Username';
+import Firstname from '../components/editProfile/FirstName';
+import Lastname from '../components/editProfile/LastName';
+import Occupation from '../components/editProfile/Occupation';
+import WebAddress from '../components/editProfile/WebAddress';
+import Facebook from '../components/editProfile/Facebook';
+import Instagram from '../components/editProfile/Instagram';
+import Twitter from '../components/editProfile/Twitter';
+import Patreon from '../components/editProfile/Patreon';
+import Snapchat from '../components/editProfile/Snapchat';
 
 export default class EditProfileScreen extends Component {
 
-	state = {
-    userNameLabel: 'Username',
-    firstNameLabel: 'Firstname',
-    lastNameLabel: 'Lastname',
-    profileTitleLabel: 'Profile Label',
-    webAddressLabel: 'Web Address'
-	};
-
 	static navigationOptions = ({ navigation }) => ({
-	    headerStyle: {
-	       backgroundColor: '#faf8ec'
-	    },
-	    title: 'Edit Profile',
-	    style: {
-	      marginTop: Platform.OS === 'android' ? 24 : 0
-	    }
+    headerStyle: {
+       backgroundColor: '#faf8ec'
+    },
+    title: 'Edit Profile',
+    style: {
+      marginTop: Platform.OS === 'android' ? 24 : 0
+    }
 	})
 
 	render() {
-		const {
-      	userNameLabel,
-      	firstNameLabel,
-      	lastNameLabel,
-      	profileTitleLabel,
-      	webAddressLabel
-    	} = this.state;
 
 		return (
 			<KeyboardAwareScrollView 
@@ -51,26 +46,16 @@ export default class EditProfileScreen extends Component {
       	scrollEnabled={false} 
 			>
 				<View style={styles.inputContainer}>
-					<Text style={styles.textStyle}>{userNameLabel.toUpperCase()}</Text>
-					<TextInput
-	          style={styles.input}
-	        />
-	        <Text style={styles.textStyle}>{firstNameLabel.toUpperCase()}</Text>
-	        <TextInput
-	          style={styles.input}
-	        />
-	        <Text style={styles.textStyle}>{lastNameLabel.toUpperCase()}</Text>
-	        <TextInput
-	          style={styles.input}
-	        />
-	        <Text style={styles.textStyle}>{profileTitleLabel.toUpperCase()}</Text>
-	        <TextInput
-	          style={styles.input}
-	        />
-	        <Text style={styles.textStyle}>{webAddressLabel.toUpperCase()}</Text>
-	        <TextInput
-	          style={styles.input}
-	        />
+					<Username />
+	        <Firstname />
+	        <Lastname />
+	        <Occupation />
+	        <WebAddress />
+	        <Facebook />
+	        <Instagram />
+	        <Twitter />
+	        <Patreon />
+	        <Snapchat />
         </View>
         <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
         	<Text style={styles.buttonText}>Save Changes</Text>
