@@ -1,4 +1,4 @@
-# The Ladies Champion
+
 The Ladies Champion Application is a self-improvement social media application. 
 
 # AWS Login Information
