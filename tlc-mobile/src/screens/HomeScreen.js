@@ -4,7 +4,7 @@ import {
   StyleSheet
 } from 'react-native';
 
-import Header from '../components/Header';
+import Header from '../components/header';
 import ShowStory from '../components/feed/ShowStory';
 
 export default class HomeScreen extends Component {
