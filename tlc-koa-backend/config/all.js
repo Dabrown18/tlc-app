@@ -12,4 +12,7 @@ module.exports = {
   SHOW_HELLO: true,
 
   SALT_ROUNDS: 10,
+
+  // Reset token validity in minutes
+  PASSWORD_RESET_TOKEN_VALIDITY: 60
 };

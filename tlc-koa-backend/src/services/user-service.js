@@ -1,5 +1,6 @@
 const models = require('../models');
 const PasswordService = require('./password-service');
+const SecurityService = require('./security-service');
 
 module.exports = {
 
@@ -35,5 +36,31 @@ module.exports = {
       delete userJson.__v;
     }
     return userJson;
+  },
+
+  async generatePasswordResetDetails(userId) {
+    const passwordResetToken = await SecurityService.generateSafeUID(20);
+    const passwordResetRequestDate = new Date();
+
+    await models.user.updateOne({ _id: userId }, { passwordResetToken, passwordResetRequestDate });
+
+    return {
+      passwordResetRequestDate,
+      passwordResetToken
+    };
+  },
+
+  async getByPasswordResetToken(passwordResetToken) {
+    return models.user.findOne({ passwordResetToken });
+  },
+
+  async resetPassword(userId, plainPassword) {
+    const password = await PasswordService.hashPassword(plainPassword);
+
+    return models.user.update({ _id: userId }, {
+      password,
+      passwordResetToken: null,
+      passwordResetRequestDate: null
+    });
   }
 };

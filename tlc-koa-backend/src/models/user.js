@@ -8,12 +8,12 @@ const UserSchema = new mongoose.Schema({
   ethnicity: String,
   gender: String,
   birthDate: Date,
-  email: String,
   password: String,
   creationDate: Date,
   lastLoginDate: Date,
   passwordResetRequestDate: Date,
-  passswordResetToken: String
+  passwordResetToken: String,
+  status: Number
 });
 
 module.exports = mongoose.model('User', UserSchema);
