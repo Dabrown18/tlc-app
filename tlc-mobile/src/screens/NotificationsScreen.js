@@ -7,7 +7,7 @@ import {
   LayoutAnimation
 } from 'react-native';
 
-import Header from '../components/header';
+import Header from '../components/Header';
 
 export default class NotificationsScreen extends Component {
   state = {
