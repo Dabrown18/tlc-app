@@ -3,6 +3,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
 import LoginScreen from '../screens/LoginScreen';
+import HelpScreen from '../screens/HelpScreen';
 import SearchScreen from '../screens/SearchScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -36,6 +37,11 @@ export const MainNavigator = TabNavigator({
           PartTwo: { screen: RegisterScreenTwo},
           PartThree: { screen: RegisterScreenThree },
           PartFour: { screen: RegisterScreenFour }
+        })
+      },
+      Help: {
+        screen: StackNavigator({
+          Help: { screen: HelpScreen }
         })
       },
       Main: {

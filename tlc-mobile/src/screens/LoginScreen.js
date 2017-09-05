@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
   View,
+  Text,
   Image,
   StyleSheet,
   Button,
   Platform,
-  TouchableOpacity,
-  Text
+  TouchableOpacity
 } from 'react-native';
 
 import MyButton from '../components/Button/index';
@@ -21,6 +21,10 @@ export default class LoginScreen extends Component {
     this.props.navigation.navigate('Register');
   };
 
+  help = () => {
+    this.props.navigation.navigate('Help');
+  };
+
   render() {
 
     return (
@@ -30,7 +34,7 @@ export default class LoginScreen extends Component {
 
             <Image source={logo} style={styles.logo}/>
 
-            <LoginForm navigation={this.props.navigation} />
+            <LoginForm />
 
             <MyButton 
               next 
@@ -39,7 +43,14 @@ export default class LoginScreen extends Component {
             >
               <Text style={styles.btnText}>Register</Text>
             </MyButton>
-
+  
+            <View style={styles.helpContainer}>
+              <Text>Forgot your email or password?</Text>
+              <TouchableOpacity onPress={this.help}>
+                <Text style={styles.btnHelp}>Get help logging in.</Text>
+              </TouchableOpacity>
+            </View>
+            
         </Image>
 
       </View>
@@ -76,5 +87,15 @@ const styles = StyleSheet.create({
   },
   btn: {
     margin: 10
+  },
+  helpContainer: {
+    alignItems: 'center',
+    marginTop: 5,
+    marginRight: 20,
+    marginBottom: 0,
+    marginLeft: 20
+  },
+  btnHelp: {
+    color: 'rgba(0,122,255,1)'
   }
 });
