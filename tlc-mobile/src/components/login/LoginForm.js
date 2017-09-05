@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   Text,
@@ -7,12 +8,14 @@ import {
   StyleSheet
 } from 'react-native';
 
-import Email from './Email';
-import Password from './Password';
+// import Email from './Email';
+// import Password from './Password';
 import MyButton from '../Button/index';
 import Spinner from '../../components/Spinner';
 
-export default class LoginForm extends Component {
+import Authentication from '../../actions/authentication';
+
+export class LoginForm extends Component {
 
   constructor(props) {
     super(props);
@@ -28,35 +31,41 @@ export default class LoginForm extends Component {
   }
 
 
-    login() {
-
+    login = () => {
       const { 
         email, 
         password 
       } = this.state;
 
-      this.setState({ 
-        error: '', 
-        loading: true 
+      const { dispatch } = this.props;
+
+      this.setState({
+        error: '',
+        loading: true
       });
 
+      dispatch(Authentication.login(email, password))
+        .then(() => this.onLoginSuccess())
+        .catch(() => this.onLoginFail());
     };
 
-    onLoginSuccess() {
+    onLoginSuccess = () => {
       this.setState({
           email: '',
           password: '',
           loading: false,
-          error: ''
+          error: '',
+          loggedIn: true
       });
-    }
+      this.props.navigation.navigate('Home');
+    };
 
-    onLoginFail() {
+    onLoginFail = () => {
       this.setState({
           error: 'Login Failed',
           loading: false
       });
-    }
+    };
 
     renderButton() {
 
@@ -65,7 +74,7 @@ export default class LoginForm extends Component {
       }
 
          return (
-          <MyButton login>
+          <MyButton login onPress={this.login}>
             <Text style={styles.btnText}>Login</Text>
           </MyButton>
          );
@@ -89,9 +98,25 @@ export default class LoginForm extends Component {
     return (
       <View style={styles.inputContainer}>
 
-          <Email onChangeText={email => this.setState({ email })} />
+          {/*<Email onChangeText={email => this.setState({ email })} />*/}
 
-          <Password />
+          {/*<Password />*/}
+
+          <TextInput
+            value={this.state.email}
+            onChangeText={email => this.setState({ email })}
+            autoCorrect={false}
+            placeholder="Email"
+            style={styles.input}
+          />
+
+          <TextInput
+            value={this.state.password}
+            onChangeText={password => this.setState({ password })}
+            secureTextEntry={true}
+            placeholder="Password"
+            style={styles.input}
+          />
 
           <Text style={styles.errorTextStyle}>
             {this.state.error}
@@ -103,6 +128,8 @@ export default class LoginForm extends Component {
     );
   }
 }
+
+export default connect()(LoginForm);
 
 const styles = StyleSheet.create({
   inputContainer: {

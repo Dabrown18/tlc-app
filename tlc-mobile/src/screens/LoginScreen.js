@@ -30,7 +30,7 @@ export default class LoginScreen extends Component {
 
             <Image source={logo} style={styles.logo}/>
 
-            <LoginForm />
+            <LoginForm navigation={this.props.navigation} />
 
             <MyButton 
               next 
