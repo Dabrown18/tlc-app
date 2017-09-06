@@ -4,7 +4,8 @@ const SecurityService = require('./security-service');
 
 module.exports = {
 
-  async addUser(username, firstName, lastName, email, ethnicity, birthDate, gender, plainPassword) {
+  async addUser(username, firstName, lastName, email, ethnicity, birthDate, gender, plainPassword,
+                occupation, webAddress, instagram, twitter, patreon, snapchat) {
     const password = await PasswordService.hashPassword(plainPassword);
 
     return await models.user.create({
@@ -16,8 +17,18 @@ module.exports = {
       birthDate,
       gender,
       password,
+      occupation,
+      webAddress,
+      instagram,
+      twitter,
+      patreon,
+      snapchat,
       creationDate: new Date()
     });
+  },
+
+  async getById(_id) {
+    return await models.user.findOne({ _id });
   },
 
   async getByEmail(email) {
@@ -32,6 +43,8 @@ module.exports = {
     const userJson = user && user.toObject ? user.toObject() : user;
 
     if (userJson) {
+      delete userJson.passwordResetToken;
+      delete userJson.passwordResetRequestDate;
       delete userJson.password;
       delete userJson.__v;
     }
@@ -62,5 +75,9 @@ module.exports = {
       passwordResetToken: null,
       passwordResetRequestDate: null
     });
+  },
+
+  async updateUser(_id, profile) {
+    return models.user.findOneAndUpdate({ _id }, { $set: profile }, { new: true });
   }
 };

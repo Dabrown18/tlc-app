@@ -14,7 +14,13 @@ async function signup(ctx) {
       ethnicity,
       birthDate,
       gender,
-      password
+      password,
+      occupation,
+      webAddress,
+      instagram,
+      twitter,
+      patreon,
+      snapchat
     } = ctx.request.body;
 
     if (!ValidatorService.isUsernameValid(username)) {
@@ -35,7 +41,8 @@ async function signup(ctx) {
       });
     }
 
-    const user = await UserService.addUser(username, firstName, lastName, email, ethnicity, birthDate, gender, password);
+    const user = await UserService.addUser(username, firstName, lastName, email, ethnicity, birthDate, gender, password,
+      occupation, webAddress, instagram, twitter, patreon, snapchat);
 
     await SendGrid.sendEmail({
       from: 'noreply@theladieschampion.com',

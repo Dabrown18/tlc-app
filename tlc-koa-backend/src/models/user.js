@@ -13,7 +13,17 @@ const UserSchema = new mongoose.Schema({
   lastLoginDate: Date,
   passwordResetRequestDate: Date,
   passwordResetToken: String,
-  status: Number
+  status: Number,
+  occupation: String,
+  webAddress: String,
+  instagram: String,
+  twitter: String,
+  patreon: String,
+  snapchat: String,
+  location: {
+    lat: Number,
+    lng: Number
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);
