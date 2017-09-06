@@ -1,5 +1,6 @@
 var router = require('koa-router')();
 const UserService = require('../services/user-service');
+const ValidatorService = require('../services/validator-service');
 const templates = require('../templates');
 const SendGrid = require('../helpers/sendgrid');
 
@@ -15,6 +16,12 @@ async function signup(ctx) {
       gender,
       password
     } = ctx.request.body;
+
+    if (!ValidatorService.isUsernameValid(username)) {
+      return ctx.badRequest({
+        error: 'Username is invalid. Should have at least one character'
+      });
+    }
 
     if (await UserService.getByEmail(email)) {
       return ctx.badRequest({

@@ -7,11 +7,15 @@ async function login(ctx) {
   try {
     const {username, password} = ctx.request.body;
 
-    const user = await UserService.getByUsername(username);
+    let user = await UserService.getByUsername(username.toLowerCase());
     if (!user) {
-      return ctx.forbidden({
-        error: 'Invalid credentials'
-      });
+      user = await UserService.getByEmail(username.toLowerCase());
+
+      if (!user) {
+        return ctx.forbidden({
+          error: 'Invalid credentials'
+        });
+      }
     }
 
     if (!(await PasswordService.compare(password, user.password))) {

@@ -8,7 +8,7 @@ module.exports = {
     const password = await PasswordService.hashPassword(plainPassword);
 
     return await models.user.create({
-      username,
+      username: username.toLowerCase(),
       firstName,
       lastName,
       email,

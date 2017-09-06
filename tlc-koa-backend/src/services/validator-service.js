@@ -2,6 +2,7 @@ const config = require('../../config');
 const moment = require('moment');
 
 module.exports = {
+
   /**
    * Determines if a passwordResetToken is valid. The password reset request date is taken into
    * consideration.
@@ -15,6 +16,16 @@ module.exports = {
       return false;
     }
     return moment().diff(passwordResetRequestDate, 'minute') < config.PASSWORD_RESET_TOKEN_VALIDITY;
+  },
+
+  /**
+   * Returns true if a given username is valid.
+   *
+   * @param username
+   * @returns {boolean}
+   */
+  isUsernameValid(username) {
+    return username && username.trim().length > 0;
   },
 
   /**
