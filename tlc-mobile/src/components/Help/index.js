@@ -31,13 +31,13 @@ export default class Help extends Component {
 			        placeholder="Type Here"
 			        style={styles.input}
 						/>
-						<MyButton
-							login
-							style={styles.btn}
-						>
-							<Text style={styles.btnText}>Send Login Link</Text>
-						</MyButton>
 					</View>
+          <MyButton
+            next
+            style={styles.btn}
+          >
+            <Text style={styles.btnText}>Send Login Link</Text>
+          </MyButton>
 				</Image>
 			</View>
 		);

@@ -9,7 +9,7 @@ export default class HelpScreen extends Component {
     headerStyle: {
        backgroundColor: '#fff'
     },
-    title: "Back to Login",
+    title: "Help Page",
     headerLeft:
         <Button
             title='Back'

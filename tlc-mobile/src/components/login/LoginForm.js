@@ -106,7 +106,7 @@ export class LoginForm extends Component {
             value={this.state.email}
             onChangeText={email => this.setState({ email })}
             autoCorrect={false}
-            placeholder="Email"
+            placeholder="Email or Username"
             style={styles.input}
           />
 
