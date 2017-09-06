@@ -3,13 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node src/index"
+    "start": "node src/index | bunyan"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
+    "bunyan": "^1.8.12",
     "jsonwebtoken": "^7.4.3",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
+    "koa-bunyan-logger": "^2.0.0",
     "koa-logger": "^3.0.1",
     "koa-respond": "^1.0.1",
     "koa-router": "^7.2.1",

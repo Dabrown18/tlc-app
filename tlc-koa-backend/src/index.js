@@ -1,18 +1,18 @@
 const config = require('../config');
-const logger = require('koa-logger');
 const respond = require('koa-respond');
 const bodyParser = require('koa-bodyparser');
 const Koa = require('koa');
 const mongoose = require('mongoose');
 const loadRoutes = require('./routes');
+const Logger = require('./lib/logger');
+const AuthIgnoreList = require('./constants/auth-ignore-list');
+const authMiddleware = require('./middleware/auth');
 
 mongoose.Promise = global.Promise;
 
 const app = new Koa();
 
-if (config.DEV) {
-  app.use(logger());
-}
+const log = Logger(app, { isDev: config.DEV });
 
 if (config.SHOW_HELLO) {
   app.use(async (ctx, next) => {
@@ -26,6 +26,12 @@ if (config.SHOW_HELLO) {
 
 app.use(respond());
 app.use(bodyParser());
+app.use(authMiddleware({
+  secretKey: config.TOKEN_SIGN_SECRET,
+  getIgnore: AuthIgnoreList.getIgnore,
+  postIgnore: AuthIgnoreList.postIgnore,
+  putIgnore: AuthIgnoreList.putIgnore
+}));
 
 loadRoutes(app);
 
@@ -34,11 +40,11 @@ async function run() {
     useMongoClient: true
   });
 
-  console.log('Connected to database!');
+  log.info('Connected to database!');
 
   app.listen(config.PORT, () => {
-    console.log(`Listening on port ${config.PORT}`);
+    log.info(`Listening on port ${config.PORT}`);
   });
 }
  
-run().catch(e => console.error(e.stack));
+run().catch(e => log.error(e));
