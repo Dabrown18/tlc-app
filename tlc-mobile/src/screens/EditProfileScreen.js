@@ -9,6 +9,7 @@ import {
 	TouchableHighlight,
 	Animated,
 	Image,
+	ScrollView
 } from 'react-native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -39,12 +40,7 @@ export default class EditProfileScreen extends Component {
 	render() {
 
 		return (
-			<KeyboardAwareScrollView 
-				style={{ backgroundColor: '#fff' }}
-      	resetScrollToCoords={{ x: 0, y: 0 }}
-      	contentContainerStyle={styles.container}
-      	scrollEnabled={false} 
-			>
+			<KeyboardAwareScrollView style={{ backgroundColor: '#fff'}} >
 				<View style={styles.inputContainer}>
 					<Username />
 	        <Firstname />

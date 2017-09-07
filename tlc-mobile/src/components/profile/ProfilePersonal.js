@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import Social from './Social';
-import Name from './editProfile/Name';
+import Name from './Name';
 
 export default class ProfilePersonal extends Component {
 
