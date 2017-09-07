@@ -28,6 +28,7 @@ export class LoginForm extends Component {
         tokenExists: false,
         loggedIn: null
     };
+    this.login = this.login.bind(this);
   }
 
 
@@ -57,7 +58,6 @@ export class LoginForm extends Component {
           error: '',
           loggedIn: true
       });
-      this.props.navigation.navigate('Home');
     };
 
     onLoginFail = () => {
