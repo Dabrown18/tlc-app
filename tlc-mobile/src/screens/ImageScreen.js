@@ -9,6 +9,7 @@ import {
   Image
 } from 'react-native';
 import { ImagePicker } from 'expo';
+import MyButton from '../components/Button/index'
 
 const backgroundImage = require('../images/image-background.jpg');
 
@@ -51,12 +52,15 @@ export default class ImageScreen extends Component {
     return (
       <View style={styles.container}>
         <Image source={backgroundImage} style={styles.backgroundImage}>
-          <TouchableOpacity 
-            title='Press' 
-            style={styles.button} 
-            onPress={this._pickImage}>
-            <Text style={styles.textStyle}>Push</Text>
-          </TouchableOpacity>
+          <Text>Choose a Thumbnail</Text>
+          <Text>For your image</Text>
+          <MyButton 
+            next 
+            style={styles.btn}
+            onPress={this._pickImage}
+          >
+            <Text style={styles.btnText}>Select an Image</Text>
+          </MyButton>
         </Image>
           {image &&
             <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
@@ -82,14 +86,13 @@ export default class ImageScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#cafcf1'
+    backgroundColor: '#fff'
   },
   backgroundImage: {
     flex: 1,
     alignSelf: 'stretch',
     width: null,
     justifyContent: 'flex-start',
-    alignItems: 'center',
     paddingTop: 40
   },
   image: {
@@ -99,6 +102,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
+    marginTop: 10,
     width: 100,
     height: 100,
     borderRadius: 100/2,
@@ -108,6 +112,15 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: '#fff',
+    fontWeight: 'bold'
+  },
+  btn: {
+    margin: 10
+  },
+  btnText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: "#fff",
     fontWeight: 'bold'
   }
 });

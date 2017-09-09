@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 
 import MyButton from '../components/Button/index';
-import backgroundImage from '../images/login-background.jpg';
+import backgroundImage from '../images/login-background.png';
 
 export default class RegisterScreenFour extends Component {
 
 	static navigationOptions = ({ navigation }) => ({
     headerStyle: {
-       backgroundColor: '#fff'
+       backgroundColor: '#faf8ec'
     },
     title: "Let's Begin",
     headerLeft:
@@ -31,7 +31,7 @@ export default class RegisterScreenFour extends Component {
   })
 
   next = () => {
-    this.props.navigation.navigate('Profile');
+    this.props.navigation.navigate('Choose');
   };
 
 	render() {

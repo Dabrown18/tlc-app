@@ -10,16 +10,9 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-//import { updateStory } from '../actions/actions';
-//import { submitStory, getStoryKey } from '../helpers/userDbActions';
-//import styles from '../styles/mainStyles';
 import { categories } from '../util/categories';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { iconSize } from '../constants';
-//import ImagePicker from 'react-native-image-picker';
-//import ImageResizer from 'react-native-image-resizer';
-//import { storage } from '../firebase/firebase';
-//import RNFetchBlob from 'react-native-fetch-blob';
 
 export default class CategoryScreen extends Component {
 

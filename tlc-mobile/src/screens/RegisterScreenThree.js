@@ -11,12 +11,12 @@ import {
 import DualPicker from '../components/DualPicker';
 import MyButton from '../components/Button/index';
 import BirthdaySelector from '../components/BirthdaySelector';
-import backgroundImage from '../images/login-background.jpg';
+import backgroundImage from '../images/login-background.png';
 
 export default class RegisterScreenTwo extends Component {
 	static navigationOptions = ({ navigation }) => ({
     headerStyle: {
-       backgroundColor: '#fff'
+       backgroundColor: '#faf8ec'
     },
     title: 'Gender & Birthday',
     headerLeft:
@@ -31,8 +31,8 @@ export default class RegisterScreenTwo extends Component {
     }
   })
 
-  next = () => {
-    this.props.navigation.navigate('PartFour');
+  register = () => {
+    this.props.navigation.navigate('Choose');
   };
 
 	render() {
@@ -50,9 +50,9 @@ export default class RegisterScreenTwo extends Component {
           <MyButton 
             next 
             style={styles.btn} 
-            onPress={this.next}
+            onPress={this.register}
           >
-            <Text style={styles.btnText}>Next</Text>
+            <Text style={styles.btnText}>Register</Text>
           </MyButton>
 				</Image>
 			</View>

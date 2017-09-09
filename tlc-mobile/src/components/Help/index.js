@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TextInput } from 'react-native';
 import MyButton from '../Button/index';
 
-const backgroundImage = require('./images/background.jpg');
+const backgroundImage = require('../../images/login-background.png');
 const lock = require('./images/lock.png')
 
 export default class Help extends Component {
@@ -47,7 +47,7 @@ export default class Help extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff'
+		backgroundColor: '#faf8ec'
 	},
   backgroundImage: {
     flex: 1,

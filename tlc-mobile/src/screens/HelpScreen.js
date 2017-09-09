@@ -7,7 +7,7 @@ export default class HelpScreen extends Component {
 
 	static navigationOptions = ({ navigation }) => ({
     headerStyle: {
-       backgroundColor: '#fff'
+       backgroundColor: '#faf8ec'
     },
     title: "Help Page",
     headerLeft:
@@ -34,5 +34,6 @@ export default class HelpScreen extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+        backgroundColor: '#faf8ec'
 	}
 });

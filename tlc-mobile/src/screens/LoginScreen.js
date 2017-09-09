@@ -12,7 +12,7 @@ import {
 import MyButton from '../components/Button/index';
 import LoginForm from '../components/login/LoginForm';
 
-const backgroundImage = require('../images/login-background.jpg');
+const backgroundImage = require('../images/login-background.png');
 const logo = require('../images/logo.png');
 
 export default class LoginScreen extends Component {
@@ -90,10 +90,6 @@ const styles = StyleSheet.create({
   },
   helpContainer: {
     alignItems: 'center',
-    marginTop: 5,
-    marginRight: 20,
-    marginBottom: 0,
-    marginLeft: 20
   },
   btnHelp: {
     color: 'rgba(0,122,255,1)'

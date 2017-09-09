@@ -16,7 +16,7 @@ import {
 import RegisterForm from '../components/register/RegisterForm';
 import MyButton from '../components/Button/index';
 import Spinner from '../components/Spinner';
-import backgroundImage from '../images/login-background.jpg'
+import backgroundImage from '../images/login-background.png'
 
 const Logo = require('../images/logo.png');
 
@@ -54,7 +54,7 @@ export default class Register extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerStyle: {
-       backgroundColor: '#fff'
+       backgroundColor: '#faf8ec'
     },
     title: "Let's Get Started",
     headerLeft:

@@ -10,12 +10,12 @@ import {
 
 import MyButton from '../components/Button/index';
 import RaceSelector from '../components/RaceSelector';
-import backgroundImage from '../images/login-background.jpg';
+import backgroundImage from '../images/login-background.png';
 
 export default class RegisterScreenTwo extends Component {
 	static navigationOptions = ({ navigation }) => ({
     headerStyle: {
-       backgroundColor: '#fff'
+       backgroundColor: '#faf8ec'
     },
     title: 'Race/Ethnicity',
     headerLeft:
