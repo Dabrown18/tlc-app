@@ -25,6 +25,8 @@ import CommentsScreen from '../screens/CommentsScreen';
 import LikesScreen from '../screens/LikesScreen';
 import FollowersScreen from '../screens/FollowersScreen';
 import ChooseScreen from '../screens/ChooseScreen';
+import VideosScreen from '../screens/VideosScreen';
+import BookmarksScreen from '../screens/BookmarksScreen';
 
 export const MainNavigator = TabNavigator({
   Welcome: { screen: WelcomeScreen },
@@ -89,6 +91,8 @@ export const MainNavigator = TabNavigator({
           Followers: { screen: FollowersScreen },
           Likes: { screen: LikesScreen },
           Comments: { screen: CommentsScreen },
+          Bookmarks: { screen: BookmarksScreen },
+          Videos: { screen: VideosScreen },
           Settings: { screen: SettingsScreen },
           EditProfile: { screen: EditProfileScreen },
         }),

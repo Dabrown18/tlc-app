@@ -12,9 +12,9 @@ import Name from './Name';
 export default class ProfilePersonal extends Component {
 
 	state = {
-    firstName: 'Natalia',
-    lastName: 'Kalkopf',
-    occupation: 'Dog Lover',
+    firstName: 'Dr. Boyce',
+    lastName: 'Watkins',
+    occupation: 'Social Commentator',
     website: 'http://www.Triune-health.de',
 	};
 

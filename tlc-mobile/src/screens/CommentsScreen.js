@@ -8,7 +8,7 @@ import {
 export default class CommentsScreen extends Component {
 	render() {
 		return (
-			<View>
+			<View style={styles.container}>
 				<Text>CommentsScreen</Text>
 			</View>
 		);

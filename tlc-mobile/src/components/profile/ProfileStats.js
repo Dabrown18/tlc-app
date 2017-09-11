@@ -9,6 +9,8 @@ import {
 import Followers from './Followers';
 import Likes from './Likes';
 import Comments from './Comments';
+import Videos from './Videos';
+import Bookmarks from './Bookmarks';
 
 import FollowersScreen from '../../screens/FollowersScreen';
 
@@ -26,12 +28,22 @@ export default class ProfileStats extends Component {
     this.props.navigation.navigate('Comments');
   };
 
+  videos = () => {
+    this.props.navigation.navigate('Videos');
+  };
+
+  bookmarks = () => {
+    this.props.navigation.navigate('Bookmarks');
+  };
+
   render() {
     return (
       <View style={styles.stats}>
         <Followers onPress={this.followers}/>
         <Likes onPress={this.likes}/>
         <Comments onPress={this.comments}/>
+        <Videos onPress={this.comments}/>
+        <Bookmarks onPress={this.comments}/>
       </View>
     );
   }
