@@ -105,6 +105,7 @@ export const MainNavigator = TabNavigator({
       swipeEnabled: true,
       tabBarPosition: 'bottom',
       tabBarOptions: {
+        showLabel: false,
         showIcon: true,
         labelStyle: { fontSize: 12 },
         activeTintColor: '#fff',
