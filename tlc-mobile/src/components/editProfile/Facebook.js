@@ -8,7 +8,7 @@ import {
 
 export default class Facebook extends Component {
 
-	state = {
+	props = {
 		FacebookLabel: 'Facebook URL',
 	};
 
@@ -16,7 +16,7 @@ export default class Facebook extends Component {
 
 		const {
 			FacebookLabel
-		} = this.state;
+		} = this.props;
 
 		return (
 			<View>
