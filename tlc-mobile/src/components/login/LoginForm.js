@@ -8,8 +8,8 @@ import {
   StyleSheet
 } from 'react-native';
 
-// import Email from './Email';
-// import Password from './Password';
+import Email from './Email';
+import Password from './Password';
 import MyButton from '../Button/index';
 import Spinner from '../../components/Spinner';
 
@@ -17,106 +17,86 @@ import Authentication from '../../actions/authentication';
 
 export class LoginForm extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = {
+    email: '',
+    password: '',
+    error: '',
+    loading: false,
+    showForm: false,
+    tokenExists: false,
+    loggedIn: null
+  };
+
+
+  login = () => {
+    const {
+      email,
+      password
+    } = this.state;
+
+    const { dispatch } = this.props;
+
+    this.setState({
+      error: '',
+      loading: true
+    });
+
+    dispatch(Authentication.login(email, password))
+      .then(() => this.onLoginSuccess())
+      .catch(() => this.onLoginFail());
+  };
+
+  onLoginSuccess = () => {
+    this.setState({
         email: '',
         password: '',
-        error: '',
         loading: false,
-        showForm: false,
-        tokenExists: false,
-        loggedIn: null
-    };
-    this.login = this.login.bind(this);
-  }
-
-
-    login = () => {
-      const { 
-        email, 
-        password 
-      } = this.state;
-
-      const { dispatch } = this.props;
-
-      this.setState({
         error: '',
-        loading: true
-      });
+        loggedIn: true
+    });
+  };
 
-      dispatch(Authentication.login(email, password))
-        .then(() => this.onLoginSuccess())
-        .catch(() => this.onLoginFail());
-    };
+  onLoginFail = () => {
+    this.setState({
+        error: 'Login Failed',
+        loading: false
+    });
+  };
 
-    onLoginSuccess = () => {
-      this.setState({
-          email: '',
-          password: '',
-          loading: false,
-          error: '',
-          loggedIn: true
-      });
-    };
+  renderButton() {
 
-    onLoginFail = () => {
-      this.setState({
-          error: 'Login Failed',
-          loading: false
-      });
-    };
-
-    renderButton() {
-
-      if (this.state.loading) {
-        return <Spinner size='small' />
-      }
-
-         return (
-          <MyButton login onPress={this.login}>
-            <Text style={styles.btnText}>Login</Text>
-          </MyButton>
-         );
-     }
-
-    renderContent() {
-      switch (this.state.loggedIn) {
-
-          case true:
-            this.props.navigation.navigate('Home')
-
-          case false:
-            return <LoginForm />;
-
-          default:
-            return <Spinner size='large' />
-      }
+    if (this.state.loading) {
+      return <Spinner size='small' />
     }
+
+       return (
+        <MyButton login onPress={this.login}>
+          <Text style={styles.btnText}>Login</Text>
+        </MyButton>
+       );
+   }
+
+  renderContent() {
+    switch (this.state.loggedIn) {
+
+        case true:
+          this.props.navigation.navigate('Home')
+
+        case false:
+          return <LoginForm />;
+
+        default:
+          return <Spinner size='large' />
+    }
+  }
 
   render() {
     return (
       <View style={styles.inputContainer}>
 
-          {/*<Email onChangeText={email => this.setState({ email })} />*/}
+          <Email value={this.state.email} onChangeText={email => this.setState({ email })} />
 
-          {/*<Password />*/}
-
-          <TextInput
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
-            autoCorrect={false}
-            placeholder="Email or Username"
-            style={styles.input}
-          />
-
-          <TextInput
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })}
-            secureTextEntry={true}
-            placeholder="Password"
-            style={styles.input}
-          />
+          <Password value={this.state.password} onChangeText={password => this.setState({ password })} />
 
           <Text style={styles.errorTextStyle}>
             {this.state.error}
