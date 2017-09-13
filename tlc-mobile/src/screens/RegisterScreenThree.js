@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import {
 	View,
 	Button,
@@ -13,8 +14,9 @@ import DualPicker from '../components/DualPicker';
 import MyButton from '../components/Button/index';
 import BirthdaySelector from '../components/BirthdaySelector';
 import backgroundImage from '../images/login-background.png';
+import RegisterActions from '../actions/register';
 
-export default class RegisterScreenTwo extends Component {
+export class RegisterScreenThree extends Component {
 	static navigationOptions = ({ navigation }) => ({
     headerStyle: {
        backgroundColor: '#faf8ec'
@@ -30,10 +32,23 @@ export default class RegisterScreenTwo extends Component {
     style: {
         marginTop: Platform.OS === 'android' ? 24 : 0
     }
-  })
+  });
+
+	state = {
+	  gender: '',
+    birthDate: ''
+  };
 
   register = () => {
-    this.props.navigation.navigate('Choose');
+    const { dispatch, registerData } = this.props;
+    const { gender, birthDate } = this.state;
+    const { username, firstName, lastName, email, password, ethnicity } = registerData;
+
+    dispatch(RegisterActions.registerStep3(gender, birthDate));
+    dispatch(RegisterActions.register(username, firstName, lastName, email, password, ethnicity, gender, birthDate))
+      .then(() => {
+        this.props.navigation.navigate('Choose');
+      });
   };
 
 	render() {
@@ -46,10 +61,14 @@ export default class RegisterScreenTwo extends Component {
                 title='Gender'
                 options={[{symbol: '♂', title: 'Male'}, {symbol: '♀', title: 'Female'}]}
                 ref="sexPicker"
+                onChange={gender => this.setState({ gender })}
               />
-              <BirthdaySelector />
+              <BirthdaySelector onChange={birthDate => this.setState({ birthDate })} />
             </View>
-            <MyButton 
+            <Text style={styles.errorTextStyle}>
+              {this.state.error}
+            </Text>
+            <MyButton
               next 
               style={styles.btn} 
               onPress={this.register}
@@ -98,5 +117,16 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     backgroundColor: 'rgba(137,178,224,0.5)',
     borderRadius: 8
-  }
+  },
+  errorTextStyle: {
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'red'
+  },
 });
+
+const mapStateToProps = (state) => ({
+  registerData: state.register.profile
+});
+
+export default connect(mapStateToProps)(RegisterScreenThree);
