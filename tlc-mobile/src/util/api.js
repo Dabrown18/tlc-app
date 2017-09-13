@@ -1,3 +1,5 @@
+import { API_BASE_URL } from '../constants';
+
 /**
  * Normalizes the responses from APIs so that the methods implemented here
  * can expect the same response format.
@@ -12,6 +14,17 @@ function normalizeResponse(response) {
   return response.json();
 }
 
+function normalizeUrl(url) {
+  if (url.indexOf('http') !== -1) {
+    return url;
+  } else {
+    if (url.charAt(0) === '/') {
+      return `${API_BASE_URL}${url}`;
+    }
+    return `${API_BASE_URL}/${url}`;
+  }
+}
+
 /**
  * Implements utility methods that facilitate API calls.
  * Currently they are implemented as wrappers around the Fetch API. But the
@@ -24,12 +37,14 @@ export default {
    * If present the authToken is sent in the Authorization header.
    *
    * @param {string} method The HTTP method to use (GET, POST, PUT, DELETE, etc)
-   * @param {string} url The url
+   * @param {string} rawUrl The url
    * @param params Optional JSON object to be sent in the body
    * @param authToken Optional auth token to be sent in Authorization header.
    * @returns {Promise} Returns a promise that resolves to the response from the endpoint.
    */
-  request(method, url, params, authToken) {
+  request(method, rawUrl, params, authToken) {
+    let url = normalizeUrl(rawUrl);
+
     const config = {
       method,
       headers: {},
