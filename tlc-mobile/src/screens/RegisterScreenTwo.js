@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	View,
-  Text,
 	Button,
 	Platform,
 	Image,
@@ -41,11 +40,13 @@ export class RegisterScreenTwo extends Component {
   };
 
 	render() {
+	  const { registerData } = this.props;
+
 		return (
 			<View style={styles.container}>
 				<Image source={backgroundImage} style={styles.backgroundImage}>
           <ScrollView>
-  					<RaceSelector onNext={this.next} />
+  					<RaceSelector initState={registerData} onNext={this.next} />
           </ScrollView>
 				</Image>
 			</View>
@@ -66,4 +67,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect()(RegisterScreenTwo);
+const mapStateToProps = (state) => ({
+  registerData: state.register.profile
+});
+
+export default connect(mapStateToProps)(RegisterScreenTwo);

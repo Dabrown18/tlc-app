@@ -9,9 +9,16 @@ import {
 import MyButton from './Button/index';
 
 export default class RaceSelector extends Component {
-	state = {
-    ethnicity: 'White'
-	};
+
+	constructor(props) {
+		super(props);
+
+		const { initState } = props;
+
+		this.state = {
+			ethnicity: initState.ethnicity || ''
+		};
+	}
 
 	onValueChange(key, value) {
 		console.log(key + '' + value);
@@ -26,7 +33,7 @@ export default class RaceSelector extends Component {
 					<Picker 
 						itemStyle={{borderRadius: 8, color:'white'}} 
 						enabled={true}
-						selectedValue={this.state.category} 
+						selectedValue={this.state.ethnicity}
 						onValueChange={this.onValueChange.bind(this, 'category')}
 					>
 						<item label="White" value="White" />
