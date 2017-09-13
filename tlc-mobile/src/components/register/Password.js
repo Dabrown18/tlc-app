@@ -6,30 +6,21 @@ import {
 } from 'react-native';
 
 export default class Password extends Component {
-	constructor(props) {
-  	super(props);
-  	this.state = {
-      password: '',
-      password_confirmation: ''
-  	};
-  }
 
 	render() {
 		return (
       <View>
   			<TextInput
-          {...this.props}
-          value={this.state.password}
-          onChangeText={password => this.setState({ password })}
+          value={this.props.value}
+          onChangeText={this.props.onChangeText}
           secureTextEntry={true}
           placeholder="Password"
           style={styles.input}
         />
 
         <TextInput
-          {...this.props}
-          value={this.state.password_confirmation}
-          onChangeText={password_confirmation => this.setState({ password_confirmation })}
+          value={this.props.value}
+          onChangeText={this.props.onChangeText}
           secureTextEntry={true}
           placeholder="Re-Enter Password"
           style={styles.input}

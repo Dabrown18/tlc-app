@@ -5,19 +5,12 @@ import {
 } from 'react-native';
 
 export default class LastName extends Component {
-	constructor(props) {
-  	super(props);
-  	this.state = {
-      lastname: ''
-  	};
-  }
 
 	render() {
 		return (
 			<TextInput
-				{...this.props}
-      	value={this.state.lastname}
-      	onChangeText={lastname => this.setState({ lastname })}
+      	value={this.props.value}
+      	onChangeText={this.props.onChangeText}
       	autoCorrect={false}
       	placeholder="Last Name"
       	style={styles.input}
