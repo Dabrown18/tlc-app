@@ -2,30 +2,32 @@ import React from 'react';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
-import LoginScreen from '../screens/LoginScreen';
-import HelpScreen from '../screens/HelpScreen';
-import SearchScreen from '../screens/SearchScreen';
-import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import RegisterScreen from '../screens/RegisterScreen'
-import RegisterScreenTwo from '../screens/RegisterScreenTwo';
-import RegisterScreenThree from '../screens/RegisterScreenThree';
-import SettingsScreen from '../screens/SettingsScreen';
-import WelcomeScreen from '../screens/WelcomeScreen';
-import NotificationsScreen from '../screens/NotificationsScreen';
-import AddStoryScreen from '../screens/AddStoryScreen';
-import CategoryScreen from '../screens/CategoryScreen';
-import ImageScreen from '../screens/ImageScreen';
-import StoryDetailsScreen from '../screens/StoryDetailsScreen';
-import SubmitScreen from '../screens/SubmitScreen';
-import ViewStoryScreen from '../screens/ViewStoryScreen';
-import EditProfileScreen from '../screens/EditProfileScreen';
-import CommentsScreen from '../screens/CommentsScreen';
-import LikesScreen from '../screens/LikesScreen';
-import FollowersScreen from '../screens/FollowersScreen';
-import ChooseScreen from '../screens/ChooseScreen';
-import VideosScreen from '../screens/VideosScreen';
-import BookmarksScreen from '../screens/BookmarksScreen';
+import {
+  LoginScreen,
+  HelpScreen,
+  SearchScreen,
+  HomeScreen,
+  ProfileScreen,
+  RegisterScreen,
+  RegisterScreenTwo,
+  RegisterScreenThree,
+  SettingsScreen,
+  WelcomeScreen,
+  NotificationsScreen,
+  AddStoryScreen,
+  CategoryScreen,
+  ImageScreen,
+  StoryDetailsScreen,
+  SubmitScreen,
+  ViewStoryScreen,
+  EditProfileScreen,
+  CommentsScreen,
+  LikesScreen,
+  FollowersScreen,
+  ChooseScreen,
+  VideosScreen,
+  BookmarksScreen
+} from '../screens';
 
 export const MainNavigator = TabNavigator({
   Welcome: { screen: WelcomeScreen },

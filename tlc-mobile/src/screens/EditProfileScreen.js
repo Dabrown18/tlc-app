@@ -11,21 +11,22 @@ import {
 	Image,
 	ScrollView
 } from 'react-native';
-
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import Username from '../components/editProfile/Username';
-import Firstname from '../components/editProfile/FirstName';
-import Lastname from '../components/editProfile/LastName';
-import Occupation from '../components/editProfile/Occupation';
-import WebAddress from '../components/editProfile/WebAddress';
-import Facebook from '../components/editProfile/Facebook';
-import Instagram from '../components/editProfile/Instagram';
-import Twitter from '../components/editProfile/Twitter';
-import Patreon from '../components/editProfile/Patreon';
-import Snapchat from '../components/editProfile/Snapchat';
+import {
+	Username,
+	Firstname,
+	Lastname,
+	Occupation,
+	WebAddress,
+	Facebook,
+	Instagram,
+	Twitter,
+	Patreon,
+	Snapchat
+} from '../components/Edit';
 
-export default class EditProfileScreen extends Component {
+export default class EditScreen extends Component {
 
 	static navigationOptions = ({ navigation }) => ({
     headerStyle: {
