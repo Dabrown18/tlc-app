@@ -8,10 +8,7 @@ import {
   TouchableOpacity,
   Text,
   Image,
-  Animated,
-  Keyboard,
   ScrollView,
-  KeyboardAvoidingView
 } from 'react-native';
 
 import RegisterForm from '../components/register/RegisterForm';

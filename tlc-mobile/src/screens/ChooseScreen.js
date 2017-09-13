@@ -10,6 +10,7 @@ import {
 	TouchableOpacity
 } from 'react-native';
 import { categories } from '../util/categories';
+import MyButton from '../components/Button/index';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { iconSize } from '../constants';
 const backgroundImage = require('../images/login-background.png');
@@ -27,13 +28,6 @@ export default class ChooseScreen extends Component {
        backgroundColor: '#faf8ec'
     },
     title: "Choose 5 Categories",
-    headerRight:
-        <Button
-            title='Back'
-            onPress={() => { navigation.navigate('Home'); }}
-            backgroundColor='rgba(0,0,0,0)'
-            color='rgba(0,122,255,1)'
-        />,
     style: {
         marginTop: Platform.OS === 'android' ? 24 : 0
     }
@@ -66,6 +60,10 @@ export default class ChooseScreen extends Component {
     )
   }
 
+  continue = () => {
+    this.props.navigation.navigate('Profile');
+  };
+
 	render() {
 
 		return (
@@ -77,6 +75,13 @@ export default class ChooseScreen extends Component {
               {categories.map((category, index) => this.renderCategoryRow(category, index))}
 
           </View>
+          <MyButton 
+              next 
+              style={styles.btn} 
+              onPress={this.continue}
+            >
+              <Text style={styles.btnText}>Get Started</Text>
+            </MyButton>
           </ScrollView>
             
   			</Image>
@@ -125,5 +130,14 @@ const styles = StyleSheet.create({
 	categoryText: {
 		fontSize: 20,
 		color: '#000'
-	}
+	},
+  btnText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: "#fff",
+    fontWeight: 'bold'
+  },
+  btn: {
+    margin: 10
+  }
 });

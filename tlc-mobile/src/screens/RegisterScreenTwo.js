@@ -5,6 +5,7 @@ import {
 	Button,
 	Platform,
 	Image,
+  ScrollView,
 	StyleSheet
 } from 'react-native';
 
@@ -38,14 +39,16 @@ export default class RegisterScreenTwo extends Component {
 		return (
 			<View style={styles.container}>
 				<Image source={backgroundImage} style={styles.backgroundImage}>
-					<RaceSelector />
-          <MyButton 
-            next 
-            style={styles.btn} 
-            onPress={this.next}
-          >
-            <Text style={styles.btnText}>Next</Text>
-          </MyButton>
+          <ScrollView>
+  					<RaceSelector />
+            <MyButton 
+              next 
+              style={styles.btn} 
+              onPress={this.next}
+            >
+              <Text style={styles.btnText}>Next</Text>
+            </MyButton>
+          </ScrollView>
 				</Image>
 			</View>
 		);

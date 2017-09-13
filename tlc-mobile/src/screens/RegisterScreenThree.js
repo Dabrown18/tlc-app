@@ -5,6 +5,7 @@ import {
   Text,
 	Platform,
 	Image,
+  ScrollView,
 	StyleSheet
 } from 'react-native';
 
@@ -39,21 +40,23 @@ export default class RegisterScreenTwo extends Component {
 		return (
 			<View style={styles.container}>
 				<Image source={backgroundImage} style={styles.backgroundImage}>
-          <View style={styles.inputContainer}>
-            <DualPicker
-              title='Gender'
-              options={[{symbol: '♂', title: 'Male'}, {symbol: '♀', title: 'Female'}]}
-              ref="sexPicker"
-            />
-            <BirthdaySelector />
-          </View>
-          <MyButton 
-            next 
-            style={styles.btn} 
-            onPress={this.register}
-          >
-            <Text style={styles.btnText}>Register</Text>
-          </MyButton>
+          <ScrollView>
+            <View style={styles.inputContainer}>
+              <DualPicker
+                title='Gender'
+                options={[{symbol: '♂', title: 'Male'}, {symbol: '♀', title: 'Female'}]}
+                ref="sexPicker"
+              />
+              <BirthdaySelector />
+            </View>
+            <MyButton 
+              next 
+              style={styles.btn} 
+              onPress={this.register}
+            >
+              <Text style={styles.btnText}>Register</Text>
+            </MyButton>
+          </ScrollView>
 				</Image>
 			</View>
 		);

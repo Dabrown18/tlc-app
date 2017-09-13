@@ -10,7 +10,6 @@ import ProfileScreen from '../screens/ProfileScreen';
 import RegisterScreen from '../screens/RegisterScreen'
 import RegisterScreenTwo from '../screens/RegisterScreenTwo';
 import RegisterScreenThree from '../screens/RegisterScreenThree';
-import RegisterScreenFour from '../screens/RegisterScreenFour';
 import SettingsScreen from '../screens/SettingsScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
@@ -40,8 +39,7 @@ export const MainNavigator = TabNavigator({
     screen: StackNavigator({
       Register: { screen: RegisterScreen },
       PartTwo: { screen: RegisterScreenTwo },
-      PartThree: { screen: RegisterScreenThree },
-      PartFour: { screen: RegisterScreenFour }
+      PartThree: { screen: RegisterScreenThree }
     })
   },       
   Help: {
