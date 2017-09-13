@@ -14,14 +14,15 @@ import Email from './Email';
 import Password from './Password';
 import MyButton from '../../components/Button/index';
 
-export default class RegisterInput extends Component {
+export default class RegisterForm extends Component {
 
-	constructor(props) {
-  	super(props);
-  	this.state = {
-  		registered: null,
-  	};
-  }
+	state = {
+    username: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+		password: ''
+	};
 
 	render() {
 		return (
@@ -32,18 +33,25 @@ export default class RegisterInput extends Component {
           style={styles.inputContainer}
         >
 
-        	<Username />
+        	<Username value={this.state.username} onChangeText={username => this.setState({ username })} />
 
-        	<FirstName />
+        	<FirstName value={this.state.firstName} onChangeText={firstName => this.setState({ firstName })} />
 
-        	<LastName />
+        	<LastName value={this.state.lastName}  onChangeText={lastName => this.setState({ lastName })} />
 
-        	<Email />
+        	<Email value={this.state.email} onChangeText={email => this.setState({ email })} />
 
-        	<Password />
+        	<Password value={this.state.password} onChangeText={password => this.setState({ password })}  />
 
         </View>
 
+				<MyButton
+					next
+					style={styles.btn}
+					onPress={() => this.props.onNext(this.state)}
+				>
+					<Text style={styles.btnText}>Next</Text>
+				</MyButton>
       </View>
 		);
 	}
@@ -88,5 +96,14 @@ const styles = StyleSheet.create({
   	fontSize: 20,
   	alignSelf: 'center',
   	color: 'red'
-	}
+	},
+  btn: {
+    margin: 10
+  },
+  btnText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: "#fff",
+    fontWeight: 'bold'
+  }
 });

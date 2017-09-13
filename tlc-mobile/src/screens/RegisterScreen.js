@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   StyleSheet,
   Button,
   Platform,
-  TextInput,
-  TouchableOpacity,
-  Text,
   Image,
-  ScrollView,
+  ScrollView
 } from 'react-native';
 
 import RegisterForm from '../components/register/RegisterForm';
-import MyButton from '../components/Button/index';
-import Spinner from '../components/Spinner';
 import backgroundImage from '../images/login-background.png'
+import RegisterActions from '../actions/register';
 
 const Logo = require('../images/logo.png');
 
-export default class Register extends Component {
+export class Register extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerStyle: {
@@ -37,28 +34,25 @@ export default class Register extends Component {
     }
   })
 
-  next = () => {
+  next = (state) => {
+    const { username, firstName, lastName, password } = state;
+    const { dispatch } = this.props;
+
+    dispatch(RegisterActions.registerStep1(username, firstName, lastName, password));
     this.props.navigation.navigate('PartTwo');
   };
 
-    render() {
-        return (
-          <View style={styles.container}>
-            <Image source={backgroundImage} style={styles.backgroundImage}>
-              <ScrollView>
-                <RegisterForm />
-                <MyButton 
-                  next 
-                  style={styles.btn} 
-                  onPress={this.next}
-                >
-                <Text style={styles.btnText}>Next</Text>
-                </MyButton>
-              </ScrollView>
-            </Image>
-          </View>
-        );
-    }
+  render() {
+      return (
+        <View style={styles.container}>
+          <Image source={backgroundImage} style={styles.backgroundImage}>
+            <ScrollView>
+              <RegisterForm onNext={this.next} />
+            </ScrollView>
+          </Image>
+        </View>
+      );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -80,14 +74,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: 15,
     margin: 10
-  },
-  btnText: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: "#fff",
-    fontWeight: 'bold'
-  },
-  btn: {
-    margin: 10
   }
 });
+
+export default connect()(Register);
