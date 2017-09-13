@@ -7,7 +7,12 @@ export default class BirthdaySelector extends Component {
     this.state = {date:"2016-05-15"}
   }
 
-  render(){
+  onChange = (date) => {
+    this.setState({ date });
+    this.props.onChange(date);
+  };
+
+  render() {
     return (
       <DatePicker
         {...this.props}
@@ -32,7 +37,7 @@ export default class BirthdaySelector extends Component {
           }
           // ... You can check the source to find the other keys.
         }}
-        onDateChange={(date) => {this.setState({date: date})}}
+        onDateChange={this.onChange}
       />
     )
   }

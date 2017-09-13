@@ -28,7 +28,8 @@ export default class DualPicker extends Component {
 
   handleClick(title) {
     console.log('handling a click')
-    this.setState({selected: title, clicked: true})
+    this.setState({selected: title, clicked: true});
+    this.props.onChange(title);
   }
 
   renderOption(symbol, title) {
