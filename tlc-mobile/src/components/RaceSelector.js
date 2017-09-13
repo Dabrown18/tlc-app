@@ -6,18 +6,16 @@ import {
 	StyleSheet
 } from 'react-native';
 
+import MyButton from './Button/index';
+
 export default class RaceSelector extends Component {
-	constructor(props) {
-	  super(props);
-	
-	  this.state = {
-	  	category: 'White'
-	  };
-	}
+	state = {
+    ethnicity: 'White'
+	};
 
 	onValueChange(key, value) {
-		console.log(key + '' + value)
-		this.setState({ category: value });
+		console.log(key + '' + value);
+		this.setState({ ethnicity: value });
 	}
 
 	render() {
@@ -41,9 +39,16 @@ export default class RaceSelector extends Component {
 						<item label="Multiracial" value="Multiracial" />
 					</Picker>	
 					<View style={styles.textContainer}>
-						<Text style={styles.text}>{this.state.category}</Text>
+						<Text style={styles.text}>{this.state.ethnicity}</Text>
 					</View>			
 				</View>
+				<MyButton
+					next
+					style={styles.btn}
+					onPress={() => this.props.onNext(this.state)}
+				>
+					<Text style={styles.btnText}>Next</Text>
+				</MyButton>
 			</View>
 		);
 	}
@@ -74,5 +79,14 @@ const styles = StyleSheet.create({
   	textAlign: 'center',
   	color: "#fff",
   	fontWeight: 'bold'
-	}
+	},
+  btnText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: "#fff",
+    fontWeight: 'bold'
+  },
+  btn: {
+    margin: 10
+  }
 });

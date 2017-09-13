@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
 	View,
   Text,
@@ -9,11 +10,11 @@ import {
 	StyleSheet
 } from 'react-native';
 
-import MyButton from '../components/Button/index';
 import RaceSelector from '../components/RaceSelector';
 import backgroundImage from '../images/login-background.png';
+import RegisterActions from '../actions/register';
 
-export default class RegisterScreenTwo extends Component {
+export class RegisterScreenTwo extends Component {
 	static navigationOptions = ({ navigation }) => ({
     headerStyle: {
        backgroundColor: '#faf8ec'
@@ -31,7 +32,11 @@ export default class RegisterScreenTwo extends Component {
     }
   })
 
-  next = () => {
+  next = (state) => {
+    const { ethnicity } = state;
+    const { dispatch } = this.props;
+
+    dispatch(RegisterActions.registerStep2(ethnicity));
     this.props.navigation.navigate('PartThree');
   };
 
@@ -40,14 +45,7 @@ export default class RegisterScreenTwo extends Component {
 			<View style={styles.container}>
 				<Image source={backgroundImage} style={styles.backgroundImage}>
           <ScrollView>
-  					<RaceSelector />
-            <MyButton 
-              next 
-              style={styles.btn} 
-              onPress={this.next}
-            >
-              <Text style={styles.btnText}>Next</Text>
-            </MyButton>
+  					<RaceSelector onNext={this.next} />
           </ScrollView>
 				</Image>
 			</View>
@@ -65,14 +63,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     width: null,
     paddingTop: 40,
-  },
-  btnText: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: "#fff",
-    fontWeight: 'bold'
-  },
-  btn: {
-    margin: 10
   }
 });
+
+export default connect()(RegisterScreenTwo);
