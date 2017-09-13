@@ -8,19 +8,11 @@ import {
 
 export default class Patreon extends Component {
 
-	state = {
-		PatreonLabel: 'Patreon URL',
-	};
-
 	render() {
-
-		const {
-			PatreonLabel
-		} = this.state;
 
 		return (
 			<View>
-				<Text style={styles.textStyle}>{PatreonLabel.toUpperCase()}</Text>
+				<Text style={styles.textStyle}>PATREON URL</Text>
 				<TextInput
           style={styles.input}
         />

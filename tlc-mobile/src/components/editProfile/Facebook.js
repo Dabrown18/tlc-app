@@ -8,20 +8,14 @@ import {
 
 export default class Facebook extends Component {
 
-	props = {
-		FacebookLabel: 'Facebook URL',
-	};
-
 	render() {
-
-		const {
-			FacebookLabel
-		} = this.props;
 
 		return (
 			<View>
-				<Text style={styles.textStyle}>{FacebookLabel.toUpperCase()}</Text>
+				<Text style={styles.textStyle}>FACEBOOK URL</Text>
 				<TextInput
+					value={this.props.value}
+					onChangeText={this.props.onChangeText}
           style={styles.input}
         />
       </View>

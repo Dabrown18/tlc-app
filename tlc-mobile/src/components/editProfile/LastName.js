@@ -8,19 +8,11 @@ import {
 
 export default class Lastname extends Component {
 
-	state = {
-		lastNameLabel: 'Lastname',
-	};
-
 	render() {
-
-		const {
-			lastNameLabel
-		} = this.state;
 
 		return (
 			<View>
-				<Text style={styles.textStyle}>{lastNameLabel.toUpperCase()}</Text>
+				<Text style={styles.textStyle}>LASTNAME</Text>
 				<TextInput
           style={styles.input}
         />

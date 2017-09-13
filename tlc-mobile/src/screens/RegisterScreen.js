@@ -10,6 +10,7 @@ import {
   Image,
   Animated,
   Keyboard,
+  ScrollView,
   KeyboardAvoidingView
 } from 'react-native';
 
@@ -21,36 +22,6 @@ import backgroundImage from '../images/login-background.png'
 const Logo = require('../images/logo.png');
 
 export default class Register extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.imageHeight = new Animated.Value(100);
-  }
-
-  componentWillMount () {
-    this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
-    this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
-  }
-
-  componentWillUnmount() {
-    this.keyboardWillShowSub.remove();
-    this.keyboardWillHideSub.remove();
-  }
-
-  keyboardWillShow = (event) => {
-    Animated.timing(this.imageHeight, {
-      duration: event.duration,
-      toValue: 1,
-    }).start();
-  };
-
-  keyboardWillHide = (event) => {
-    Animated.timing(this.imageHeight, {
-      duration: event.duration,
-      toValue: 100,
-    }).start();
-  };
 
   static navigationOptions = ({ navigation }) => ({
     headerStyle: {
@@ -75,22 +46,20 @@ export default class Register extends Component {
 
     render() {
         return (
-          <KeyboardAvoidingView
-            style={styles.container}
-            behavior="padding"
-          >
+          <View style={styles.container}>
             <Image source={backgroundImage} style={styles.backgroundImage}>
-              <Animated.Image source={Logo} style={[styles.logo, { height: this.imageHeight }]} />
-              <RegisterForm />
-              <MyButton 
-                next 
-                style={styles.btn} 
-                onPress={this.next}
-              >
-            <Text style={styles.btnText}>Next</Text>
-          </MyButton>
+              <ScrollView>
+                <RegisterForm />
+                <MyButton 
+                  next 
+                  style={styles.btn} 
+                  onPress={this.next}
+                >
+                <Text style={styles.btnText}>Next</Text>
+                </MyButton>
+              </ScrollView>
             </Image>
-          </KeyboardAvoidingView>
+          </View>
         );
     }
 }

@@ -8,19 +8,11 @@ import {
 
 export default class WebAddress extends Component {
 
-	state = {
-		webAddressLabel: 'Web Address',
-	};
-
 	render() {
-
-		const {
-			webAddressLabel
-		} = this.state;
 
 		return (
 			<View>
-				<Text style={styles.textStyle}>{webAddressLabel.toUpperCase()}</Text>
+				<Text style={styles.textStyle}>WEB ADDRESS</Text>
 				<TextInput
           style={styles.input}
         />

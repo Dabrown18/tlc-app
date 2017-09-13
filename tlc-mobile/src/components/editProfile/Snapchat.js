@@ -8,19 +8,11 @@ import {
 
 export default class Snapchat extends Component {
 
-	state = {
-		SnapchatLabel: 'Snapchat Name',
-	};
-
 	render() {
-
-		const {
-			SnapchatLabel
-		} = this.state;
 
 		return (
 			<View>
-				<Text style={styles.textStyle}>{SnapchatLabel.toUpperCase()}</Text>
+				<Text style={styles.textStyle}>SNAPCHAT NAME</Text>
 				<TextInput
           style={styles.input}
         />

@@ -8,19 +8,11 @@ import {
 
 export default class Twitter extends Component {
 
-	state = {
-		TwitterLabel: 'Twitter URL',
-	};
-
 	render() {
-
-		const {
-			TwitterLabel
-		} = this.state;
 
 		return (
 			<View>
-				<Text style={styles.textStyle}>{TwitterLabel.toUpperCase()}</Text>
+				<Text style={styles.textStyle}>TWITTER URL</Text>
 				<TextInput
           style={styles.input}
         />

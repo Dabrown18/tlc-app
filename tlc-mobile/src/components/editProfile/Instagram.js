@@ -8,19 +8,11 @@ import {
 
 export default class Instagram extends Component {
 
-	state = {
-		InstagramLabel: 'Instagram URL',
-	};
-
 	render() {
-
-		const {
-			InstagramLabel
-		} = this.state;
 
 		return (
 			<View>
-				<Text style={styles.textStyle}>{InstagramLabel.toUpperCase()}</Text>
+				<Text style={styles.textStyle}>INSTAGRAM URL</Text>
 				<TextInput
           style={styles.input}
         />

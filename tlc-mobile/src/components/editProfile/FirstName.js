@@ -8,20 +8,14 @@ import {
 
 export default class Firstname extends Component {
 
-	state = {
-		firstNameLabel: 'Firstname',
-	};
-
 	render() {
-
-		const {
-			firstNameLabel
-		} = this.state;
 
 		return (
 			<View>
-				<Text style={styles.textStyle}>{firstNameLabel.toUpperCase()}</Text>
+				<Text style={styles.textStyle}>FIRSTNAME</Text>
 				<TextInput
+					value={this.props.value}
+					onChangeText={this.props.onChangeText}
           style={styles.input}
         />
       </View>

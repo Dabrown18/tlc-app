@@ -8,19 +8,11 @@ import {
 
 export default class Occupation extends Component {
 
-	state = {
-		occupationLabel: 'Occupation',
-	};
-
 	render() {
-
-		const {
-			occupationLabel
-		} = this.state;
 
 		return (
 			<View>
-				<Text style={styles.textStyle}>{occupationLabel.toUpperCase()}</Text>
+				<Text style={styles.textStyle}>OCCUPATION</Text>
 				<TextInput
           style={styles.input}
         />
