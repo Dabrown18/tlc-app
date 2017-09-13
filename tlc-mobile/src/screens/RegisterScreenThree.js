@@ -52,6 +52,8 @@ export class RegisterScreenThree extends Component {
   };
 
 	render() {
+	  const { status } = this.props;
+
 		return (
 			<View style={styles.container}>
 				<Image source={backgroundImage} style={styles.backgroundImage}>
@@ -66,7 +68,7 @@ export class RegisterScreenThree extends Component {
               <BirthdaySelector onChange={birthDate => this.setState({ birthDate })} />
             </View>
             <Text style={styles.errorTextStyle}>
-              {this.state.error}
+              {status.error && status.error}
             </Text>
             <MyButton
               next 
@@ -119,14 +121,15 @@ const styles = StyleSheet.create({
     borderRadius: 8
   },
   errorTextStyle: {
-    fontSize: 20,
+    fontSize: 18,
     alignSelf: 'center',
     color: 'red'
   },
 });
 
 const mapStateToProps = (state) => ({
-  registerData: state.register.profile
+  registerData: state.register.profile,
+  status: state.register.status
 });
 
 export default connect(mapStateToProps)(RegisterScreenThree);
