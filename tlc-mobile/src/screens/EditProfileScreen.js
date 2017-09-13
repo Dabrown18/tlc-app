@@ -15,8 +15,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import {
 	Username,
-	Firstname,
-	Lastname,
+	FirstName,
+	LastName,
 	Occupation,
 	WebAddress,
 	Facebook,
@@ -26,7 +26,7 @@ import {
 	Snapchat
 } from '../components/Edit';
 
-export default class EditScreen extends Component {
+export default class EditProfileScreen extends Component {
 
 	static navigationOptions = ({ navigation }) => ({
     headerStyle: {
@@ -44,8 +44,8 @@ export default class EditScreen extends Component {
 			<KeyboardAwareScrollView style={{ backgroundColor: '#fff'}} >
 				<View style={styles.inputContainer}>
 					<Username />
-	        <Firstname />
-	        <Lastname />
+	        <FirstName />
+	        <LastName />
 	        <Occupation />
 	        <WebAddress />
 	        <Facebook />
