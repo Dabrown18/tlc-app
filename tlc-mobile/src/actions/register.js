@@ -1,6 +1,9 @@
+import Api from '../util/api';
+
 export const REGISTER_STEP1 = 'REGISTER_STEP1';
 export const REGISTER_STEP2 = 'REGISTER_STEP2';
 export const REGISTER_STEP3 = 'REGISTER_STEP3';
+export const REGISTER = 'REGISTER';
 
 export default {
   registerStep1(username, firstName, lastName, email, password) {
@@ -33,6 +36,23 @@ export default {
         birthDate
       }
     };
-  }
+  },
 
+  register(username, firstName, lastName, email, password, ethnicity, gender, birthDate) {
+    const payload = Api.post('/signup', {
+      username,
+      firstName,
+      lastName,
+      email,
+      password,
+      ethnicity,
+      gender,
+      birthDate
+    });
+
+    return {
+      type: REGISTER,
+      payload
+    };
+  }
 }

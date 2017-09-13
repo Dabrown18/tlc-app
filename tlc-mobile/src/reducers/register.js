@@ -1,5 +1,6 @@
 import * as RegisterActions from '../actions/register';
 import Immutable from 'seamless-immutable';
+import typeToReducer from 'type-to-reducer';
 
 const initialState = Immutable({
   profile: {
@@ -23,48 +24,79 @@ const initialState = Immutable({
     snapchat: ''
   },
 
+  status: {
+    isRegistering: false,
+    error: false
+  },
+
   step: 1
 });
 
-export default (state = initialState, action) => {
-  switch( action.type ) {
-    case RegisterActions.REGISTER_STEP1:
-      const { username, email, firstName, lastName, password } = action.payload;
+export default typeToReducer({
+  [RegisterActions.REGISTER_STEP1](state, action) {
+    const {username, email, firstName, lastName, password} = action.payload;
 
+    return state.merge({
+      profile: {
+        username,
+        email,
+        firstName,
+        lastName,
+        password
+      },
+      step: 2
+    });
+  },
+
+  [RegisterActions.REGISTER_STEP2](state, action) {
+    const {ethnicity} = action.payload;
+
+    return state.merge({
+      profile: {
+        ...state.profile,
+        ethnicity
+      }
+    });
+  },
+
+  [RegisterActions.REGISTER_STEP3](state, action) {
+    const {gender, birthDate} = action.payload;
+
+    return state.merge({
+      profile: {
+        ...state.profile,
+        gender,
+        birthDate
+      }
+    });
+  },
+
+  [RegisterActions.REGISTER]: {
+    PENDING(state) {
       return state.merge({
-        profile: {
-          username,
-          email,
-          firstName,
-          lastName,
-          password
-        },
-        step: 2
-      });
+        status: {
+          isRegistering: true
+        }
+      })
+    },
 
-    case RegisterActions.REGISTER_STEP2:
-      const { ethnicity } = action.payload;
-
+    REJECTED(state, action) {
       return state.merge({
-        profile: {
-          ...state.profile,
-          ethnicity
+        status: {
+          isRegistering: false,
+          error: action.payload.error
+        }
+      })
+    },
+
+    FULFILLED(state) {
+      return state.merge({
+        status: {
+          isRegistering: false,
+          error: false
         }
       });
-
-    case RegisterActions.REGISTER_STEP3:
-      const { gender, birthDate } = action.payload;
-
-      return state.merge({
-        profile: {
-          ...state.profile,
-          gender,
-          birthDate
-        }
-      });
-
-    default:
-      return state;
+    }
   }
-}
+}, initialState);
 

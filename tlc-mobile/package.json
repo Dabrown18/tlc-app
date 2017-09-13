@@ -17,7 +17,8 @@
     "redux": "^3.7.2",
     "redux-promise-middleware": "^4.4.1",
     "redux-thunk": "^2.2.0",
-    "seamless-immutable": "^7.1.2"
+    "seamless-immutable": "^7.1.2",
+    "type-to-reducer": "^1.0.4"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
