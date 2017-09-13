@@ -26,7 +26,7 @@ const initialState = Immutable({
   step: 1
 });
 
-export default (state, action) => {
+export default (state = initialState, action) => {
   switch( action.type ) {
     case RegisterActions.REGISTER_STEP1:
       const { username, email, firstName, lastName, password } = action.payload;
@@ -64,7 +64,7 @@ export default (state, action) => {
       });
 
     default:
-      return initialState;
+      return state;
   }
 }
 

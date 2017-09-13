@@ -1,3 +1,7 @@
 import { MainNavigator } from '../util/router';
 
-export default (state, action) => MainNavigator.router.getStateForAction(action, state);
+export default (state, action) => {
+  const nextState = MainNavigator.router.getStateForAction(action, state);
+
+  return nextState || state;
+}
