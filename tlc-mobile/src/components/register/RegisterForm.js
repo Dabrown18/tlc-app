@@ -16,13 +16,20 @@ import MyButton from '../../components/Button/index';
 
 export default class RegisterForm extends Component {
 
-	state = {
-    username: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-		password: ''
-	};
+	constructor(props) {
+		super(props);
+
+		const { initState } = props;
+
+    this.state = {
+      username: initState.username || '',
+      email: initState.email || '',
+      firstName: initState.firstName || '',
+      lastName: initState.lastName || '',
+      password: initState.password || '',
+      passwordConf: ''
+    };
+	}
 
 	render() {
 		return (
@@ -42,6 +49,12 @@ export default class RegisterForm extends Component {
         	<Email value={this.state.email} onChangeText={email => this.setState({ email })} />
 
         	<Password value={this.state.password} onChangeText={password => this.setState({ password })}  />
+
+        	<Password
+						value={this.state.passwordConf}
+						placeholder="Re-Enter Password"
+						onChangeText={passwordConf => this.setState({ passwordConf })}
+					/>
 
         </View>
 

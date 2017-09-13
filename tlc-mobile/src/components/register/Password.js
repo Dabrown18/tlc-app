@@ -14,15 +14,7 @@ export default class Password extends Component {
           value={this.props.value}
           onChangeText={this.props.onChangeText}
           secureTextEntry={true}
-          placeholder="Password"
-          style={styles.input}
-        />
-
-        <TextInput
-          value={this.props.value}
-          onChangeText={this.props.onChangeText}
-          secureTextEntry={true}
-          placeholder="Re-Enter Password"
+          placeholder={this.props.placeholder || "Password"}
           style={styles.input}
         />
       </View>

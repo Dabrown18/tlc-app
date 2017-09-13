@@ -5,19 +5,11 @@ import {
 } from 'react-native';
 
 export default class Email extends Component {
-	constructor(props) {
-  	super(props);
-  	this.state = {
-      email: ''
-  	};
-  }
-
 	render() {
 		return (
 			<TextInput
-				{...this.props}
-      	value={this.state.email}
-      	onChangeText={email => this.setState({ email })}
+      	value={this.props.value}
+      	onChangeText={this.props.onChangeText}
       	autoCorrect={false}
       	placeholder="Email"
       	style={styles.input}

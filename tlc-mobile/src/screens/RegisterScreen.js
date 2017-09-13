@@ -6,12 +6,14 @@ import {
   Button,
   Platform,
   Image,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 
 import RegisterForm from '../components/register/RegisterForm';
 import backgroundImage from '../images/login-background.png'
 import RegisterActions from '../actions/register';
+import { isValidUsername, isValidEmail, isEmpty } from '../util/validator';
 
 const Logo = require('../images/logo.png');
 
@@ -32,26 +34,61 @@ export class Register extends Component {
     style: {
         marginTop: Platform.OS === 'android' ? 24 : 0
     }
-  })
+  });
+
+  showError = (msg) => {
+    Alert.alert('Registration', msg);
+    return false;
+  };
+
+  validate = (state) => {
+    console.log(state);
+
+    if (!isValidUsername(state.username)) {
+      return this.showError('Username should have 2 or more characters');
+    }
+
+    if (!isValidEmail(state.email)) {
+      return this.showError('Email is invalid');
+    }
+
+    if (isEmpty(state.firstName)) {
+      return this.showError('First name is a required field');
+    }
+
+    if (isEmpty(state.lastName)) {
+      return this.showError('Last name is a required field');
+    }
+
+    if (state.password !== state.passwordConf) {
+      return this.showError('Password and confirmation do not match');
+    }
+
+    return true;
+  };
 
   next = (state) => {
-    const { username, firstName, lastName, password } = state;
+    const { username, firstName, lastName, password, email } = state;
     const { dispatch } = this.props;
 
-    dispatch(RegisterActions.registerStep1(username, firstName, lastName, password));
-    this.props.navigation.navigate('PartTwo');
+    if (this.validate(state)) {
+      dispatch(RegisterActions.registerStep1(username, firstName, lastName, email, password));
+      this.props.navigation.navigate('PartTwo');
+    }
   };
 
   render() {
-      return (
-        <View style={styles.container}>
-          <Image source={backgroundImage} style={styles.backgroundImage}>
-            <ScrollView>
-              <RegisterForm onNext={this.next} />
-            </ScrollView>
-          </Image>
-        </View>
-      );
+    const { registerData } = this.props;
+
+    return (
+      <View style={styles.container}>
+        <Image source={backgroundImage} style={styles.backgroundImage}>
+          <ScrollView>
+            <RegisterForm initState={registerData} onNext={this.next} />
+          </ScrollView>
+        </Image>
+      </View>
+    );
   }
 }
 
@@ -77,4 +114,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect()(Register);
+const mapStateToProps = (state) => ({
+  registerData: state.register.profile
+});
+
+export default connect(mapStateToProps)(Register);
