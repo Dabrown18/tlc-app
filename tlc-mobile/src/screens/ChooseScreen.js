@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
 	},
 	categoryText: {
 		fontSize: 20,
-		color: '#000'
+		color: '#02255b'
 	},
   btnText: {
     fontSize: 20,
