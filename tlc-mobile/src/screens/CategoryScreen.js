@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity
 } from 'react-native';
+import MyButton from '../components/Button/index';
 import { connect } from 'react-redux';
 
 import { categories } from '../util/categories';
@@ -63,26 +64,31 @@ export default class CategoryScreen extends Component {
         backgroundColor='rgba(0,0,0,0)'
         color='rgba(0,122,255,1)'
       />,
-    headerRight:
-      <Button
-        title='Next'
-        onPress={() => { navigation.navigate('Image'); }}
-        backgroundColor='rgba(0,0,0,0)'
-        color='rgba(0,122,255,1)'
-      />,
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
   })
 
+  next = () => {
+    this.props.navigation.navigate('Image');
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <ScrollView>
-            {categories.map((category, index) => this.renderCategoryRow(category, index))}
-          </ScrollView>
-        </View>
+        <ScrollView>
+          <View style={styles.inputContainer}>
+            
+              {categories.map((category, index) => this.renderCategoryRow(category, index))}
+          </View>
+          <MyButton 
+            next 
+            style={styles.btn}
+            onPress={this.next}
+          >
+            <Text style={styles.btnText}>Continue</Text>
+          </MyButton>
+        </ScrollView>
       </View>
     )
   }
@@ -136,7 +142,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   btn: {
-    margin: 10
+    margin: 5,
+    alignSelf: 'stretch',
   }
 });
 
