@@ -12,7 +12,7 @@ const SLIDE_DATA = [
 export default class WelcomeScreen extends Component {
 
   onSlidesComplete = () => {
-    this.props.navigation.navigate('Choose')
+    this.props.navigation.navigate('Category')
   }
 
   render() {
