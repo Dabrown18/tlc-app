@@ -25,5 +25,6 @@ export const categories = [
   'Emotional Abuse',
   'Verbal Abuse',
   'Tinder Tales',
-  'Simping Tales'
+  'Simping Tales',
+  'Break Up'
 ]
