@@ -59,7 +59,7 @@ export class LoginForm extends Component {
     const { dispatch } = this.props;
 
     dispatch(Authentication.login(email, password))
-      .then(this.props.onLogin)
+      .then(response => this.props.onLogin(response))
       .catch(this.props.onLoginFail);
   };
 

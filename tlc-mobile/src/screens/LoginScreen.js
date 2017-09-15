@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {
+  AsyncStorage,
   View,
   Text,
   Image,
   StyleSheet,
-  Button,
-  Platform,
   TouchableOpacity
 } from 'react-native';
 
@@ -25,8 +24,19 @@ export default class LoginScreen extends Component {
     this.props.navigation.navigate('Help');
   };
 
-  onLoginSuccess = () => {
-    this.props.navigation.navigate('Home');
+  onLoginSuccess = (response) => {
+    const keyValues = [
+      ['authToken', response.action.payload.token],
+      ['userId', response.action.payload.user._id]
+    ];
+
+    AsyncStorage.multiSet(keyValues)
+      .then(() => {
+        this.props.navigation.navigate('Home');
+      })
+      .catch(err => {
+        console.log('AsyncStorage error: ', err);
+      });
   };
 
   render() {
