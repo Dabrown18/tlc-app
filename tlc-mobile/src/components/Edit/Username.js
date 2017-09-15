@@ -14,6 +14,8 @@ export default class Username extends Component {
 			<View>
 				<Text style={styles.textStyle}>USERNAME</Text>
 				<TextInput
+					value={this.props.value}
+					onChangeText={this.props.onChangeText}
           style={styles.input}
         />
       </View>

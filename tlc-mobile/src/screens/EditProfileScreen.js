@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
 	View,
 	Text,
-	TextInput,
-	Button,
 	Platform,
 	StyleSheet,
 	TouchableHighlight,
-	Animated,
-	Image,
-	ScrollView
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -26,7 +22,10 @@ import {
 	Snapchat
 } from '../components/Edit';
 
-export default class EditProfileScreen extends Component {
+import Spinner from '../components/Spinner';
+import ProfileActions from '../actions/profile';
+
+export class EditProfileScreen extends Component {
 
 	static navigationOptions = ({ navigation }) => ({
     headerStyle: {
@@ -36,24 +35,46 @@ export default class EditProfileScreen extends Component {
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
-	})
+	});
+
+	state = {
+		isLoaded: false
+	};
+
+	componentWillMount() {
+		const { dispatch } = this.props;
+
+		dispatch(ProfileActions.getCurrentUserProfile());
+	}
+
+  componentWillReceiveProps(nextProps) {
+		if (this.props.profile !== nextProps.profile && !this.state.isLoaded && nextProps.profile.data) {
+			console.log('profile', nextProps.profile);
+			this.setState({
+				isLoaded: true,
+				...nextProps.profile.data
+			});
+		}
+	}
 
 	render() {
-
 		return (
 			<KeyboardAwareScrollView style={{ backgroundColor: '#fff'}} >
-				<View style={styles.inputContainer}>
-					<Username />
-	        <FirstName />
-	        <LastName />
-	        <Occupation />
-	        <WebAddress />
-	        <Facebook />
-	        <Instagram />
-	        <Twitter />
-	        <Patreon />
-	        <Snapchat />
-        </View>
+        {this.state.isLoaded ?
+					<View style={styles.inputContainer}>
+						<Username value={this.state.username} onChangeText={username => this.setState({ username })} />
+						<FirstName value={this.state.firstName} onChangeText={firstName => this.setState({ firstName })} />
+						<LastName value={this.state.lastName} onChangeText={lastName => this.setState({ lastName })} />
+						<Occupation/>
+						<WebAddress/>
+						<Facebook/>
+						<Instagram/>
+						<Twitter/>
+						<Patreon/>
+						<Snapchat/>
+					</View>
+					: <Spinner />
+        }
         <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
         	<Text style={styles.buttonText}>Save Changes</Text>
         </TouchableHighlight>
@@ -61,6 +82,12 @@ export default class EditProfileScreen extends Component {
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+	profile: state.profile
+});
+
+export default connect(mapStateToProps)(EditProfileScreen);
 
 const styles = StyleSheet.create({
 	container: {

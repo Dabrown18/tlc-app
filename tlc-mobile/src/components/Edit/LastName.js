@@ -14,6 +14,8 @@ export default class Lastname extends Component {
 			<View>
 				<Text style={styles.textStyle}>LASTNAME</Text>
 				<TextInput
+					value={this.props.value}
+					onChangeText={this.props.onChangeText}
           style={styles.input}
         />
       </View>
