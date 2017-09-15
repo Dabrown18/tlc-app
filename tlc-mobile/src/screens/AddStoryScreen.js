@@ -9,8 +9,7 @@ import {
   ScrollView,
   Image
 } from 'react-native';
-
-import DualPicker from '../components/DualPicker';
+import MyButton from '../components/Button/index';
 
 const backgroundImage = require('../images/story-background.jpg');
 
@@ -26,17 +25,14 @@ export default class AddStoryScreen extends Component {
         title=''
         onPress={() => {}}
       />,
-    headerRight:
-      <Button
-        title='Next'
-        onPress={() => { navigation.navigate('Category'); }}
-        backgroundColor='rgba(0,0,0,0)'
-        color='rgba(0,122,255,1)'
-      />,
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
   })
+
+  next = () => {
+    this.props.navigation.navigate('Category');
+  };
 
   render() {
 
@@ -61,26 +57,17 @@ export default class AddStoryScreen extends Component {
                   style={styles.input}
                 />
 
-                <Text style={styles.inputText}>Your Age:</Text>
-
-                <TextInput
-                  placeholder='Your age'
-                  style={styles.input}
-                  onChangeText={age => this.setState({ age })}
-                  keyboardType={'number-pad'}
-                />
-
-                <Text style={styles.inputText}>Your sex:</Text>
-
-                <DualPicker
-                  title='Gender'
-                  options={[{symbol: '♂', title: 'Male'}, {symbol: '♀', title: 'Female'}]}
-                  ref="sexPicker"
-                />
-
               </ScrollView>
 
             </View>
+
+            <MyButton 
+              next 
+              style={styles.btn}
+              onPress={this.next}
+            >
+              <Text style={styles.btnText}>Continue</Text>
+            </MyButton> 
           
           </View>
 
@@ -94,6 +81,7 @@ export default class AddStoryScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#faf8ec',
   },
   backgroundImage: {
     flex: 1,
@@ -135,5 +123,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,1)',
     textAlign: 'left',
     borderRadius: 8
+  },
+  btnText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: "#fff",
+    fontWeight: 'bold'
+  },
+  btn: {
+    margin: 5,
+    alignSelf: 'stretch',
   }
 });

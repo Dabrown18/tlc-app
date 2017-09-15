@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity
 } from 'react-native';
+import MyButton from '../components/Button/index';
 import { connect } from 'react-redux';
 
 import { categories } from '../util/categories';
@@ -37,9 +38,11 @@ export default class CategoryScreen extends Component {
         style={styles.categoryRow}
         onPress={() => this.setState({category})}
       >
-        <Text style={styles.categoryText}>
-          {category}
-        </Text>
+        <View style={styles.categoryContainer}>
+          <Text style={styles.categoryText}>
+            {category}
+          </Text>
+        </View>
         {
           this.state.category === category ?
           <Icon size={iconSize} name="check-circle" style={styles.headerIcon}/> :
@@ -61,51 +64,86 @@ export default class CategoryScreen extends Component {
         backgroundColor='rgba(0,0,0,0)'
         color='rgba(0,122,255,1)'
       />,
-    headerRight:
-      <Button
-        title='Next'
-        onPress={() => { navigation.navigate('Image'); }}
-        backgroundColor='rgba(0,0,0,0)'
-        color='rgba(0,122,255,1)'
-      />,
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
   })
 
+  next = () => {
+    this.props.navigation.navigate('Image');
+  };
+
   render() {
     return (
-      <View style={styles.page}>
-        <View style={styles.pageBody}>
-          <ScrollView>
-            {categories.map((category, index) => this.renderCategoryRow(category, index))}
-          </ScrollView>
-        </View>
+      <View style={styles.container}>
+        <ScrollView>
+          <View style={styles.inputContainer}>
+            
+              {categories.map((category, index) => this.renderCategoryRow(category, index))}
+          </View>
+          <MyButton 
+            next 
+            style={styles.btn}
+            onPress={this.next}
+          >
+            <Text style={styles.btnText}>Continue</Text>
+          </MyButton>
+        </ScrollView>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  page: {
+  container: {
     flex: 1,
+    backgroundColor: '#faf8ec'
+  },
+  inputContainer: {
+    marginRight: 20,
+    marginLeft: 20,
+    padding: 20,
+    paddingBottom: 10,
+    alignSelf: 'stretch',
+    borderWidth: 1,
+    borderColor: '#fff',
+    backgroundColor: 'rgba(137,178,224,0.5)',
+    borderRadius: 8
+  },
+  backgroundImage: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
+    paddingTop: 40,
+  },
+  header: {
+    paddingTop: 20
+  },
+  categoryContainer: {
+    margin: 3,
+    padding: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(137,178,224,1)',
     backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center'
+    borderRadius: 8
   },
-  pageBody: {
-    flex: 20,
-    justifyContent: 'flex-start'
-  },
-  headerIcon: {
-    color: '#000'
-  },
-  headerIconFilled: {
-    color: 'red'
+  categoryRow: {
+    flexDirection: 'row',
+    margin: 5
   },
   categoryText: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontSize: 20,
+    color: '#02255b'
+  },
+  btnText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: "#fff",
+    fontWeight: 'bold'
+  },
+  btn: {
+    margin: 5,
+    alignSelf: 'stretch',
   }
 });
 
