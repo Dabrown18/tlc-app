@@ -42,7 +42,7 @@ export default class SearchScreen extends Component {
 
 SearchScreen.propTypes = {
   filteredNews: PropTypes.arrayOf(PropTypes.object),
-  searchNews: PropTypes.func.isRequired
+  searchNews: PropTypes.func
 };
 
 const styles = StyleSheet.create({

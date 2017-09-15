@@ -24,6 +24,7 @@ export default class AddStoryScreen extends Component {
     headerLeft:
       <Button
         title=''
+        onPress={() => {}}
       />,
     headerRight:
       <Button
