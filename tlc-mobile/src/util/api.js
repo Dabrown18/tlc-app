@@ -48,7 +48,7 @@ export default {
     const config = {
       method,
       headers: {},
-      body: JSON.stringify(params),
+      body: params ? JSON.stringify(params) : null,
       credentials: 'include'
     };
 
@@ -76,24 +76,22 @@ export default {
    * Shortcut method to perform GET request. See request()
    *
    * @param {string} url The url
-   * @param params Optional JSON object to be sent in the body
    * @param authToken Optional auth token to be sent in Authorization header.
    * @returns {Promise} Returns a promise that resolves to the response from the endpoint.
    */
-  get(url, params, authToken) {
-    return this.request('GET', url, params, authToken);
+  get(url, authToken) {
+    return this.request('GET', url, null, authToken);
   },
 
   /**
    * Shortcut method to perform DELETE request. See request()
    *
    * @param {string} url The url
-   * @param params Optional JSON object to be sent in the body
    * @param authToken Optional auth token to be sent in Authorization header.
    * @returns {Promise} Returns a promise that resolves to the response from the endpoint.
    */
-  del(url, params, authToken) {
-    return this.request('DELETE', url, params, authToken);
+  del(url, authToken) {
+    return this.request('DELETE', url, null, authToken);
   },
 
   /**
