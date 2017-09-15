@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import {
   View,
   Text,
-  TextInput,
-  Button,
+  Alert,
   StyleSheet
 } from 'react-native';
 
@@ -14,19 +13,38 @@ import MyButton from '../Button/index';
 import Spinner from '../../components/Spinner';
 
 import Authentication from '../../actions/authentication';
+import { isEmpty } from '../../util/validator';
 
 export class LoginForm extends Component {
+
+  static defaultProps = {
+    onLoginFail: () => {}
+  };
 
   state = {
     email: '',
     password: '',
     error: '',
     loading: false,
-    showForm: false,
-    tokenExists: false,
-    loggedIn: null
+    showForm: false
   };
 
+  showError = (msg) => {
+    Alert.alert('Login', msg);
+    return false;
+  };
+
+  validate = (state) => {
+    if (isEmpty(state.email)) {
+      return this.showError('Please type your username or email');
+    }
+
+    if (isEmpty(state.password)) {
+      return this.showError('The password should not be blank');
+    }
+
+    return true;
+  };
 
   login = () => {
     const {
@@ -34,26 +52,15 @@ export class LoginForm extends Component {
       password
     } = this.state;
 
+    if (!this.validate(this.state)) {
+      return false;
+    }
+
     const { dispatch } = this.props;
 
-    this.setState({
-      error: '',
-      loading: true
-    });
-
     dispatch(Authentication.login(email, password))
-      .then(() => this.onLoginSuccess())
-      .catch(() => this.onLoginFail());
-  };
-
-  onLoginSuccess = () => {
-    this.setState({
-        email: '',
-        password: '',
-        loading: false,
-        error: '',
-        loggedIn: true
-    });
+      .then(this.props.onLogin)
+      .catch(this.props.onLoginFail);
   };
 
   onLoginFail = () => {
@@ -63,34 +70,23 @@ export class LoginForm extends Component {
     });
   };
 
-  renderButton() {
+  renderButton(isLoggingIn) {
 
-    if (this.state.loading) {
+    if (isLoggingIn) {
       return <Spinner size='small' />
     }
 
-       return (
-        <MyButton login onPress={this.login}>
-          <Text style={styles.btnText}>Login</Text>
-        </MyButton>
-       );
+    return (
+      <MyButton login onPress={this.login}>
+        <Text style={styles.btnText}>Login</Text>
+      </MyButton>
+    );
    }
 
-  renderContent() {
-    switch (this.state.loggedIn) {
-
-        case true:
-          this.props.navigation.navigate('Home')
-
-        case false:
-          return <LoginForm />;
-
-        default:
-          return <Spinner size='large' />
-    }
-  }
-
   render() {
+    const { session } = this.props;
+    const { status } = session;
+
     return (
       <View style={styles.inputContainer}>
 
@@ -99,17 +95,21 @@ export class LoginForm extends Component {
           <Password value={this.state.password} onChangeText={password => this.setState({ password })} />
 
           <Text style={styles.errorTextStyle}>
-            {this.state.error}
+            {status.error && status.error}
           </Text>
 
-          {this.renderButton()}
+          {this.renderButton(status.isLoggingIn)}
 
       </View>
     );
   }
 }
 
-export default connect()(LoginForm);
+const mapStateToProps = (state) => ({
+  session: state.session
+});
+
+export default connect(mapStateToProps)(LoginForm);
 
 const styles = StyleSheet.create({
   inputContainer: {

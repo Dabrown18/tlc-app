@@ -25,6 +25,10 @@ export default class LoginScreen extends Component {
     this.props.navigation.navigate('Help');
   };
 
+  onLoginSuccess = () => {
+    this.props.navigation.navigate('Home');
+  };
+
   render() {
 
     return (
@@ -34,7 +38,7 @@ export default class LoginScreen extends Component {
 
             <Image source={logo} style={styles.logo}/>
 
-            <LoginForm />
+            <LoginForm onLogin={this.onLoginSuccess} />
 
             <MyButton 
               next 

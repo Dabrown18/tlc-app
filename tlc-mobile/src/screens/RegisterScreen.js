@@ -42,8 +42,6 @@ export class Register extends Component {
   };
 
   validate = (state) => {
-    console.log(state);
-
     if (!isValidUsername(state.username)) {
       return this.showError('Username should have 2 or more characters');
     }
