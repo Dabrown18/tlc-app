@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+	Alert,
 	View,
 	Text,
 	Platform,
@@ -57,7 +58,31 @@ export class EditProfileScreen extends Component {
 		}
 	}
 
+	onSave = () => {
+		const { username, email, firstName, lastName, webAddress, occupation, facebook, snapchat, instagram, twitter, patreon } = this.state;
+		const { dispatch } = this.props;
+
+		console.log('state', this.state);
+
+		dispatch(ProfileActions.updateCurrentUserProfile({
+				username,
+				email,
+				firstName,
+				lastName,
+				webAddress,
+				occupation,
+				facebook,
+				snapchat,
+				twitter,
+				instagram,
+				patreon
+			}))
+			.then(() => Alert.alert('', 'Profile updated with success!'));
+	};
+
 	render() {
+		const { profile } = this.props;
+
 		return (
 			<KeyboardAwareScrollView style={{ backgroundColor: '#fff'}} >
         {this.state.isLoaded ?
@@ -65,18 +90,21 @@ export class EditProfileScreen extends Component {
 						<Username value={this.state.username} onChangeText={username => this.setState({ username })} />
 						<FirstName value={this.state.firstName} onChangeText={firstName => this.setState({ firstName })} />
 						<LastName value={this.state.lastName} onChangeText={lastName => this.setState({ lastName })} />
-						<Occupation/>
-						<WebAddress/>
-						<Facebook/>
-						<Instagram/>
-						<Twitter/>
-						<Patreon/>
-						<Snapchat/>
+						<Occupation value={this.state.occupation} onChangeText={occupation => this.setState({ occupation })} />
+						<WebAddress value={this.state.webAddress} onChangeText={webAddress => this.setState({ webAddress })} />
+						<Facebook value={this.state.facebook} onChangeText={facebook => this.setState({ facebook })} />
+						<Instagram value={this.state.instagram} onChangeText={instagram => this.setState({ instagram })} />
+						<Twitter value={this.state.twitter} onChangeText={twitter => this.setState({ twitter })} />
+						<Patreon value={this.state.patreon} onChangeText={patreon => this.setState({ patreon })} />
+						<Snapchat value={this.state.snapchat} onChangeText={snapchat => this.setState({ snapchat })} />
 					</View>
 					: <Spinner />
         }
-        <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
-        	<Text style={styles.buttonText}>Save Changes</Text>
+        <TouchableHighlight style={styles.button} onPress={this.onSave} underlayColor='#99d9f4'>
+					<View>
+						{profile.isUpdating && <Spinner />}
+						<Text style={styles.buttonText}>Save Changes</Text>
+					</View>
         </TouchableHighlight>
       </KeyboardAwareScrollView>
 		);
