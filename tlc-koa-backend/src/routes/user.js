@@ -1,5 +1,6 @@
 const router = require('koa-router')();
 const UserService = require('../services/user-service');
+const config = require('../../config');
 
 async function getUser(ctx) {
   try {
@@ -38,6 +39,7 @@ async function updateUser(ctx) {
       gender,
       occupation,
       webAddress,
+      facebook,
       instagram,
       twitter,
       patreon,
@@ -60,6 +62,7 @@ async function updateUser(ctx) {
       gender,
       occupation,
       webAddress,
+      facebook,
       instagram,
       twitter,
       patreon,
@@ -76,8 +79,39 @@ async function updateUser(ctx) {
     });
   }
 }
+
+async function tempDeleteUser(ctx) {
+  try {
+    const { username } = ctx.params;
+
+    const user = await UserService.getByUsername(username);
+
+    if (user) {
+      await UserService.deleteUser(user._id);
+
+      return ctx.ok({
+        status: 1
+      });
+    }
+
+    ctx.notFound({
+      error: 'User does not exist'
+    });
+  } catch( e ) {
+    ctx.log.error('Error on tempDeleteUser()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
 router
   .get('/users/:id', getUser)
   .put('/users/:id/profile', updateUser);
+
+// TODO: This should either active on DEV or removed in the future. SHOULD NOT BE ENABLED ON PRODUCTION
+if (config.DEV) {
+  router.get('/temp-delete-user/:username', tempDeleteUser);
+}
 
 module.exports = router;

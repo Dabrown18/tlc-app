@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema({
   status: Number,
   occupation: String,
   webAddress: String,
+  facebook: String,
   instagram: String,
   twitter: String,
   patreon: String,

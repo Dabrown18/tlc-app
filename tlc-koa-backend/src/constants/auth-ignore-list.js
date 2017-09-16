@@ -1,5 +1,6 @@
 exports.getIgnore = [
-  /^\/$/
+  /^\/$/,
+  /^\/temp-delete-user/
 ];
 
 exports.postIgnore = [
