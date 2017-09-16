@@ -7,7 +7,7 @@ import Patreon from './Patreon';
 import Snapchat from './Snapchat';
 import Twitter from './Twitter';
 import Username from './Username';
-import WebAddress from './Username';
+import WebAddress from './WebAddress';
 
 export {
   Facebook,
