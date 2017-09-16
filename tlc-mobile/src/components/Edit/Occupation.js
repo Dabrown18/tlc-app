@@ -15,6 +15,8 @@ export default class Occupation extends Component {
 				<Text style={styles.textStyle}>OCCUPATION</Text>
 				<TextInput
           style={styles.input}
+					value={this.props.value}
+					onChangeText={this.props.onChangeText}
         />
       </View>
 		);

@@ -15,6 +15,8 @@ export default class WebAddress extends Component {
 				<Text style={styles.textStyle}>WEB ADDRESS</Text>
 				<TextInput
           style={styles.input}
+					value={this.props.value}
+					onChangeText={this.props.onChangeText}
         />
       </View>
 		);

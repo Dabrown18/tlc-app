@@ -15,6 +15,8 @@ export default class Patreon extends Component {
 				<Text style={styles.textStyle}>PATREON URL</Text>
 				<TextInput
           style={styles.input}
+					value={this.props.value}
+					onChangeText={this.props.onChangeText}
         />
       </View>
 		);

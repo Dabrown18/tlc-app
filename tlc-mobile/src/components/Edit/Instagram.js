@@ -15,6 +15,8 @@ export default class Instagram extends Component {
 				<Text style={styles.textStyle}>INSTAGRAM URL</Text>
 				<TextInput
           style={styles.input}
+					value={this.props.value}
+					onChangeText={this.props.onChangeText}
         />
       </View>
 		);

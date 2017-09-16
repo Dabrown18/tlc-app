@@ -15,6 +15,8 @@ export default class Snapchat extends Component {
 				<Text style={styles.textStyle}>SNAPCHAT NAME</Text>
 				<TextInput
           style={styles.input}
+					value={this.props.value}
+					onChangeText={this.props.onChangeText}
         />
       </View>
 		);

@@ -15,6 +15,8 @@ export default class Twitter extends Component {
 				<Text style={styles.textStyle}>TWITTER URL</Text>
 				<TextInput
           style={styles.input}
+					value={this.props.value}
+					onChangeText={this.props.onChangeText}
         />
       </View>
 		);
