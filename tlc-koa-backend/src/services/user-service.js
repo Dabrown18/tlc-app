@@ -32,11 +32,11 @@ module.exports = {
   },
 
   async getByEmail(email) {
-    return await models.user.findOne({ email }).exec();
+    return await models.user.findOne({ email });
   },
 
   async getByUsername(username) {
-    return await models.user.findOne({ username }).exec();
+    return await models.user.findOne({ username });
   },
 
   stripSensitiveInfo(user) {
@@ -79,5 +79,9 @@ module.exports = {
 
   async updateUser(_id, profile) {
     return models.user.findOneAndUpdate({ _id }, { $set: profile }, { new: true });
+  },
+
+  async deleteUser(_id) {
+    return models.user.remove({ _id }, { justOne: true });
   }
 };
