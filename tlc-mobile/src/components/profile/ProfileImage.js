@@ -23,7 +23,7 @@ export default class ProfileImage extends Component {
 		return (
 			<Image source={profileImage} style={styles.container}>
 				<PickImage />
-				<ProfileInfo />
+				<ProfileInfo profile={this.props.profile} />
 			</Image>
 		);
 	}

@@ -12,7 +12,7 @@ export default class ProfileInfo extends Component {
 	render() {
 		return (
 			<View style={styles.info}>
-				<ProfilePersonal />
+				<ProfilePersonal profile={this.props.profile} />
 				<ProfileStats />
 			</View>
 		);

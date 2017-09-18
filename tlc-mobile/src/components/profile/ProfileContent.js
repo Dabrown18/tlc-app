@@ -6,7 +6,7 @@ export default class ProfileContent extends Component {
 
   render() {
     return (
-      <ProfileImage />
+      <ProfileImage profile={this.props.profile} />
     );
   }
 }

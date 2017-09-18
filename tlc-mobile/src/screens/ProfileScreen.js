@@ -1,3 +1,4 @@
+import {connect} from 'react-redux';
 import React, { Component } from 'react';
 import {
   Image,
@@ -9,8 +10,9 @@ import {
 import { StatNavigation } from '../util/router';
 
 import ProfileContent from '../components/profile/ProfileContent';
+import ProfileActions from '../actions/profile';
 
-export default class ProfileScreen extends Component {
+class ProfileScreen extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerStyle: {
@@ -29,10 +31,22 @@ export default class ProfileScreen extends Component {
     }
   })
 
+  componentWillMount() {
+    const { dispatch } = this.props;
+
+    dispatch(ProfileActions.getCurrentUserProfile());
+  }
+
   render() {
+    const { profile } = this.props;
     return (
-      <ProfileContent />
+      <ProfileContent profile={profile} />
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  profile: state.profile
+});
+
+export default connect(mapStateToProps)(ProfileScreen);

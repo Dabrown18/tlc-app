@@ -2,37 +2,30 @@ import React, { Component } from 'react';
 import {
 	View,
 	Text,
-	Linking,
 	StyleSheet
 } from 'react-native';
 
 import Social from './Social';
-import Name from './Name';
+import Spinner from '../Spinner';
 
 export default class ProfilePersonal extends Component {
 
-	state = {
-    firstName: 'Dr. Boyce',
-    lastName: 'Watkins',
-    occupation: 'Social Commentator',
-    website: 'http://www.Triune-health.de',
-	};
-
 	render() {
+		const { profile } = this.props;
 
-		const {
-    	firstName,
-    	lastName,
-    	occupation,
-    	website,
-    } = this.state;
+		console.log('propsABCDEFGHIJLK', profile);
+
+
+		if (!profile || profile.isFetching || !profile.data) {
+			return <Spinner />;
+		}
 
 		return (
-			<View style={styles.personal}>
-				<Text style={styles.name}>{firstName} {lastName}</Text>
-				<Text style={styles.occupation}>{occupation.toUpperCase()}</Text>
-      	<Social />
-			</View>
+				<View style={styles.personal}>
+					<Text style={styles.name}>{profile.data.firstName} {profile.data.lastName}</Text>
+					<Text style={styles.occupation}>{profile.data.occupation}</Text>
+					<Social />
+				</View>
 		);
 	}
 }
