@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Container extends Component {
+export default class StorySection extends Component {
 	render() {
 		return (
 			<div className="card visible-md-block visible-lg-block">

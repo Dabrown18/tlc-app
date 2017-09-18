@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Container extends Component {
+export default class Advertisement extends Component {
 	render() {
 		return (
 			<div className="card mb-4 hidden-md-down" >

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Footer from './footer/Container';
-import Advertisement from './advertisement/Container';
+import Footer from './Footer';
+import Advertisement from './Advertisement';
 
-export default class Container extends Component {
+export default class RightNavBar extends Component {
 	render() {
 		return (
 			<div {...this.props}>

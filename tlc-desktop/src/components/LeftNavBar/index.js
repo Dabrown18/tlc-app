@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ProfileSection from './profileSection/Container';
-import AboutSection from './aboutSection/Container';
+import ProfileSection from './profileSection';
+import AboutSection from './aboutSection';
 
-export default class Container extends Component {
+export default class LeftNavBar extends Component {
 	render() {
 		return (
 			<div className="col-lg-3">

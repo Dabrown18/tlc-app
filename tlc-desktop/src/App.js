@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Header from './components/global/header/Container';
-import LeftNavBar from './components/leftNavBar/Container';
-import NewsFeed from './components/newsFeed/Container';
-import RightNavBar from './components/rightNavBar/Container';
+import Header from './components/global/Header';
+import LeftNavBar from './components/LeftNavBar';
+import NewsFeed from './components/NewsFeed';
+import RightNavBar from './components/RightNavBar';
 
 export default class App extends Component {
 	render() {
