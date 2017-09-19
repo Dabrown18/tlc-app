@@ -18,7 +18,7 @@ export default class Social extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Website onPress={() => Linking.openURL('http://boycewatkins.com/')} />
+				<Snapchat />
 				<Twitter onPress={() => Linking.openURL('https://www.twitter.com/DrBoyceWatkins1')} />
 				<Instagram onPress={() => Linking.openURL('https://www.instagram.com/TheRealBoyceWatkins/')} />
 			</View>
