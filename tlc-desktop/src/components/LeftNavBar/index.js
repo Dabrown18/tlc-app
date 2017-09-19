@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ProfileSection from './profileSection';
-import AboutSection from './aboutSection';
+import ProfileSection from './ProfileSection';
+import AboutSection from './AboutSection';
 
 export default class LeftNavBar extends Component {
 	render() {
@@ -13,6 +13,7 @@ export default class LeftNavBar extends Component {
 
 	    </div>
 		);
+		
 	}
 }
 
