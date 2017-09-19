@@ -3,7 +3,7 @@ import Content from './Content';
 
 const backgroundImage = require('./images/instagram_11.jpg');
 
-export default class ProfileCard extends Component {
+export default class Profile extends Component {
 	render() {
 		return (
 			<div {...this.props}>
