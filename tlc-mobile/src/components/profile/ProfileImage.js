@@ -7,7 +7,7 @@ import {
 import ProfileInfo from './ProfileInfo';
 import PickImage from './PickImage';
 
-const profileImage = require('./images/user-profile.jpg');
+const PlaceHolderImage = require('./images/user-profile.jpg');
 
 export default class ProfileImage extends Component {
 
@@ -19,10 +19,11 @@ export default class ProfileImage extends Component {
   }
 
 	render() {
+		const profileImage = this.state.profileImage || PlaceHolderImage;
 
 		return (
 			<Image source={profileImage} style={styles.container}>
-				<PickImage />
+				<PickImage onChooseImage={profileImage => this.setState({ profileImage })} />
 				<ProfileInfo profile={this.props.profile} />
 			</Image>
 		);

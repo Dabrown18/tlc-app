@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import {
 	Image,
 	View,
@@ -16,11 +17,17 @@ import Twitter from './Twitter';
 
 export default class Social extends Component {
 	render() {
+		const { profile } = this.props;
+		const { webAddress, twitter, instagram, facebook, snapchat, patreon } = profile.data;
+
 		return (
 			<View style={styles.container}>
-				<Snapchat />
-				<Twitter onPress={() => Linking.openURL('https://www.twitter.com/DrBoyceWatkins1')} />
-				<Instagram onPress={() => Linking.openURL('https://www.instagram.com/TheRealBoyceWatkins/')} />
+				{!_.isEmpty(webAddress) && <Website onPress={() => Linking.openURL(webAddress)} />}
+				{!_.isEmpty(twitter) && <Twitter onPress={() => Linking.openURL(twitter)} />}
+				{!_.isEmpty(facebook) && <Facebook onPress={() => Linking.openURL(facebook)} />}
+				{!_.isEmpty(instagram) && <Instagram onPress={() => Linking.openURL(instagram)} />}
+				{!_.isEmpty(snapchat) && <Snapchat onPress={() => Linking.openURL(snapchat)} />}
+				{!_.isEmpty(patreon) && <Patreon onPress={() => Linking.openURL(patreon)} />}
 			</View>
 		);
 	}
