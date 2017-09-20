@@ -13,9 +13,6 @@ export default class ProfilePersonal extends Component {
 	render() {
 		const { profile } = this.props;
 
-		console.log('propsABCDEFGHIJLK', profile);
-
-
 		if (!profile || profile.isFetching || !profile.data) {
 			return <Spinner />;
 		}
@@ -24,7 +21,7 @@ export default class ProfilePersonal extends Component {
 				<View style={styles.personal}>
 					<Text style={styles.name}>{profile.data.firstName} {profile.data.lastName}</Text>
 					<Text style={styles.occupation}>{profile.data.occupation}</Text>
-					<Social />
+					<Social profile={profile} />
 				</View>
 		);
 	}
