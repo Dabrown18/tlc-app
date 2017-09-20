@@ -1,24 +1,21 @@
 import React from 'react';
 import { Image, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { ImagePicker } from 'expo';
+import PropTypes from 'prop-types';
 
 const ChangeImage = require('./images/change-photo.png');
 
-export default class ChooseImage extends React.Component {
-  state = {
-    image: null,
+export default class PickImage extends React.Component {
+  static propTypes = {
+    onChooseImage: PropTypes.func.isRequired
   };
 
   render() {
-    const { image } = this.state;
-
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this._pickImage}>
           <Image source={ChangeImage}/>
         </TouchableOpacity>
-        {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 300 }} />}
       </View>
     );
   }
@@ -32,7 +29,7 @@ export default class ChooseImage extends React.Component {
     console.log(result);
 
     if (!result.cancelled) {
-      this.setState({ image: result.uri });
+      this.props.onChooseImage(result);
     }
   };
 }
