@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-const Logo = require('./images/logo.png');
+const Image = require('./images/logo.png');
 
-export default class HeaderLogo extends Component {
+export default class Logo extends Component {
 	render() {
 		return (
 			<a className="navbar-brand" href="index.html">
-			  <img src={Logo} />
+			  <img src={Image} />
 			</a>
 		);
 	}

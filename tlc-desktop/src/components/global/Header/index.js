@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import HeaderLogo from './HeaderLogo';
+import Logo from './Logo';
 import Navigation from './Navigation';
 
 export default class Header extends Component {
@@ -18,7 +18,7 @@ export default class Header extends Component {
 			    <span className="navbar-toggler-icon"></span>
 			  </button>
 
-			  <HeaderLogo />
+			  <Logo />
 			
 				<Navigation />
 			  
