@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 import CardMenu from './CardMenu';
-
-const ProfileImage = require('./images/user-profile.jpg');
+import ProfileImage from './ProfileImage';
+import ProfileName from './ProfileName';
+import Occupation from './Occupation';
 
 export default class Content extends Component {
 	render() {
 		return (
 			<div {...this.props}>
-        <a href="profile/index.html">
-          <img
-            className="card-profile-img"
-            src={ProfileImage} />
-        </a>
+        <ProfileImage />
 
-        <h6 className="card-title">
-          <a className="text-inherit" href="profile/index.html">Natalia Kalkopf</a>
-        </h6>
+        <ProfileName />
 
-        <p className="mb-4">I wish i was a little bit taller, wish i was a baller, wish i had a girl… also.</p>
+        <Occupation />
 
 				<CardMenu className="card-menu" />
         
