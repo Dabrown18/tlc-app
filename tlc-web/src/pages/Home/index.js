@@ -8,7 +8,7 @@ export default class Home extends Component {
 	render() {
 		return (
 			<div {...this.props}>
-				<Header className="navbar navbar-toggleable-sm fixed-top navbar-inverse bg-primary app-navbar" />
+				
 				<div className="container pt-4">
 				  <div className="row">
 				    

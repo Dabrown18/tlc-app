@@ -5,7 +5,7 @@ const Image = require('./images/logo.png');
 export default class Logo extends Component {
 	render() {
 		return (
-			<a className="navbar-brand" href="index.html">
+			<a {...this.props}>
 			  <img src={Image} />
 			</a>
 		);

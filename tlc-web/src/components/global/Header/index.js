@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import Navigation from './Navigation';
 
@@ -18,9 +19,9 @@ export default class Header extends Component {
 			    <span className="navbar-toggler-icon"></span>
 			  </button>
 
-			  <Logo />
-			
-				<Navigation />
+			  <Logo className="navbar-brand" href="index.html"/>
+
+				<Navigation className="collapse navbar-collapse" id="navbarResponsive" />
 			  
 			</nav>
 		);

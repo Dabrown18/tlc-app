@@ -5,11 +5,11 @@ import ProfileTab from './ProfileTab';
 export default class ActivityLinks extends Component {
 	render() {
 		return (
-			<ul id="#js-popoverContent" className="nav navbar-nav float-right mr-0 hidden-sm-down">
+			<ul {...this.props}>
 	     
-	    	<Notifications />
+	    	<Notifications className="nav-item" />
 
-				<ProfileTab />
+				<ProfileTab className="nav-item ml-2" />
 	      
 	    </ul>
 		);
