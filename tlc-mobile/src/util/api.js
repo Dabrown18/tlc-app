@@ -116,5 +116,38 @@ export default {
    */
   put(url, params, authToken) {
     return this.request('PUT', url, params, authToken);
+  },
+
+  /**
+   *
+   * @param rawUrl
+   * @param file FormData object
+   * @param authToken
+   */
+  upload(rawUrl, file, authToken) {
+    let url = normalizeUrl(rawUrl);
+
+    const config = {
+      method: 'POST',
+      headers: {},
+      body: file,
+      credentials: 'include'
+    };
+
+    if (authToken) {
+      config.headers.Authorization = authToken;
+    }
+
+    return fetch(`${url}`, config)
+      .then(normalizeResponse)
+      .catch((response) => {
+        const { headers } = response;
+
+        if (headers && headers.get('Content-Type').indexOf('application/json') === 0) {
+          return response.json().then(r => Promise.reject(r));
+        }
+
+        return Promise.reject(response);
+      });
   }
 };
