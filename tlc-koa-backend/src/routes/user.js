@@ -112,10 +112,10 @@ async function tempDeleteUser(ctx) {
 
 async function updateProfilePicture(ctx) {
   try {
-    const { filename, originalName } = ctx.req.file;
+    const { filename, originalname } = ctx.req.file;
     const { id } = ctx.params;
 
-    const result = await UserService.updateProfilePicture(id, filename, originalName);
+    const result = await UserService.updateProfilePicture(id, filename, originalname);
 
     ctx.ok({
       status: 1,

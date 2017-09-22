@@ -96,7 +96,7 @@ module.exports = {
           filename,
           originalName,
           uploadDate: new Date,
-          url: UrlService.generateProfilePictureUrl(_id, fileId)
+          url: UrlService.generateProfilePictureUrl(filename)
         }
       }
     })

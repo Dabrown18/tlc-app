@@ -26,6 +26,7 @@ const UserSchema = new mongoose.Schema({
     lng: Number
   },
   profilePicture: {
+    _id: mongoose.Schema.Types.ObjectId,
     originalName: String,
     filename: String,
     url: String,
