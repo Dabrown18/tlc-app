@@ -24,6 +24,12 @@ const UserSchema = new mongoose.Schema({
   location: {
     lat: Number,
     lng: Number
+  },
+  profilePicture: {
+    originalName: String,
+    filename: String,
+    url: String,
+    uploadDate: Date
   }
 });
 

@@ -1,6 +1,11 @@
 const router = require('koa-router')();
+const multer = require('koa-multer');
 const UserService = require('../services/user-service');
 const config = require('../../config');
+
+const uploadMiddleware = multer({
+  dest: config.PICTURE_UPLOAD_DIR
+});
 
 async function getUser(ctx) {
   try {
@@ -105,9 +110,29 @@ async function tempDeleteUser(ctx) {
   }
 }
 
+async function updateProfilePicture(ctx) {
+  try {
+    const { filename, originalName } = ctx.req.file;
+    const { id } = ctx.params;
+
+    const result = await UserService.updateProfilePicture(id, filename, originalName);
+
+    ctx.ok({
+      status: 1,
+      result
+    })
+  } catch( e ) {
+    ctx.log.error('Error on updateProfilePicture()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
 router
   .get('/users/:id', getUser)
-  .put('/users/:id/profile', updateUser);
+  .put('/users/:id/profile', updateUser)
+  .post('/users/:id/profile/picture', uploadMiddleware.single('profilePicture'), updateProfilePicture);
 
 // TODO: This should either active on DEV or removed in the future. SHOULD NOT BE ENABLED ON PRODUCTION
 if (config.DEV) {

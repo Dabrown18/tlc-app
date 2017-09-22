@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   // Network port we will be running on
   PORT: 3000,
@@ -14,5 +16,7 @@ module.exports = {
   SALT_ROUNDS: 10,
 
   // Reset token validity in minutes
-  PASSWORD_RESET_TOKEN_VALIDITY: 60
+  PASSWORD_RESET_TOKEN_VALIDITY: 60,
+
+  PICTURE_UPLOAD_DIR: path.resolve(__dirname, '../uploads')
 };

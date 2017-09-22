@@ -1,6 +1,8 @@
-const models = require('../models');
+const mongoose = require('mongoose');
+const models   = require('../models');
 const PasswordService = require('./password-service');
 const SecurityService = require('./security-service');
+const UrlService      = require('./url-service');
 
 module.exports = {
 
@@ -83,5 +85,20 @@ module.exports = {
 
   async deleteUser(_id) {
     return models.user.remove({ _id }, { justOne: true });
+  },
+
+  async updateProfilePicture(_id, filename, originalName) {
+    const fileId = mongoose.Types.ObjectId();
+    return models.user.update({ _id }, {
+      $set: {
+        profilePicture: {
+          _id: fileId,
+          filename,
+          originalName,
+          uploadDate: new Date,
+          url: UrlService.generateProfilePictureUrl(_id, fileId)
+        }
+      }
+    })
   }
 };
