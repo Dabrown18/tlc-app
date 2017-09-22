@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import ProfileActions from '../../actions/profile';
 import {
+	Alert,
 	Image,
 	StyleSheet
 } from 'react-native';
@@ -9,7 +12,7 @@ import PickImage from './PickImage';
 
 const PlaceHolderImage = require('./images/user-profile.jpg');
 
-export default class ProfileImage extends Component {
+export class ProfileImage extends Component {
 
 	constructor(props) {
   	super(props);
@@ -18,17 +21,32 @@ export default class ProfileImage extends Component {
   	};
   }
 
+  onChooseImage = (profileImage) => {
+		const { dispatch } = this.props;
+
+		dispatch(ProfileActions.updateCurrentUserProfilePicture(profileImage.uri, 'image/jpeg'))
+			.then(() => {
+        this.setState({ profileImage });
+        Alert.alert('', 'Profile picture updated with success!')
+			})
+			.catch(() => {
+				Alert.alert('', 'Failed to update profile picture');
+			});
+	};
+
 	render() {
 		const profileImage = this.state.profileImage || PlaceHolderImage;
 
 		return (
 			<Image source={profileImage} style={styles.container}>
-				<PickImage onChooseImage={profileImage => this.setState({ profileImage })} />
+				<PickImage onChooseImage={this.onChooseImage} />
 				<ProfileInfo profile={this.props.profile} />
 			</Image>
 		);
 	}
 }
+
+export default connect()(ProfileImage);
 
 const styles = StyleSheet.create({
 	container: {

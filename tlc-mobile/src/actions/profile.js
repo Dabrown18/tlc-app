@@ -3,6 +3,7 @@ import Api from '../util/api';
 
 export const GET_CURRENT_USER_PROFILE = 'GET_CURRENT_USER_PROFILE';
 export const UPDATE_CURRENT_USER_PROFILE = 'UPDATE_CURRENT_USER_PROFILE';
+export const UPDATE_CURRENT_USER_PROFILE_PICTURE = 'UPDATE_CURRENT_USER_PROFILE_PICTURE';
 
 export default {
 
@@ -48,6 +49,30 @@ export default {
 
           return dispatch({
             type: UPDATE_CURRENT_USER_PROFILE,
+            payload
+          });
+        });
+    }
+  },
+
+  updateCurrentUserProfilePicture(uri, type) {
+    return dispatch => {
+      return AsyncStorage.multiGet(['authToken', 'userId'])
+        .then(result => {
+          const authToken = result[0][1];
+          const userId = result[1][1];
+
+          const data = new FormData();
+          data.append('profilePicture', {
+            uri,
+            type,
+            name: 'file'
+          });
+
+          const payload = Api.upload(`/users/${userId}/profile/picture`, data, authToken);
+
+          return dispatch({
+            type: UPDATE_CURRENT_USER_PROFILE_PICTURE,
             payload
           });
         });
