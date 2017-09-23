@@ -34,7 +34,19 @@ export class ProfileImage extends Component {
 			});
 	};
 
-	render() {
+  componentWillReceiveProps(nextProps) {
+		if (this.props.profile !== nextProps.profile) {
+			if (nextProps.profile && nextProps.profile.data) {
+        this.setState({
+          profileImage: {
+            uri: nextProps.profile.data.profilePicture.url
+          }
+        });
+			}
+		}
+  }
+
+  render() {
 		const profileImage = this.state.profileImage || PlaceHolderImage;
 
 		return (
