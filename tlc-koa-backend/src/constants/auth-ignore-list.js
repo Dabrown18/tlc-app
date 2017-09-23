@@ -1,6 +1,7 @@
 exports.getIgnore = [
   /^\/$/,
-  /^\/temp-delete-user/
+  /^\/temp-delete-user/,
+  /^\/images\//
 ];
 
 exports.postIgnore = [
