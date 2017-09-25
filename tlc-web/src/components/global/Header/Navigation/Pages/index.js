@@ -5,7 +5,7 @@ export default class Pages extends Component {
 	render() {
 		return (	
 			<ul {...this.props}>
-	      <li>
+	      <li className="nav-item">
 	        <NavLink exact className="nav-link" to="/">Home</NavLink>
 	      </li>
 	      <li className="nav-item">
