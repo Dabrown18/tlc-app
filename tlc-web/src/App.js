@@ -9,7 +9,8 @@ import {
 	Home,
 	Login,
 	Profile,
-	Registration
+	Registration,
+	RegistrationTwo
 } from './pages';
 
 export default class App extends Component {
@@ -22,6 +23,7 @@ export default class App extends Component {
 					<Route path="/profile" component={Profile} />
 					<Route path="/login"  component={Login} />
 					<Route path="/registration" component={Registration} />
+					<Route path="/registration-two" component={RegistrationTwo} />
 				</div>
 			</BrowserRouter>
 		);

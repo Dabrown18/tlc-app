@@ -17,6 +17,7 @@ export default class Form extends Component {
 		    <Lastname className="form-group" />
 		    <Password className="form-group mb-3" />
 
+
 		    <div className="mb-5">
 		      <button className="btn btn-primary">Next</button>
 		    </div>
