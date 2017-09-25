@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default class Pages extends Component {
 	render() {
 		return (	
 			<ul {...this.props}>
-	      <li className="nav-item active">
-	        <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
+	      <li>
+	        <NavLink exact className="nav-link" to="/">Home</NavLink>
 	      </li>
 	      <li className="nav-item">
-	        <Link className="nav-link" to="/profile">Profile</Link>
+	        <NavLink className="nav-link" to="/profile">Profile</NavLink>
 	      </li>
 	    </ul>
 		);
