@@ -8,7 +8,8 @@ import {
 import {
 	Home,
 	Login,
-	Profile
+	Profile,
+	Registration
 } from './pages';
 
 export default class App extends Component {
@@ -20,6 +21,7 @@ export default class App extends Component {
 					<Route exact path="/" component={Home} />
 					<Route path="/profile" component={Profile} />
 					<Route path="/login"  component={Login} />
+					<Route path="/registration" component={Registration} />
 				</div>
 			</BrowserRouter>
 		);

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Form from './Form';
-import Logo from './Form/Logo';
 
 export default class Login extends Component {
 	render() {
