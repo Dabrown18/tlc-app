@@ -14,8 +14,7 @@ export default class Content extends Component {
 
         <Occupation />
 
-				<Menu className="card-menu" />
-        
+				<Menu className="card-menu" /> 
       </div>
 		);
 	}
