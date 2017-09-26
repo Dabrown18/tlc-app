@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default class Notifications extends Component {
 	render() {
 		return (
 			<li {...this.props}>
-        <a className="app-notifications nav-link" href="notifications/index.html">
+        <NavLink className="app-notifications nav-link" to="/notifications">
           <span className="icon icon-bell"></span>
-        </a>
+        </NavLink>
       </li>
 		);
 	}

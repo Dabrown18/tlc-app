@@ -10,7 +10,8 @@ import {
 	Login,
 	Profile,
 	Registration,
-	RegistrationTwo
+	RegistrationTwo,
+	Notifications
 } from './pages';
 
 export default class App extends Component {
@@ -24,6 +25,7 @@ export default class App extends Component {
 					<Route path="/login"  component={Login} />
 					<Route path="/registration" component={Registration} />
 					<Route path="/registration-two" component={RegistrationTwo} />
+					<Route path="/notifications" component={Notifications} />
 				</div>
 			</BrowserRouter>
 		);
