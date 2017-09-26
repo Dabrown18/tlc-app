@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const Image = require('../images/user-profile.jpg');
+const Image = require('./images/user-profile.jpg');
 
 export default class ProfileImage extends Component {
 	render() {

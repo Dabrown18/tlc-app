@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Feed from './Feed';
-import ActiveUsers from './ActiveUsers';
 import LeftColumn from './LeftColumn';
 import RightColumn from './RightColumn';
 

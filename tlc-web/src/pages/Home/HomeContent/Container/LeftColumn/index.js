@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Profile from './ProfileSection';
+import Profile from './Profile';
 import About from './About';
 
 export default class LeftColumn extends Component {
