@@ -6,6 +6,6 @@ module.exports = {
   },
 
   generateProfilePictureUrl(fileId) {
-    return `${config.BASE_URL}/images/${fileId}`
+    return `https://s3-us-west-2.amazonaws.com/theladieschampion-dev/images/${fileId}`
   }
 };

@@ -1,14 +1,22 @@
-const config = require('../config');
-const respond = require('koa-respond');
+const config     = require('../config');
+const respond    = require('koa-respond');
 const bodyParser = require('koa-bodyparser');
-const Koa = require('koa');
-const mongoose = require('mongoose');
-const loadRoutes = require('./routes');
-const Logger = require('./lib/logger');
+const Koa        = require('koa');
+const mongoose   = require('mongoose');
+const AWS        = require('aws-sdk');
+
+const loadRoutes     = require('./routes');
+const Logger         = require('./lib/logger');
 const AuthIgnoreList = require('./constants/auth-ignore-list');
 const authMiddleware = require('./middleware/auth');
 
 mongoose.Promise = global.Promise;
+
+AWS.config.update({
+  region: 'us-west-2',
+  accessKeyId: config.AWS_ACCESS_KEY,
+  secretAccessKey: config.AWS_ACCESS_SECRET
+});
 
 const app = new Koa();
 
