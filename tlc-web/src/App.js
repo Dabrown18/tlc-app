@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from './components/global/Header';
+import Header from './components/Header';
 import { 
 	BrowserRouter,
 	Route
@@ -8,7 +8,10 @@ import {
 import {
 	Home,
 	Login,
-	Profile
+	Profile,
+	Registration,
+	RegistrationTwo,
+	Notifications
 } from './pages';
 
 export default class App extends Component {
@@ -20,6 +23,9 @@ export default class App extends Component {
 					<Route exact path="/" component={Home} />
 					<Route path="/profile" component={Profile} />
 					<Route path="/login"  component={Login} />
+					<Route path="/registration" component={Registration} />
+					<Route path="/registration-two" component={RegistrationTwo} />
+					<Route path="/notifications" component={Notifications} />
 				</div>
 			</BrowserRouter>
 		);
