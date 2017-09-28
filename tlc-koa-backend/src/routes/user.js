@@ -1,10 +1,25 @@
-const router = require('koa-router')();
-const multer = require('koa-multer');
+const fs       = require('fs');
+const AWS      = require('aws-sdk');
+const router   = require('koa-router')();
+const multer   = require('koa-multer');
+const multerS3 = require('multer-s3');
+const uuid     = require('uuid/v4');
 const UserService = require('../services/user-service');
 const config = require('../../config');
 
+const s3 = new AWS.S3();
+
 const uploadMiddleware = multer({
-  dest: config.PICTURE_UPLOAD_DIR
+  storage: multerS3({
+    s3,
+    bucket: 'theladieschampion-dev',
+    acl: 'public-read',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    key: (req, file, cb) => {
+      console.log('file', file);
+      cb(null, `images/profile/${uuid()}`);
+    }
+  })
 });
 
 async function getUser(ctx) {
@@ -12,7 +27,6 @@ async function getUser(ctx) {
     const { id } = ctx.params;
 
     if (ctx.user.id !== id) {
-      ctx.log.info('here');
       return ctx.unauthorized({
         error: 'You do not have permissions to view this user info'
       });
@@ -112,10 +126,16 @@ async function tempDeleteUser(ctx) {
 
 async function updateProfilePicture(ctx) {
   try {
-    const { filename, originalname } = ctx.req.file;
+    const { originalname, location, mimetype, size } = ctx.req.file;
     const { id } = ctx.params;
 
-    const result = await UserService.updateProfilePicture(id, filename, originalname);
+    const profilePictureData = await UserService.getProfilePictureData(id);
+
+    // It is important to delete the old picture file.
+    // Even when we move to S3, we will need to invoke an API call to delete the file there.
+    //fs.unlink(`${config.PICTURE_UPLOAD_DIR}/${profilePictureData.filename}`);
+
+    const result = await UserService.updateProfilePicture(id, location, originalname, mimetype, size);
 
     ctx.ok({
       status: 1,

@@ -30,7 +30,9 @@ const UserSchema = new mongoose.Schema({
     originalName: String,
     filename: String,
     url: String,
-    uploadDate: Date
+    uploadDate: Date,
+    mimeType: String,
+    size: Number
   }
 });
 

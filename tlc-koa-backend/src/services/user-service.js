@@ -87,18 +87,23 @@ module.exports = {
     return models.user.remove({ _id }, { justOne: true });
   },
 
-  async updateProfilePicture(_id, filename, originalName) {
+  async updateProfilePicture(_id, location, originalName, mimeType, size) {
     const fileId = mongoose.Types.ObjectId();
     return models.user.update({ _id }, {
       $set: {
         profilePicture: {
           _id: fileId,
-          filename,
           originalName,
+          mimeType,
+          size,
           uploadDate: new Date,
-          url: UrlService.generateProfilePictureUrl(filename)
+          url: location
         }
       }
     })
+  },
+
+  async getProfilePictureData(userId) {
+    return models.user.findOne({ _id: userId }, { _id: 1, profilePicture: 1 });
   }
 };
