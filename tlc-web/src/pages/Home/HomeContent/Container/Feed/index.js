@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Media from './Media';
 
 export default class Container extends Component {
 	render() {
@@ -7,16 +8,7 @@ export default class Container extends Component {
 
 	      <ul className="list-group media-list media-list-stream mb-4">
 
-	        <li className="media list-group-item p-4">
-	          <div className="input-group">
-	            <input type="text" className="form-control" placeholder="Message" />
-	            <div className="input-group-btn">
-	              <button type="button" className="btn btn-secondary">
-	                <span className="icon icon-camera"></span>
-	              </button>
-	            </div>
-	          </div>
-	        </li>
+	        <Media className="media list-group-item p-4" />
 
 	        <li className="media list-group-item p-4">
 	          <img
