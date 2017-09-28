@@ -23,6 +23,24 @@ async function signup(ctx) {
       snapchat
     } = ctx.request.body;
 
+    if (!ValidatorService.isValidEmail(email)) {
+      return ctx.badRequest({
+        error: 'Email is invalid'
+      });
+    }
+
+    if (ValidatorService.isValidUrl(webAddress)) {
+      return ctx.badRequest({
+        error: 'Web address is invalid'
+      });
+    }
+
+    if (ValidatorService.isValidTwitterUrl(twitter)) {
+      return ctx.badRequest({
+        error: 'Twitter url is invalid'
+      });
+    }
+
     if (!ValidatorService.isUsernameValid(username)) {
       return ctx.badRequest({
         error: 'Username is invalid. Should have at least one character'

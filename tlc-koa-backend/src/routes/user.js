@@ -5,6 +5,7 @@ const multer   = require('koa-multer');
 const multerS3 = require('multer-s3');
 const uuid     = require('uuid/v4');
 const UserService = require('../services/user-service');
+const ValidatorService = require('../services/validator-service');
 const config = require('../../config');
 
 const s3 = new AWS.S3();
@@ -84,6 +85,18 @@ async function updateUser(ctx) {
           error: 'Username already taken'
         });
       }
+    }
+
+    if (ValidatorService.isValidUrl(webAddress)) {
+      return ctx.badRequest({
+        error: 'Web address is invalid'
+      });
+    }
+
+    if (ValidatorService.isValidTwitterUrl(twitter)) {
+      return ctx.badRequest({
+        error: 'Twitter url is invalid'
+      });
     }
 
     const user = await UserService.updateUser(id, {
