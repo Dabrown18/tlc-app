@@ -52,7 +52,6 @@ async function updateUser(ctx) {
       username,
       firstName,
       lastName,
-      email,
       ethnicity,
       birthDate,
       gender,
@@ -71,11 +70,26 @@ async function updateUser(ctx) {
       });
     }
 
+    let oldUser = await UserService.getById(id);
+
+    if (!oldUser) {
+      return ctx.notFound({
+        error: 'User does not exist'
+      });
+    }
+
+    if (oldUser.username.toLowerCase() !== username.trim().toLowerCase()) {
+      if (await UserService.getByUsername(username)) {
+        return ctx.badRequest({
+          error: 'Username already taken'
+        });
+      }
+    }
+
     const user = await UserService.updateUser(id, {
-      //username,
+      username,
       firstName,
       lastName,
-      //email,
       ethnicity,
       birthDate,
       gender,
