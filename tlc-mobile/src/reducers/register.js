@@ -97,6 +97,15 @@ export default typeToReducer({
         }
       });
     }
+  },
+
+  [RegisterActions.RESET_STATUS](state) {
+    return state.merge({
+      status: {
+        isRegistering: false,
+        error: false
+      }
+    });
   }
 }, initialState);
 

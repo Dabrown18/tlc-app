@@ -39,6 +39,11 @@ export class RegisterScreenThree extends Component {
     birthDate: ''
   };
 
+	componentWillMount() {
+	  const { dispatch } = this.props;
+	  dispatch(RegisterActions.resetStatus());
+  }
+
   register = () => {
     const { dispatch, registerData } = this.props;
     const { gender, birthDate } = this.state;
