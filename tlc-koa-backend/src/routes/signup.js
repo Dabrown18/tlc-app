@@ -29,13 +29,13 @@ async function signup(ctx) {
       });
     }
 
-    if (ValidatorService.isValidUrl(webAddress)) {
+    if (webAddress && ValidatorService.isValidUrl(webAddress)) {
       return ctx.badRequest({
         error: 'Web address is invalid'
       });
     }
 
-    if (ValidatorService.isValidTwitterUrl(twitter)) {
+    if (twitter && ValidatorService.isValidTwitterUrl(twitter)) {
       return ctx.badRequest({
         error: 'Twitter url is invalid'
       });
