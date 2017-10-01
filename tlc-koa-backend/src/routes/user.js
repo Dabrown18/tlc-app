@@ -176,10 +176,36 @@ async function updateProfilePicture(ctx) {
   }
 }
 
+async function updateUserCategories(ctx) {
+  try {
+    const { id } = ctx.params;
+    const { categories } = ctx.request.body;
+
+    if (ctx.user.id !== id) {
+      return ctx.unauthorized({
+        error: 'You do not have permissions to update this user info'
+      });
+    }
+
+    const user = await UserService.updateUser(id, { categories });
+
+    ctx.body = {
+      status: 1
+    };
+  } catch( e ) {
+    ctx.log.error('Error on updateUserCategories()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
 router
   .get('/users/:id', getUser)
   .put('/users/:id/profile', updateUser)
-  .post('/users/:id/profile/picture', uploadMiddleware.single('profilePicture'), updateProfilePicture);
+  .post('/users/:id/profile/picture', uploadMiddleware.single('profilePicture'), updateProfilePicture)
+  .put('/users/:id/profile/categories', updateUserCategories);
+
 
 // TODO: This should either active on DEV or removed in the future. SHOULD NOT BE ENABLED ON PRODUCTION
 if (config.DEV) {

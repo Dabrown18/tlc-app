@@ -33,7 +33,8 @@ const UserSchema = new mongoose.Schema({
     uploadDate: Date,
     mimeType: String,
     size: Number
-  }
+  },
+  categories: [String]
 });
 
 module.exports = mongoose.model('User', UserSchema);
