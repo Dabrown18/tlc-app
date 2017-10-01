@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
 	View,
 	Text,
@@ -11,15 +12,18 @@ import {
 } from 'react-native';
 import { categories } from '../util/categories';
 import MyButton from '../components/Button/index';
+import Spinner from '../components/Spinner';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { iconSize } from '../constants';
+import ProfileActions from '../actions/profile';
 const backgroundImage = require('../images/login-background.png');
 
-export default class ChooseScreen extends Component {
+class ChooseScreen extends Component {
 	constructor(props) {
     super(props);
     this.state = {
-      category: categories[0]
+      //category: categories[0]
+      selectedCategories: [categories[0]]
     };
   } 
 
@@ -39,12 +43,24 @@ export default class ChooseScreen extends Component {
     this.props.navigator.push({name: 'photoPicker'});
   }
 
+  selectCategory = (category) => {
+    let { selectedCategories } = this.state;
+
+    if (selectedCategories.indexOf(category) === -1) {
+      selectedCategories.push(category);
+    } else {
+      selectedCategories = selectedCategories.filter(c => c !== category);
+    }
+
+    this.setState({ selectedCategories });
+  };
+
   renderCategoryRow(category, index) {
     return (
       <TouchableOpacity
         key={index}
         style={styles.categoryRow}
-        onPress={() => this.setState({category})}
+        onPress={() => this.selectCategory(category)}
       >
       	<View style={styles.categoryContainer}>
 	        <Text style={styles.categoryText}>
@@ -52,7 +68,7 @@ export default class ChooseScreen extends Component {
 	        </Text>
         </View>
         {
-          this.state.category === category ?
+          this.state.selectedCategories.indexOf(category) !== -1 ?
           <Icon size={iconSize} name="check-circle" style={styles.headerIcon}/> :
           <Icon size={iconSize} name="circle" style={styles.headerIcon}/>
         }
@@ -61,10 +77,19 @@ export default class ChooseScreen extends Component {
   }
 
   continue = () => {
-    this.props.navigation.navigate('Profile');
+    const { dispatch } = this.props;
+    const { selectedCategories } = this.state;
+
+    console.log('selected categories', selectedCategories);
+
+    dispatch(ProfileActions.updateCurrentUserCategories(selectedCategories))
+      .then(() => {
+        this.props.navigation.navigate('Profile');
+      });
   };
 
 	render() {
+	  const { profile } = this.props;
 
 		return (
 			<View style={styles.container}>
@@ -75,7 +100,8 @@ export default class ChooseScreen extends Component {
               {categories.map((category, index) => this.renderCategoryRow(category, index))}
 
           </View>
-          <MyButton 
+          {profile.isUpdating && <Spinner />}
+          <MyButton
               next 
               style={styles.btn} 
               onPress={this.continue}
@@ -89,6 +115,12 @@ export default class ChooseScreen extends Component {
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+  profile: state.profile
+});
+
+export default connect(mapStateToProps)(ChooseScreen);
 
 const styles = StyleSheet.create({
 	container: {
