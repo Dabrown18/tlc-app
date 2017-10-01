@@ -59,5 +59,29 @@ export default typeToReducer({
         data: action.payload.user
       });
     }
+  },
+
+  [ProfileActions.UPDATE_CURRENT_USER_CATEGORIES]: {
+    PENDING(state) {
+      return state.merge({
+        isUpdating: true,
+        error: false
+      });
+    },
+
+    REJECTED(state, action) {
+      const { error } = action.payload;
+      return state.merge({
+        isUpdating: false,
+        error
+      });
+    },
+
+    FULFILLED(state, action) {
+      return state.merge({
+        isUpdating: false,
+        data: action.payload.user
+      });
+    }
   }
 }, initialState);

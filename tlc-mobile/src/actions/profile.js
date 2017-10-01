@@ -4,6 +4,7 @@ import Api from '../util/api';
 export const GET_CURRENT_USER_PROFILE = 'GET_CURRENT_USER_PROFILE';
 export const UPDATE_CURRENT_USER_PROFILE = 'UPDATE_CURRENT_USER_PROFILE';
 export const UPDATE_CURRENT_USER_PROFILE_PICTURE = 'UPDATE_CURRENT_USER_PROFILE_PICTURE';
+export const UPDATE_CURRENT_USER_CATEGORIES = 'UPDATE_CURRENT_USER_CATEGORIES';
 
 export default {
 
@@ -49,6 +50,23 @@ export default {
 
           return dispatch({
             type: UPDATE_CURRENT_USER_PROFILE,
+            payload
+          });
+        });
+    }
+  },
+
+  updateCurrentUserCategories(categories) {
+    return dispatch => {
+      return AsyncStorage.multiGet(['authToken', 'userId'])
+        .then(result => {
+          const authToken = result[0][1];
+          const userId = result[1][1];
+
+          const payload = Api.put(`/users/${userId}/profile/categories`, { categories }, authToken);
+
+          return dispatch({
+            type: UPDATE_CURRENT_USER_CATEGORIES,
             payload
           });
         });
