@@ -16,7 +16,7 @@ export default class RaceSelector extends Component {
 		const { initState } = props;
 
 		this.state = {
-			ethnicity: initState.ethnicity || ''
+			ethnicity: initState.ethnicity || 'White'
 		};
 	}
 

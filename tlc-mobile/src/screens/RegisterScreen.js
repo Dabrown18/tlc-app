@@ -58,6 +58,10 @@ export class Register extends Component {
       return this.showError('Last name is a required field');
     }
 
+    if (isEmpty(state.password)) {
+      return this.showError('Password is a required field');
+    }
+
     if (state.password !== state.passwordConf) {
       return this.showError('Password and confirmation do not match');
     }
