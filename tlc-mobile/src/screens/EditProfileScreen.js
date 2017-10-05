@@ -100,6 +100,9 @@ export class EditProfileScreen extends Component {
 					</View>
 					: <Spinner />
         }
+				<Text style={styles.errorTextStyle}>
+          {profile.error && profile.error}
+				</Text>
         <TouchableHighlight style={styles.button} onPress={this.onSave} underlayColor='#99d9f4'>
 					<View>
 						{profile.isUpdating && <Spinner />}
@@ -169,5 +172,10 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
     color: '#000',
     marginBottom: 5
-	}
+	},
+  errorTextStyle: {
+    fontSize: 18,
+    alignSelf: 'center',
+    color: 'red'
+  }
 });
