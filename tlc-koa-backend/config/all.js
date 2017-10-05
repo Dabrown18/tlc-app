@@ -18,5 +18,8 @@ module.exports = {
   // Reset token validity in minutes
   PASSWORD_RESET_TOKEN_VALIDITY: 60,
 
-  PICTURE_UPLOAD_DIR: path.resolve(__dirname, '../uploads')
+  PICTURE_UPLOAD_DIR: path.resolve(__dirname, '../uploads'),
+
+  // Auth token validity in days
+  AUTH_TOKEN_VALIDITY: 30
 };

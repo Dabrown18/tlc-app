@@ -87,13 +87,13 @@ async function updateUser(ctx) {
       }
     }
 
-    if (ValidatorService.isValidUrl(webAddress)) {
+    if (webAddress && !ValidatorService.isValidUrl(webAddress)) {
       return ctx.badRequest({
         error: 'Web address is invalid'
       });
     }
 
-    if (ValidatorService.isValidTwitterUrl(twitter)) {
+    if (twitter && !ValidatorService.isValidTwitterUrl(twitter)) {
       return ctx.badRequest({
         error: 'Twitter url is invalid'
       });
@@ -116,7 +116,8 @@ async function updateUser(ctx) {
     });
 
     ctx.body = {
-      status: 1
+      status: 1,
+      user: UserService.stripSensitiveInfo(user)
     };
   } catch( e ) {
     ctx.log.error('Error on updateUser()', e);

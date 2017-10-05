@@ -1,4 +1,5 @@
 var router = require('koa-router')();
+const config = require('../../config');
 const UserService = require('../services/user-service');
 const PasswordService = require('../services/password-service');
 const SecurityService = require('../services/security-service');
@@ -29,7 +30,7 @@ async function login(ctx) {
       token: SecurityService.generateJwtToken({
         id: user._id,
         email: user.email
-      }, 30)
+      }, config.AUTH_TOKEN_VALIDITY)
     });
   } catch( e ) {
     console.log(e);
