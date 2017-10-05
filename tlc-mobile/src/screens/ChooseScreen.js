@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+  Alert,
 	View,
 	Text,
   Image,
@@ -82,10 +83,16 @@ class ChooseScreen extends Component {
 
     console.log('selected categories', selectedCategories);
 
-    dispatch(ProfileActions.updateCurrentUserCategories(selectedCategories))
-      .then(() => {
-        this.props.navigation.navigate('Profile');
-      });
+    if (selectedCategories.length >= 5) {
+      dispatch(ProfileActions.updateCurrentUserCategories(selectedCategories))
+        .then(() => {
+          this.props.navigation.navigate('Profile');
+        });
+    } else {
+      const remainingCategories = 5 - selectedCategories.length;
+      const categoryText = remainingCategories > 1 ? 'categories' : 'category'
+      Alert.alert('', `You need to select at least ${remainingCategories} more ${categoryText} to go.`);
+    }
   };
 
 	render() {
