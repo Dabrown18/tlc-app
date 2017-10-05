@@ -17,10 +17,12 @@ export default class ProfilePersonal extends Component {
 			return <Spinner />;
 		}
 
+		const { occupation } = profile.data;
+
 		return (
 				<View style={styles.personal}>
 					<Text style={styles.name}>{profile.data.firstName} {profile.data.lastName}</Text>
-					<Text style={styles.occupation}>{profile.data.occupation.toUpperCase()}</Text>
+					<Text style={styles.occupation}>{(occupation || '').toUpperCase()}</Text>
 					<Social profile={profile} />
 				</View>
 		);

@@ -36,7 +36,7 @@ export class ProfileImage extends Component {
 
   componentWillReceiveProps(nextProps) {
 		if (this.props.profile !== nextProps.profile) {
-			if (nextProps.profile && nextProps.profile.data) {
+			if (nextProps.profile && nextProps.profile.data && nextProps.profile.data.profilePicture) {
         this.setState({
           profileImage: {
             uri: nextProps.profile.data.profilePicture.url

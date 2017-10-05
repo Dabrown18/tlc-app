@@ -51,18 +51,18 @@ export const MainNavigator = TabNavigator({
   },
   Main: {
     screen: TabNavigator({
-      Search: {
-        screen: SearchScreen,
-        navigationOptions: {
-          tabBarLabel: 'Search',
-          tabBarIcon: ({ tintColor }) => <Icon name="search" size={35} color={tintColor} />,
-        },
-       },
       Home: {
         screen: HomeScreen,
         navigationOptions: {
           tabBarLabel: 'Home',
           tabBarIcon: ({ tintColor }) => <Icon name="home" size={35} color={tintColor} />,
+        },
+      },
+      Search: {
+        screen: SearchScreen,
+        navigationOptions: {
+          tabBarLabel: 'Search',
+          tabBarIcon: ({ tintColor }) => <Icon name="search" size={35} color={tintColor} />,
         },
        },
       Story: {
@@ -112,7 +112,8 @@ export const MainNavigator = TabNavigator({
         indicatorStyle: { backgroundColor: 'rgba(0,0,0,0.4)'},
         pressColor: '#88b0d3',
         activeBackgroundColor: '#88b0d3',
-        inactiveTintColor: '#88b0d3'
+        inactiveTintColor: '#88b0d3',
+        lazy: true
       },        
     })
   }
