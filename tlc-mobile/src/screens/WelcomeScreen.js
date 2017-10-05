@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { AsyncStorage, View, Text, StyleSheet } from 'react-native';
 
 import Slides from '../components/Slides';
 
@@ -11,11 +11,33 @@ const SLIDE_DATA = [
 
 export default class WelcomeScreen extends Component {
 
+  state = {
+    fetchingWelcomeState: true,
+    welcomePresented: null
+  };
+
   onSlidesComplete = () => {
+    AsyncStorage.setItem('welcomePresented', "1");
     this.props.navigation.navigate('Login')
+  };
+
+  componentWillMount() {
+    AsyncStorage.getItem('welcomePresented')
+      .then(welcomePresented => {
+        this.setState({
+          fetchingWelcomeState: false,
+          welcomePresented
+        });
+
+        if (welcomePresented === '1') {
+          this.props.navigation.navigate('Login');
+        }
+      });
   }
 
   render() {
+    if (this.state.fetchingWelcomeState) return null;
+
     return (
       <Slides data={SLIDE_DATA} onComplete={this.onSlidesComplete}/>
     );
