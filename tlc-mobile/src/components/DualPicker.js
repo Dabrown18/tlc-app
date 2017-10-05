@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -16,10 +17,21 @@ title key represents the paired title
 
 export default class DualPicker extends Component {
 
-  state = {selected: 'Male', clicked: false}
+  static propTypes = {
+    initialState: PropTypes.string
+  };
+
+  static defaultProps = {
+    initialState: null
+  };
 
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.state = {
+      selected: props.initialState || 'Male',
+      clicked: false
+    };
   }
 
   componentDidMount() {
