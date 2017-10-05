@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {
+  AsyncStorage,
 	View,
 	Button,
   Text,
@@ -35,8 +36,8 @@ export class RegisterScreenThree extends Component {
   });
 
 	state = {
-	  gender: '',
-    birthDate: ''
+	  gender: 'Male',
+    birthDate: '2016-05-15'
   };
 
 	componentWillMount() {
@@ -51,13 +52,22 @@ export class RegisterScreenThree extends Component {
 
     dispatch(RegisterActions.registerStep3(gender, birthDate));
     dispatch(RegisterActions.register(username, firstName, lastName, email, password, ethnicity, gender, birthDate))
-      .then(() => {
-        this.props.navigation.navigate('Choose');
+      .then(response => {
+        const keyValues = [
+          ['authToken', response.action.payload.token],
+          ['userId', response.action.payload.user._id]
+        ];
+
+        AsyncStorage.multiSet(keyValues)
+          .then(() => {
+            this.props.navigation.navigate('Choose');
+          });
       });
   };
 
 	render() {
 	  const { status } = this.props;
+	  const { birthDate, gender } = this.state;
 
 		return (
 			<View style={styles.container}>
@@ -68,9 +78,10 @@ export class RegisterScreenThree extends Component {
                 title='Gender'
                 options={[{symbol: '♂', title: 'Male'}, {symbol: '♀', title: 'Female'}]}
                 ref="sexPicker"
+                initialState={gender}
                 onChange={gender => this.setState({ gender })}
               />
-              <BirthdaySelector onChange={birthDate => this.setState({ birthDate })} />
+              <BirthdaySelector date={birthDate} onChange={birthDate => this.setState({ birthDate })} />
             </View>
             <Text style={styles.errorTextStyle}>
               {status.error && status.error}

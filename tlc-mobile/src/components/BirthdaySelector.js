@@ -4,7 +4,9 @@ import DatePicker from 'react-native-datepicker'
 export default class BirthdaySelector extends Component {
   constructor(props){
     super(props)
-    this.state = {date:"2016-05-15"}
+    this.state = {
+      date: props.date || '2016-05-15'
+    };
   }
 
   onChange = (date) => {
