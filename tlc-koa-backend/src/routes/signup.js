@@ -55,7 +55,7 @@ async function signup(ctx) {
       });
     }
 
-    if (await UserService.getByUsername(email)) {
+    if (await UserService.getByUsername(username)) {
       return ctx.badRequest({
         error: 'Username is already taken'
       });
