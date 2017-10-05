@@ -2,24 +2,18 @@ import React, { Component } from 'react';
 import { 
   ScrollView, 
   TouchableOpacity,
-  Vibration,
-  Button,
-  Platform,
-  Alert 
+  AsyncStorage
 } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 
 export default class Settings extends Component {
 
   showSettingsAlert() {
-    Vibration.vibrate();
-    Alert.alert(
-      'Coming Soon!',
-      'We\'re hard at work on this feature, check back in the near future.',
-      [
-        { text: 'OK', onPress: () => console.log('User pressed OK') }
-      ]
-    );
+    const keys = ['authToken', 'userId'];
+    AsyncStorage.multiRemove(keys)
+      .then(() => {
+        this.props.navigation.navigate('Login');
+      });
   }
 
   editProfile = () => {

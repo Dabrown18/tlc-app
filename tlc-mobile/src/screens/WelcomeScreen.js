@@ -22,14 +22,16 @@ export default class WelcomeScreen extends Component {
   };
 
   componentWillMount() {
-    AsyncStorage.getItem('welcomePresented')
-      .then(welcomePresented => {
+    AsyncStorage.multiGet(['welcomePresented', 'authToken'])
+      .then(([welcomePresented, authToken]) => {
         this.setState({
           fetchingWelcomeState: false,
           welcomePresented
         });
 
-        if (welcomePresented === '1') {
+        if (authToken && authToken.length > 0) {
+          this.props.navigation.navigate('Home');
+        } else if (welcomePresented === '1') {
           this.props.navigation.navigate('Login');
         }
       });
