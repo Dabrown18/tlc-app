@@ -1,5 +1,7 @@
-var router = require('koa-router')();
+const router = require('koa-router')();
+const config = require('../../config');
 const UserService = require('../services/user-service');
+const SecurityService = require('../services/security-service');
 const ValidatorService = require('../services/validator-service');
 const templates = require('../templates');
 const SendGrid = require('../helpers/sendgrid');
@@ -69,7 +71,13 @@ async function signup(ctx) {
       html: templates.signup({username})
     });
 
-    return ctx.ok(UserService.stripSensitiveInfo(user));
+    return ctx.ok({
+      user: UserService.stripSensitiveInfo(user),
+      token: SecurityService.generateJwtToken({
+        id: user._id,
+        email: user.email
+      }, config.AUTH_TOKEN_VALIDITY)
+    });
   } catch( e ) {
     console.log(e);
     ctx.badRequest({
