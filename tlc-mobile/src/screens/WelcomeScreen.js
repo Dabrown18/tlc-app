@@ -23,7 +23,11 @@ export default class WelcomeScreen extends Component {
 
   componentWillMount() {
     AsyncStorage.multiGet(['welcomePresented', 'authToken'])
-      .then(([welcomePresented, authToken]) => {
+      .then(result => {
+        const welcomePresented = result[0][1];
+        const authToken = result[1][1];
+        console.log('wp', welcomePresented, authToken);
+
         this.setState({
           fetchingWelcomeState: false,
           welcomePresented
