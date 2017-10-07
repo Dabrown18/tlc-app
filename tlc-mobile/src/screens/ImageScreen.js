@@ -31,6 +31,13 @@ export default class ImageScreen extends Component {
         backgroundColor='rgba(0,0,0,0)'
         color='rgba(0,122,255,1)'
       />,
+    headerRight:
+      <Button
+        title='Next'
+        onPress={() => { navigation.navigate('Details'); }}
+        backgroundColor='rgba(0,0,0,0)'
+        color='rgba(0,122,255,1)'
+      />,
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
