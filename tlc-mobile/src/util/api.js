@@ -68,6 +68,10 @@ export default {
           return response.json().then(r => Promise.reject(r));
         }
 
+        if (!response.error && response instanceof Error) {
+          response.error = response.message;
+        }
+
         return Promise.reject(response);
       });
   },
