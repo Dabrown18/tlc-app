@@ -5,14 +5,27 @@ import {
   AsyncStorage
 } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
+import { NavigationActions } from 'react-navigation'
+import Router from '../actions/router';
+import { connect } from 'react-redux';
 
-export default class Settings extends Component {
+export class Settings extends Component {
 
   showSettingsAlert() {
     const keys = ['authToken', 'userId'];
     AsyncStorage.multiRemove(keys)
       .then(() => {
-        this.props.navigation.navigate('Login');
+        //this.props.navigation.navigate('Login');
+        // const resetAction = NavigationActions.reset({
+        //   index: 0,
+        //   key: null,
+        //   actions: [
+        //     NavigationActions.back(),
+        //   ]
+        // });
+        // this.props.navigation.dispatch(resetAction);
+        const { dispatch } = this.props;
+        dispatch(Router.logout());
       });
   }
 
@@ -44,3 +57,5 @@ export default class Settings extends Component {
     );
   }
 }
+
+export default connect()(Settings);
