@@ -9,6 +9,7 @@ import {
   ScrollView,
   Alert
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import RegisterForm from '../components/register/RegisterForm';
 import backgroundImage from '../images/login-background.png'
@@ -85,9 +86,9 @@ export class Register extends Component {
     return (
       <View style={styles.container}>
         <Image source={backgroundImage} style={styles.backgroundImage}>
-          <ScrollView>
+          <KeyboardAwareScrollView>
             <RegisterForm initState={registerData} onNext={this.next} />
-          </ScrollView>
+          </KeyboardAwareScrollView>
         </Image>
       </View>
     );
