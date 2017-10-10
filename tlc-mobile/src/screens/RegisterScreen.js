@@ -42,7 +42,34 @@ export class Register extends Component {
     return false;
   };
 
-  validate = (state) => {
+  checkUsername = async (username) => {
+    const { dispatch } = this.props;
+
+    try {
+      const response = await dispatch(RegisterActions.checkUsername(username));
+      return response.value.status === 1;
+    } catch( e ) {
+      return null;
+    }
+  };
+
+  checkEmail = async (email) => {
+    const { dispatch } = this.props;
+
+    try {
+      const response = await dispatch(RegisterActions.checkEmail(email));
+      return response.value.status === 1;
+    } catch( e ) {
+      return null;
+    }
+  };
+
+  /**
+   * Please note that this is async, so you treat it as a Promise or call it using "await".
+   * @param state
+   * @returns {Promise.<boolean>}
+   */
+  validate = async (state) => {
     if (!isValidUsername(state.username)) {
       return this.showError('Username should have 2 or more characters');
     }
@@ -67,6 +94,14 @@ export class Register extends Component {
       return this.showError('Password and confirmation do not match');
     }
 
+    if (!(await this.checkUsername(state.username))) {
+      return this.showError('Username is already taken');
+    }
+
+    if (!(await this.checkEmail(state.email))) {
+      return this.showError('Email is already taken');
+    }
+
     return true;
   };
 
@@ -74,10 +109,19 @@ export class Register extends Component {
     const { username, firstName, lastName, password, email } = state;
     const { dispatch } = this.props;
 
-    if (this.validate(state)) {
-      dispatch(RegisterActions.registerStep1(username, firstName, lastName, email, password));
-      this.props.navigation.navigate('PartTwo');
-    }
+    if (this.isValidating) return;
+
+    this.isValidating = true;
+
+    this.validate(state)
+      .then(isOk => {
+        if (isOk) {
+          dispatch(RegisterActions.registerStep1(username, firstName, lastName, email, password));
+          this.props.navigation.navigate('PartTwo');
+        }
+
+        this.isValidating = false;
+      });
   };
 
   render() {
