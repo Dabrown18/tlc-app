@@ -14,15 +14,9 @@ async function checkUsername(ctx) {
 
     const user = await UserService.getByUsername(username);
 
-    if (user) {
-      ctx.badRequest({
-        error: 'Username already exists'
-      });
-    } else {
-      ctx.ok({
-        status: 1
-      });
-    }
+    ctx.ok({
+      status: user === null ? 1 : 0
+    });
   } catch( e ) {
     ctx.log.error('Error on checkUsername()', e);
     ctx.badRequest({
@@ -44,15 +38,9 @@ async function checkEmail(ctx) {
 
     const user = await UserService.getByEmail(email);
 
-    if (user) {
-      ctx.badRequest({
-        error: 'Email already exists'
-      });
-    } else {
-      ctx.ok({
-        status: 1
-      });
-    }
+    ctx.ok({
+      status: user === null ? 1 : 0
+    });
   } catch( e ) {
     ctx.log.error('Error on checkEmail()', e);
     ctx.badRequest({
