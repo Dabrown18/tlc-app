@@ -12,7 +12,7 @@ export default {
   checkUsername(username) {
     return {
       type: CHECK_USERNAME,
-      payload: Api.get(`/check/username/:${username}`)
+      payload: Api.get(`/check/username/${username}`)
     };
   },
 
