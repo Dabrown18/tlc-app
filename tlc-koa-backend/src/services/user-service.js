@@ -12,9 +12,9 @@ module.exports = {
 
     return await models.user.create({
       username: username.toLowerCase(),
+      email: email.toLowerCase(),
       firstName,
       lastName,
-      email,
       ethnicity,
       birthDate,
       gender,
@@ -34,11 +34,11 @@ module.exports = {
   },
 
   async getByEmail(email) {
-    return await models.user.findOne({ email });
+    return await models.user.findOne({ email: email.trim().toLowerCase() });
   },
 
   async getByUsername(username) {
-    return await models.user.findOne({ username });
+    return await models.user.findOne({ username: username.trim().toLowerCase() });
   },
 
   stripSensitiveInfo(user) {
