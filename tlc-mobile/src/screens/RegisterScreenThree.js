@@ -58,6 +58,8 @@ export class RegisterScreenThree extends Component {
           ['userId', response.action.payload.user._id]
         ];
 
+        dispatch(RegisterActions.resetStatus());
+
         AsyncStorage.multiSet(keyValues)
           .then(() => {
             this.props.navigation.navigate('Choose');

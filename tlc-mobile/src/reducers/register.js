@@ -101,6 +101,8 @@ export default typeToReducer({
 
   [RegisterActions.RESET_STATUS](state) {
     return state.merge({
+      profile: {},
+
       status: {
         isRegistering: false,
         error: false
