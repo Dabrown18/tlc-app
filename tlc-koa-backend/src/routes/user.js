@@ -20,7 +20,11 @@ const uploadMiddleware = multer({
       console.log('file', file);
       cb(null, `images/profile/${uuid()}`);
     }
-  })
+  }),
+
+  limits: {
+    fileSize: config.MAX_IMAGE_SIZE
+  }
 });
 
 async function getUser(ctx) {

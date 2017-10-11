@@ -21,5 +21,8 @@ module.exports = {
   PICTURE_UPLOAD_DIR: path.resolve(__dirname, '../uploads'),
 
   // Auth token validity in days
-  AUTH_TOKEN_VALIDITY: 30
+  AUTH_TOKEN_VALIDITY: 30,
+
+  // Max image size in MBytes
+  MAX_IMAGE_SIZE: 5 * 1024 * 1024
 };
