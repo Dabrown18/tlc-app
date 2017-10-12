@@ -57,9 +57,6 @@ async function updateUser(ctx) {
       username,
       firstName,
       lastName,
-      ethnicity,
-      birthDate,
-      gender,
       occupation,
       webAddress,
       facebook,
@@ -103,13 +100,34 @@ async function updateUser(ctx) {
       });
     }
 
+    if (patreon && !ValidatorService.isValidPatreonUrl(patreon)) {
+      return ctx.badRequest({
+        error: 'Patreon url is invalid'
+      });
+    }
+
+    if (facebook && !ValidatorService.isValidFacebookUrl(facebook)) {
+      return ctx.badRequest({
+        error: 'Facebook url is invalid'
+      });
+    }
+
+    if (instagram && !ValidatorService.isValidInstagramUrl(instagram)) {
+      return ctx.badRequest({
+        error: 'Instagram url is invalid'
+      });
+    }
+
+    if (snapchat && !ValidatorService.isValidSnapchatUsername(snapchat)) {
+      return ctx.badRequest({
+        error: 'Snapchat username is invalid'
+      });
+    }
+
     const user = await UserService.updateUser(id, {
       username,
       firstName,
       lastName,
-      // ethnicity,
-      // birthDate,
-      // gender,
       occupation,
       webAddress,
       facebook,

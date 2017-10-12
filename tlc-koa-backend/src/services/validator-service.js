@@ -52,8 +52,38 @@ module.exports = {
   },
 
   isValidTwitterUrl(url) {
-    const re = new RegExp('^(?:http://)?(?:www\\.)?twitter\\.com/(\\w+)$', 'i');
+    const re = new RegExp('^(?:https?://)?(?:www\\.)?twitter\\.com/(\\w+)$', 'i');
 
     return re.test(url);
+  },
+
+  isValidInstagramUrl(url) {
+    const re = new RegExp('^(?:https?://)?(?:www\\.)?instagram\\.com/(\\w+)$', 'i');
+
+    return re.test(url);
+  },
+
+  isValidFacebookUrl(url) {
+    const re = new RegExp('^(?:https?:\\/\\/)?(?:www\\.|m\\.|touch\\.)?(?:facebook\\.com|fb(?:\\.me|\\.com))\\/(?:(?:\\w)*#!\\/)?(?:pages\\/)?(?:[\\w\\-]*\\/)*?(\\/)?([^/?\\s]*)(?:/|&|\\?)?.*$', 'i');
+
+    return re.test(url);
+  },
+
+  isValidPatreonUrl(url) {
+    const re = new RegExp('^(?:https?://)?(?:www\\.)?patreon\\.com/(\\w+)$', 'i');
+
+    return re.test(url);
+  },
+
+  isValidSnapchatUrl(url) {
+    const re = new RegExp('^(?:https?://)?(?:www\\.)?snapchat\\.com/add/(\\w+)$', 'i');
+
+    return re.test(url);
+  },
+
+  isValidSnapchatUsername(username) {
+    const re = new RegExp('^(\\w+)$', 'i');
+
+    return re.test(username);
   }
 };

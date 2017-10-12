@@ -19,6 +19,7 @@ async function signup(ctx) {
       password,
       occupation,
       webAddress,
+      facebook,
       instagram,
       twitter,
       patreon,
@@ -31,15 +32,45 @@ async function signup(ctx) {
       });
     }
 
-    if (webAddress && ValidatorService.isValidUrl(webAddress)) {
+    if (webAddress && !ValidatorService.isValidUrl(webAddress)) {
       return ctx.badRequest({
         error: 'Web address is invalid'
       });
     }
 
-    if (twitter && ValidatorService.isValidTwitterUrl(twitter)) {
+    if (facebook && !ValidatorService.isValidFacebookUrl(facebook)) {
+      return ctx.badRequest({
+        error: 'Facebook url is invalid'
+      });
+    }
+
+    if (twitter && !ValidatorService.isValidTwitterUrl(twitter)) {
       return ctx.badRequest({
         error: 'Twitter url is invalid'
+      });
+    }
+
+    if (patreon && !ValidatorService.isValidPatreonUrl(patreon)) {
+      return ctx.badRequest({
+        error: 'Patreon url is invalid'
+      });
+    }
+
+    if (facebook && !ValidatorService.isValidFacebookUrl(facebook)) {
+      return ctx.badRequest({
+        error: 'Facebook url is invalid'
+      });
+    }
+
+    if (instagram && !ValidatorService.isValidInstagramUrl(instagram)) {
+      return ctx.badRequest({
+        error: 'Instagram url is invalid'
+      });
+    }
+
+    if (snapchat && !ValidatorService.isValidSnapchatUsername(snapchat)) {
+      return ctx.badRequest({
+        error: 'Snapchat username is invalid'
       });
     }
 
