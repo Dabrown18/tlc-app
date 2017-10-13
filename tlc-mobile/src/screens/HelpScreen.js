@@ -20,12 +20,16 @@ export default class HelpScreen extends Component {
     style: {
         marginTop: Platform.OS === 'android' ? 24 : 0
     }
-  })
+  });
+
+	help = () => {
+	  this.props.navigation.navigate('Login');
+  };
 
 	render() {
 		return (
 			<View style={styles.container}>
-				<Help />
+				<Help onHelp={this.help} />
 			</View>
 		);
 	}

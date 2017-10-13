@@ -1,17 +1,43 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TextInput } from 'react-native';
+import { connect } from 'react-redux';
+import { Alert, View, Text, StyleSheet, Image, TextInput } from 'react-native';
 import MyButton from '../Button/index';
+import HelpActions from '../../actions/help';
 
 const backgroundImage = require('../../images/login-background.png');
 const lock = require('./images/lock.png')
 
-export default class Help extends Component {
+export class Help extends Component {
 	constructor(props) {
     super(props);
     this.state = {
       content: '',
     };
   }
+
+  help = () => {
+    const { dispatch } = this.props;
+    const { content } = this.state;
+
+    if (!content) {
+      Alert.alert('Please type the username or email', '');
+      return;
+    }
+
+    dispatch(HelpActions.forgotPassword(content))
+      .then(() => {
+        Alert.alert('Password Reset Instructions', 'Instructions on how to reset your password have been sent to your email');
+        this.props.onHelp();
+      })
+      .catch(response => {
+        console.log('err', response);
+        if (response.status === 404) {
+          Alert.alert('Password Reset Instructions', response.error);
+        } else {
+          Alert.alert('Password Reset Instructions', 'Something went wrong while trying to send password reset instructions!');
+        }
+      });
+  };
 
 	render() {
 		return (
@@ -34,6 +60,7 @@ export default class Help extends Component {
 					</View>
           <MyButton
             next
+            onPress={this.help}
             style={styles.btn}
           >
             <Text style={styles.btnText}>Send Login Link</Text>
@@ -43,6 +70,12 @@ export default class Help extends Component {
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+  help: state.help
+});
+
+export default connect(mapStateToProps)(Help);
 
 const styles = StyleSheet.create({
 	container: {
