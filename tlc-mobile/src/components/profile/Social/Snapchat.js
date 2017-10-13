@@ -2,29 +2,16 @@ import React, { Component } from 'react';
 import {
 	TouchableOpacity,
 	Image,
-	StyleSheet,
-	Vibration,
-	Alert
+	StyleSheet
 } from 'react-native';
 
 const Icon = require('./images/snapchat.png');
 
 export default class Snapchat extends Component {
 
-	showSnapName() {
-    Vibration.vibrate();
-    Alert.alert(
-      'Snapchat Name',
-      'LadiesChampion',
-      [
-        { text: 'OK', onPress: () => console.log('User pressed OK') }
-      ]
-    );
-  }
-
 	render() {
 		return (
-			<TouchableOpacity {...this.props} onPress={() => this.showSnapName()}>
+			<TouchableOpacity onPress={this.props.onPress}>
 				<Image source={Icon} style={styles.icon} />
 			</TouchableOpacity>
 		);

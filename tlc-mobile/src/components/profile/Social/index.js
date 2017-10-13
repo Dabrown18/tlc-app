@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import {
-	Image,
 	View,
-	TouchableOpacity,
-	StyleSheet, 
-	Linking
+	StyleSheet,
+	Linking,
+	Vibration,
+	Alert
 } from 'react-native';
 
 import Website from './Website';
@@ -16,18 +16,44 @@ import Patreon from './Patreon';
 import Twitter from './Twitter';
 
 export default class Social extends Component {
-	render() {
+
+  /**
+	 * Normalizes a social network URL, so that we can feedit to Linking.openURL()
+	 *
+   * @param url
+   * @param socialNetwork This parameter is not used currently
+   * @returns {String}
+   */
+	normalizeAddress(url, socialNetwork) {
+		if (/^https?:/.test(url)) {
+			return url;
+		}
+		return `https://${url}`;
+	}
+
+  showSnapName(name) {
+    Vibration.vibrate();
+    Alert.alert(
+      'Snapchat Name',
+      name,
+      [
+        { text: 'OK' }
+      ]
+    );
+  }
+
+  render() {
 		const { profile } = this.props;
 		const { webAddress, twitter, instagram, facebook, snapchat, patreon } = profile.data;
 
 		return (
 			<View style={styles.container}>
-				{!_.isEmpty(webAddress) && <Website onPress={() => Linking.openURL(webAddress)} />}
-				{!_.isEmpty(twitter) && <Twitter onPress={() => Linking.openURL(twitter)} />}
-				{!_.isEmpty(facebook) && <Facebook onPress={() => Linking.openURL(facebook)} />}
-				{!_.isEmpty(instagram) && <Instagram onPress={() => Linking.openURL(instagram)} />}
-				{!_.isEmpty(snapchat) && <Snapchat onPress={() => Linking.openURL(snapchat)} />}
-				{!_.isEmpty(patreon) && <Patreon onPress={() => Linking.openURL(patreon)} />}
+				{!_.isEmpty(webAddress) && <Website onPress={() => Linking.openURL(this.normalizeAddress(webAddress))} />}
+				{!_.isEmpty(twitter) && <Twitter onPress={() => Linking.openURL(this.normalizeAddress(twitter))} />}
+				{!_.isEmpty(facebook) && <Facebook onPress={() => Linking.openURL(this.normalizeAddress(facebook))} />}
+				{!_.isEmpty(instagram) && <Instagram onPress={() => Linking.openURL(this.normalizeAddress(instagram))} />}
+				{!_.isEmpty(snapchat) && <Snapchat onPress={() => this.showSnapName(snapchat)} />}
+				{!_.isEmpty(patreon) && <Patreon onPress={() => Linking.openURL(this.normalizeAddress(patreon))} />}
 			</View>
 		);
 	}
