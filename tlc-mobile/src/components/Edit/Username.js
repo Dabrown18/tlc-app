@@ -17,6 +17,7 @@ export default class Username extends Component {
 					value={this.props.value}
 					onChangeText={this.props.onChangeText}
           style={styles.input}
+					autoCorrect={false}
         />
       </View>
 		);

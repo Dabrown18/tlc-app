@@ -17,6 +17,7 @@ export default class Patreon extends Component {
           style={styles.input}
 					value={this.props.value}
 					onChangeText={this.props.onChangeText}
+					autoCorrect={false}
         />
       </View>
 		);
