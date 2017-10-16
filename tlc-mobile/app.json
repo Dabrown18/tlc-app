@@ -14,10 +14,25 @@
       "hideExponentText": false
     },
     "packagerOpts": {
-      "assetExts": ["ttf", "mp4"]
+      "assetExts": [
+        "ttf",
+        "mp4"
+      ]
+    },
+    "android": {
+      "package": "com.theladieschampion.tlc"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.theladieschampion.tlc",
+      "publishBundlePath": "ios/tlc-mobile/Supporting/shell-app.bundle",
+      "publishManifestPath": "ios/tlc-mobile/Supporting/shell-app-manifest.json"
+    },
+    "isDetached": true,
+    "detach": {
+      "scheme": "exp93d1756d734543ddbcdb2e17bf3d085c",
+      "iosExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/ios-v1.17.0-sdk18.0.0-b4aff885-a9a8-4733-9fa9-ec28bef01e15.tar.gz",
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v1.17.0-sdk18.0.0-4680412d-04c4-47ed-9161-88e01d76be96.tar.gz"
     }
   }
 }
