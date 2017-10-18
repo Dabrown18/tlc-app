@@ -58,4 +58,8 @@ target 'tlc-mobile' do
 
     end
   end
+  
+  # @leonel: this is for react-native-image-crop-picker
+  pod 'RSKImageCropper'
+  pod 'QBImagePickerController'  
 end

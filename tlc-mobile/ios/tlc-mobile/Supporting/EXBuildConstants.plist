@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>developmentUrl</key>
-	<string>exp93d1756d734543ddbcdb2e17bf3d085c://192.168.100.11:19000</string>
+	<string>http://192.168.100.12:19000</string>
 </dict>
 </plist>
