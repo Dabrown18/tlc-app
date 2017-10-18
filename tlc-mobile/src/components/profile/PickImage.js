@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { ImagePicker } from 'expo';
+import ImagePicker from 'react-native-image-crop-picker';
 import PropTypes from 'prop-types';
 
 const ChangeImage = require('./images/change-photo.png');
@@ -21,16 +21,22 @@ export default class PickImage extends React.Component {
   }
 
   _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      this.props.onChooseImage({
+        uri: image.path,
+        cancelled: false,
+        mime: image.mime,
+        size: image.size,
+        width: image.width,
+        height: image.height
+      });
+    }).catch(() => {
+      // NOP
     });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      this.props.onChooseImage(result);
-    }
   };
 }
 

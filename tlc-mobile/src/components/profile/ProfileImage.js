@@ -24,7 +24,7 @@ export class ProfileImage extends Component {
   onChooseImage = (profileImage) => {
 		const { dispatch } = this.props;
 
-		dispatch(ProfileActions.updateCurrentUserProfilePicture(profileImage.uri, 'image/jpeg'))
+		dispatch(ProfileActions.updateCurrentUserProfilePicture(profileImage.uri, profileImage.mime))
 			.then(() => {
         this.setState({ profileImage });
         Alert.alert('', 'Profile picture updated with success!')
