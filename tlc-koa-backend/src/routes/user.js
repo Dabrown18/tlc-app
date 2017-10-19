@@ -6,6 +6,7 @@ const multerS3 = require('multer-s3');
 const uuid     = require('uuid/v4');
 const UserService = require('../services/user-service');
 const ValidatorService = require('../services/validator-service');
+const StoryService     = require('../services/story-service');
 const config = require('../../config');
 
 const s3 = new AWS.S3();
@@ -223,11 +224,45 @@ async function updateUserCategories(ctx) {
   }
 }
 
+async function getUserStories(ctx) {
+  try {
+    const { id } = ctx.params;
+
+    const user = await UserService.getById(id);
+    if (!user) {
+      return ctx.notFound({
+        error: 'User not found'
+      });
+    }
+
+    if (!StoryService.canUserViewOtherUserStories(ctx.user.id, id)) {
+      return ctx.unauthorized({
+        error: 'You do can view the given user stories'
+      });
+    }
+
+    const stories = (await StoryService.getUserStories(id))
+      .map(s => StoryService.stripSensitiveInfo(s));
+
+    ctx.ok({
+      status: 1,
+      stories
+    })
+
+  } catch( e ) {
+    ctx.log.error('Error on getUserStories()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
 router
   .get('/users/:id', getUser)
   .put('/users/:id/profile', updateUser)
   .post('/users/:id/profile/picture', uploadMiddleware.single('profilePicture'), updateProfilePicture)
-  .put('/users/:id/profile/categories', updateUserCategories);
+  .put('/users/:id/profile/categories', updateUserCategories)
+  .get('/users/:id/stories', getUserStories);
 
 
 // TODO: This should either active on DEV or removed in the future. SHOULD NOT BE ENABLED ON PRODUCTION

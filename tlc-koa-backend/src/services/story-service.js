@@ -47,5 +47,40 @@ module.exports = {
 
   async getProfilePictureData(id) {
     return models.story.findOne({ _id: id }, { _id: 1, profilePicture: 1 });
+  },
+
+  /**
+   * Determines whether a user is allowed to access a story.
+   * For now assuming true. After clarification on rules they
+   * will be implemented.
+   *
+   * @param userId
+   * @param story
+   * @returns {Promise.<Boolean>}
+   */
+  async userCanViewStory(userId, story) {
+    return true;
+  },
+
+  /**
+   *
+   * @param userId
+   * @param otherUserId
+   * @returns {Promise.<void>}
+   */
+  async canUserViewOtherUserStories(userId, otherUserId) {
+    return true;
+  },
+
+  stripSensitiveInfo(story) {
+    const storyJson = story && story.toObject ? story.toObject() : story;
+
+    if (storyJson) {
+    }
+    return storyJson;
+  },
+
+  getUserStories(userId) {
+    return models.story.find({ user: userId });
   }
 };

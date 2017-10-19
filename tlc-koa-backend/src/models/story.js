@@ -14,7 +14,11 @@ const StorySchema = new mongoose.Schema({
     mimeType: String,
     size: Number
   },
-  category: String
+  category: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
 module.exports = mongoose.model('Story', StorySchema);
