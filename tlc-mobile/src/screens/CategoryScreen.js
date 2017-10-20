@@ -14,8 +14,9 @@ import { connect } from 'react-redux';
 import { categories } from '../util/categories';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { iconSize } from '../constants';
+import StoryActions from '../actions/story';
 
-export default class CategoryScreen extends Component {
+class CategoryScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -67,9 +68,13 @@ export default class CategoryScreen extends Component {
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
-  })
+  });
 
   next = () => {
+    const { dispatch } = this.props;
+    const { category } = this.state;
+
+    dispatch(StoryActions.setCategory(category));
     this.props.navigation.navigate('Image');
   };
 
@@ -147,7 +152,4 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps(state) {
-  let {user, story} = state;
-  return {user, story};
-}
+export default connect()(CategoryScreen);

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
+  Alert,
   View,
   Text,
   TextInput,
@@ -10,10 +12,16 @@ import {
   Image
 } from 'react-native';
 import MyButton from '../components/Button/index';
+import StoryActions from '../actions/story';
+import { isEmpty } from '../util/validator';
 
 const backgroundImage = require('../images/story-background.jpg');
 
-export default class AddStoryScreen extends Component {
+export class AddStoryScreen extends Component {
+
+  state = {
+    title: ''
+  };
 
   static navigationOptions = ({ navigation }) => ({
     headerStyle: {
@@ -28,10 +36,29 @@ export default class AddStoryScreen extends Component {
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
-  })
+  });
+
+  showError = (msg) => {
+    Alert.alert('Registration', msg);
+    return false;
+  };
+
+  validate = (state) => {
+    if (isEmpty(state.title)) {
+      return this.showError('Title is a required field');
+    }
+
+    return true;
+  };
 
   next = () => {
-    this.props.navigation.navigate('Category');
+    const { dispatch } = this.props;
+    const { title } = this.state;
+
+    if (this.validate({ title })) {
+      dispatch(StoryActions.setStoryTitle(title));
+      this.props.navigation.navigate('Category');
+    }
   };
 
   render() {
@@ -135,3 +162,5 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   }
 });
+
+export default connect()(AddStoryScreen);
