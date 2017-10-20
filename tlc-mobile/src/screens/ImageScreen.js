@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Alert } from 'react-native';
 import {
   View,
   Text,
@@ -10,10 +12,12 @@ import {
 } from 'react-native';
 import { ImagePicker } from 'expo';
 import MyButton from '../components/Button/index'
+import {isEmpty} from '../util/validator';
+import StoryActions from '../actions/story';
 
 const backgroundImage = require('../images/image-background.jpg');
 
-export default class ImageScreen extends Component {
+class ImageScreen extends Component {
 
   state = {
     image: null,
@@ -34,19 +38,42 @@ export default class ImageScreen extends Component {
     headerRight:
       <Button
         title='Next'
-        onPress={() => { navigation.navigate('Details'); }}
+        onPress={() => navigation.state.params.nextHandler()}
         backgroundColor='rgba(0,0,0,0)'
         color='rgba(0,122,255,1)'
       />,
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
-  })
+  });
 
-  next = () => {
-    this.props.navigation.navigate('Details');
+  showError = (msg) => {
+    Alert.alert('Add Story', msg);
+    return false;
   };
 
+  componentDidMount() {
+    this.props.navigation.setParams({
+      nextHandler: this.next
+    });
+  }
+
+  next = () => {
+    const { image } = this.state;
+    const { dispatch } = this.props;
+
+    if (isEmpty(image)) {
+      this.showError('Please select image');
+      return;
+    }
+
+    dispatch(StoryActions.setThumbnail({
+      uri: image,
+      mimeType: 'image/jpeg'
+    }));
+
+    this.props.navigation.navigate('Details');
+  };
 
   render() {
     let { image } = this.state;
@@ -126,3 +153,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 });
+
+export default connect()(ImageScreen);

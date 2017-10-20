@@ -6,7 +6,6 @@ const StorySchema = new mongoose.Schema({
   creationDate: Date,
   lastUpdateDate: Date,
   thumbnail: {
-    _id: mongoose.Schema.Types.ObjectId,
     originalName: String,
     filename: String,
     url: String,

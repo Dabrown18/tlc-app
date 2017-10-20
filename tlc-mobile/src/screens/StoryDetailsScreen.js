@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
+  Alert,
   View,
   Text,
   StyleSheet,
@@ -7,15 +9,14 @@ import {
   Platform,
   TextInput
 } from 'react-native';
+import {isEmpty} from '../util/validator';
+import StoryActions from '../actions/story';
 
-export default class StoryDetailsScreen extends Component {
+class StoryDetailsScreen extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: '',
-    };
-  }
+  state = {
+    text: ''
+  };
 
   static navigationOptions = ({ navigation }) => ({
     headerStyle: {
@@ -32,14 +33,38 @@ export default class StoryDetailsScreen extends Component {
     headerRight:
       <Button
         title='Next'
-        onPress={() => { navigation.navigate('Submit'); }}
+        onPress={() => {  navigation.state.params.nextHandler(); }}
         backgroundColor='rgba(0,0,0,0)'
         color='rgba(0,122,255,1)'
       />,
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
-  })
+  });
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      nextHandler: this.next
+    });
+  }
+
+  showError = (msg) => {
+    Alert.alert('Add Story', msg);
+    return false;
+  };
+
+  next = () => {
+    const { text } = this.state;
+    const { dispatch } = this.props;
+
+    if (isEmpty(text)) {
+      this.showError('Please set the details');
+      return;
+    }
+
+    dispatch(StoryActions.setStoryDetails(text));
+    this.props.navigation.navigate('Submit');
+  };
 
   render() {
 
@@ -83,3 +108,5 @@ const styles = StyleSheet.create({
     borderRadius: 8
   }
 });
+
+export default connect()(StoryDetailsScreen);

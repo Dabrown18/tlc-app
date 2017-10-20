@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
+  Alert,
   View,
   Text,
   Button,
@@ -8,14 +10,12 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
+import Spinner from '../components/Spinner';
+import StoryActions from '../actions/story';
 
 const backgroundImage = require('../images/submit-background.png');
 
-export default class SubmitScreen extends Component {
-
-  submitting() {
-    console.log(this);
-  }
+class SubmitScreen extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerStyle: {
@@ -32,9 +32,22 @@ export default class SubmitScreen extends Component {
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
-  })
+  });
+
+  showError = (msg) => {
+    Alert.alert('Add Story', msg);
+    return false;
+  };
+
+  submit = () => {
+    const { dispatch, story } = this.props;
+    dispatch(StoryActions.addStory())
+      .then(() => this.props.navigation.navigate('Home'))
+      .catch(() => this.showError('Failed to add story! Please try again!'));
+  };
 
   render() {
+    const { story } = this.props;
 
     return (
 
@@ -48,9 +61,17 @@ export default class SubmitScreen extends Component {
               Proof read before submitting
             </Text>
 
+            <Text style={styles.textStyle}>
+              {story.story.details}
+            </Text>
+
+            <View style={styles.spinnerStyle}>
+              {story.status.isSaving && <Spinner size="small" />}
+            </View>
+
             <View style={styles.buttonContainer}>
 
-              <TouchableOpacity onPress={this.submitting.bind(this)}>
+              <TouchableOpacity onPress={this.submit}>
                 <Text style={styles.buttonText}>Submit</Text>
               </TouchableOpacity>
 
@@ -79,6 +100,11 @@ const styles = StyleSheet.create({
   },
   containerTwo: {
     flex: 3
+  },
+  spinnerStyle: {
+    margin: 20,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   buttonContainer: {
     alignSelf: 'stretch',
@@ -110,3 +136,9 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
+
+const mapStateToProps = (state) => ({
+  story: state.story
+});
+
+export default connect(mapStateToProps)(SubmitScreen);

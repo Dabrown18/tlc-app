@@ -39,7 +39,7 @@ export class AddStoryScreen extends Component {
   });
 
   showError = (msg) => {
-    Alert.alert('Registration', msg);
+    Alert.alert('Add Story', msg);
     return false;
   };
 

@@ -6,15 +6,14 @@ const initialState = Immutable({
   story: {
     title: '',
     category: '',
-    thumbnail: ''
+    thumbnail: '',
+    details: ''
   },
 
   status: {
     isSaving: false,
     error: false
-  },
-
-  step: 1
+  }
 });
 
 export default typeToReducer({
@@ -40,5 +39,56 @@ export default typeToReducer({
     });
   },
 
+  [StoryActions.SET_STORY_THUMBNAIL](state, action) {
+    const { thumbnail }  = action.payload;
+
+    return state.merge({
+      story: {
+        ...state.story,
+        thumbnail
+      }
+    });
+  },
+
+  [StoryActions.SET_STORY_DETAILS](state, action) {
+    const { details }  = action.payload;
+
+    return state.merge({
+      story: {
+        ...state.story,
+        details
+      }
+    });
+  },
+
+  [StoryActions.ADD_STORY]: {
+    PENDING(state) {
+      return state.merge({
+        status: {
+          isSaving: true,
+          error: false
+        }
+      });
+    },
+
+    REJECTED(state, action) {
+      const { error } = action.payload;
+      return state.merge({
+        status: {
+          isSaving: false,
+          error
+        },
+      });
+    },
+
+    FULFILLED(state, action) {
+      return state.merge({
+        status: {
+          isSaving: false
+        },
+        result: action.payload.story
+      });
+    }
+  }
 }, initialState);
 
