@@ -4,16 +4,23 @@ const SecurityService = require('./security-service');
 
 module.exports = {
 
-  async addStory(title, details, category, userId) {
+  async addStory(userId, title, details, category, location, originalName, mimeType, size) {
     const now = Date();
 
     return await models.story.create({
       title,
       details,
       category,
-      userId,
+      user: userId,
       creationDate: now,
-      lastUpdateDate: now
+      lastUpdateDate: now,
+      thumbnail: {
+        originalName,
+        mimeType,
+        url: location,
+        size,
+        uploadDate: now
+      }
     });
   },
 

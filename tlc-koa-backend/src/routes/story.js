@@ -9,6 +9,31 @@ const config = require('../../config');
 
 const s3 = new AWS.S3();
 
+const fields = [
+  { name: 'title', maxCount: 1 },
+  { name: 'details', maxCount: 1 },
+  { name: 'category', maxCount: 1 },
+  { name: 'thumbnail', maxCount: 1 }
+];
+
+const uploadMiddleware = multer({
+  storage: multerS3({
+    s3,
+    bucket: 'theladieschampion-dev',
+    acl: 'public-read',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    key: (req, file, cb) => {
+      console.log('file', file);
+      cb(null, `images/story/${uuid()}`);
+    }
+  }),
+
+  limits: {
+    fileSize: config.MAX_IMAGE_SIZE
+  }
+});
+
+
 async function getStory(ctx) {
   try {
     const { id } = ctx.params;
@@ -41,11 +66,15 @@ async function getStory(ctx) {
 
 async function addStory(ctx) {
   try {
-    console.log('addStory');
+    const { originalname, location, mimetype, size } = ctx.req.files['thumbnail'][0];
+    const { title, details, category } = ctx.req.body;
 
-    return ctx.ok({
-      status: 1
-    });
+    const result = await StoryService.addStory(ctx.user.id, title, details, category, location, originalname, mimetype, size);
+
+    ctx.ok({
+      status: 1,
+      result
+    })
   } catch( e ) {
     ctx.log.error('Error on addStory()', e);
     ctx.badRequest({
@@ -57,7 +86,7 @@ async function addStory(ctx) {
 
 router
   .get('/stories/:id', getStory)
-  .post('/stories', addStory);
+  .post('/stories', uploadMiddleware.fields(fields), addStory);
 
 
 module.exports = router;
