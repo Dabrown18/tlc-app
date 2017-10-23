@@ -237,7 +237,7 @@ async function getUserStories(ctx) {
 
     if (!StoryService.canUserViewOtherUserStories(ctx.user.id, id)) {
       return ctx.unauthorized({
-        error: 'You do can view the given user stories'
+        error: 'You cannot view the given user stories'
       });
     }
 

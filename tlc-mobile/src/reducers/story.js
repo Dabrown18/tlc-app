@@ -10,8 +10,11 @@ const initialState = Immutable({
     details: ''
   },
 
+  listing: [],
+
   status: {
     isSaving: false,
+    isLoadingStories: false,
     error: false
   }
 });
@@ -85,6 +88,38 @@ export default typeToReducer({
       return state.merge({
         status: {
           isSaving: false
+        },
+        result: action.payload.story
+      });
+    }
+  },
+
+  [StoryActions.GET_USER_STORIES]: {
+    PENDING(state) {
+      return state.merge({
+        status: {
+          isLoadingStories: true,
+          error: false
+        }
+      });
+    },
+
+    REJECTED(state, action) {
+      const { error } = action.payload;
+      return state.merge({
+        status: {
+          isLoadingStories: false,
+          error
+        },
+      });
+    },
+
+    FULFILLED(state, action) {
+      return state.merge({
+        listing: action.payload.stories,
+        status: {
+          isLoadingStories: false,
+          error: false
         },
         result: action.payload.story
       });

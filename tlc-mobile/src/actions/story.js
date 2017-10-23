@@ -6,6 +6,7 @@ export const SET_STORY_CATEGORY = 'SET_STORY_CATEGORY';
 export const SET_STORY_THUMBNAIL = 'SET_STORY_THUMBNAIL';
 export const SET_STORY_DETAILS = 'SET_STORY_DETAILS';
 export const ADD_STORY = 'ADD_STORY';
+export const GET_USER_STORIES = 'GET_USER_STORIES';
 
 export default {
 
@@ -61,6 +62,23 @@ export default {
 
           return dispatch({
             type: ADD_STORY,
+            payload
+          });
+        });
+    }
+  },
+
+  getStories() {
+    return dispatch => {
+      return AsyncStorage.multiGet(['authToken', 'userId'])
+        .then(result => {
+          const authToken = result[0][1];
+          const userId = result[1][1];
+
+          const payload = Api.get(`/users/${userId}/stories`, authToken);
+
+          return dispatch({
+            type: GET_USER_STORIES,
             payload
           });
         });
