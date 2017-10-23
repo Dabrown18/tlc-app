@@ -31,12 +31,12 @@ export default class NewsItem extends Component {
   render() {
     const {
       style,
-      imageUrl,
+      category,
+      thumbnail,
       title,
-      author,
-      date,
+      details,
+      creationDate,
       location,
-      description,
       onPress
     } = this.props;
     const accentColor = globalStyles.ACCENT_COLORS[
@@ -50,7 +50,10 @@ export default class NewsItem extends Component {
       >
         <Card>
           <Thumbnail
-            url={imageUrl}
+            url={thumbnail.url}
+            category={category}
+            details={details}
+            creationDate={creationDate}
             titleText={title}
             accentColor={accentColor}
             style={styles.thumbnail}
