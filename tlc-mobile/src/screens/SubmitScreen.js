@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Spinner from '../components/Spinner';
 import StoryActions from '../actions/story';
+import { NavigationActions } from 'react-navigation'
 
 const backgroundImage = require('../images/submit-background.png');
 
@@ -42,7 +43,21 @@ class SubmitScreen extends Component {
   submit = () => {
     const { dispatch, story } = this.props;
     dispatch(StoryActions.addStory())
-      .then(() => this.props.navigation.navigate('Home'))
+      .then(() => {
+        dispatch(StoryActions.getStories());
+
+        const resetAction = NavigationActions.reset({
+          index: 0,
+          key: null,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Story'})
+          ]
+        });
+
+        this.props.navigation.dispatch(resetAction);
+
+        this.props.navigation.navigate('Home')
+      })
       .catch(() => this.showError('Failed to add story! Please try again!'));
   };
 
