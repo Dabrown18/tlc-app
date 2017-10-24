@@ -71,7 +71,10 @@ export default typeToReducer({
     const { story }  = action.payload;
 
     return state.merge({
-      selectedStory: story
+      selectedStory: {
+        ...story,
+        comments: story.comments || []
+      }
     });
   },
 

@@ -23,7 +23,7 @@ export default class CommentsView extends Component {
     const { story } = this.props;
 
     return <View style={styles.container}>
-      { story.comments.map(this.renderComment) }
+      { story.comments && story.comments.length > 0 && story.comments.map(this.renderComment) }
     </View>
   }
 }
