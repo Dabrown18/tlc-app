@@ -23,7 +23,7 @@ export default class App extends Component {
     headerLeft:
       <Button
         title='Back'
-        onPress={() => { navigation.navigate('Story'); }}
+        onPress={() => { navigation.navigate('Home'); }}
         backgroundColor='rgba(0,0,0,0)'
         color='rgba(0,122,255,1)'
       />,
