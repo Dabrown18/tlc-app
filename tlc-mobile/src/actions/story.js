@@ -7,6 +7,8 @@ export const SET_STORY_THUMBNAIL = 'SET_STORY_THUMBNAIL';
 export const SET_STORY_DETAILS = 'SET_STORY_DETAILS';
 export const ADD_STORY = 'ADD_STORY';
 export const GET_USER_STORIES = 'GET_USER_STORIES';
+export const ADD_STORY_COMMENT = 'ADD_STORY_COMMENT';
+export const SELECT_STORY = 'SELECT_STORY';
 
 export default {
 
@@ -83,5 +85,28 @@ export default {
           });
         });
     }
+  },
+
+  addComment(storyId, text) {
+    return dispatch => {
+      return AsyncStorage.multiGet(['authToken', 'userId'])
+        .then(result => {
+          const authToken = result[0][1];
+
+          const payload = Api.post(`/stories/${storyId}/comments`, { text }, authToken);
+
+          return dispatch({
+            type: ADD_STORY_COMMENT,
+            payload
+          });
+        });
+    }
+  },
+
+  selectStory(story) {
+    return {
+      type: SELECT_STORY,
+      payload: { story }
+    };
   }
 }

@@ -12,8 +12,11 @@ const initialState = Immutable({
 
   listing: [],
 
+  selectedStory: null,
+
   status: {
     isSaving: false,
+    isAddingComment: false,
     isLoadingStories: false,
     error: false
   }
@@ -61,6 +64,14 @@ export default typeToReducer({
         ...state.story,
         details
       }
+    });
+  },
+
+  [StoryActions.SELECT_STORY](state, action) {
+    const { story }  = action.payload;
+
+    return state.merge({
+      selectedStory: story
     });
   },
 
@@ -124,6 +135,43 @@ export default typeToReducer({
         result: action.payload.story
       });
     }
+  },
+
+  [StoryActions.ADD_STORY_COMMENT]: {
+    PENDING(state) {
+      return state.merge({
+        status: {
+          ...state.status,
+          isAddingComment: true
+        }
+      });
+    },
+
+    REJECTED(state) {
+      return state.merge({
+        status: {
+          ...state.status,
+          isAddingComment: false
+        }
+      });
+    },
+
+    FULFILLED(state, action) {
+      const { comment } = action.payload;
+
+      return state.merge({
+        selectedStory: {
+          ...state.selectedStory,
+          comments: state.selectedStory.comments.concat({
+            ...comment,
+            author: {
+              username: state.selectedStory.user.username
+            }
+          })
+        }
+      });
+    },
+
   }
 }, initialState);
 

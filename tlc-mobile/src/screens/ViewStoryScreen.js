@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   Platform,
   Button,
@@ -10,10 +11,13 @@ import {
 } from 'react-native';
 
 import Reactions from '../reactions';
+import CommentForm from '../components/Story/CommentForm';
+import StoryActions from '../actions/story';
+import CommentsView from '../components/Story/CommentsView';
 
 const photo = require('../reactions/images/marriedCouple.jpg');
 
-export default class App extends Component {
+export class ViewStoryScreen extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerStyle: {
@@ -32,8 +36,17 @@ export default class App extends Component {
     }
   });
 
+  addComment = (text) => {
+    const { story } = this.props;
+    const { dispatch } = this.props;
+
+    return dispatch(StoryActions.addComment(story._id, text));
+  };
+
   render() {
-    const { story } = this.props.navigation.state.params;
+    const { story } = this.props;
+
+    console.log('story', story);
 
     return (
       <View style={styles.container}>
@@ -67,10 +80,13 @@ export default class App extends Component {
 
             <Reactions />
 
+            <CommentsView story={story} />
+
             <View style={styles.commentContainer}>
               <Text style={styles.commentText}>
-                COMMENTS
+                Offer Your Thoughts
               </Text>
+              <CommentForm onPost={this.addComment} />
             </View>
 
           </View>
@@ -82,6 +98,12 @@ export default class App extends Component {
     );
   }
 }
+
+const mapStateTopProps = (state) => ({
+  story: state.story.selectedStory
+});
+
+export default connect(mapStateTopProps)(ViewStoryScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -130,14 +152,14 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   commentContainer: {
-    padding: 1,
+    padding: 10,
     margin: 5,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(189, 195, 199,1.0)',
     borderRadius: 8
   },
   commentText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#89b2e0'
+    fontSize: 16,
+    marginBottom: 15,
+    color: '#fff'
   }
 });

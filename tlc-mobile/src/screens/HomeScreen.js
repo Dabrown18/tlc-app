@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   StyleSheet
@@ -6,12 +7,15 @@ import {
 
 import Header from '../components/Header';
 import ShowStory from '../components/feed/ShowStory';
+import StoryActions from '../actions/story';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
 
   onViewStory = (story) => {
-    console.log(story);
-    this.props.navigation.navigate('View', {story});
+    const { dispatch } = this.props;
+
+    dispatch(StoryActions.selectStory(story));
+    this.props.navigation.navigate('View');
   };
 
   render() {
@@ -29,7 +33,10 @@ export default class HomeScreen extends Component {
       </View>
     );
   }
+
 }
+
+export default connect()(HomeScreen);
 
 const styles = StyleSheet.create({
   section: {
