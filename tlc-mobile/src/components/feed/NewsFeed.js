@@ -80,7 +80,7 @@ class NewsFeed extends Component {
     const index = parseInt(rest[1], 10);
     return (
       <NewsItem
-        onPress={() => this.onModalOpen(rowData.url)}
+        onPress={() => this.props.onViewStory(rowData)}
         style={styles.newsItem}
         index={index}
         {...rowData}
@@ -116,7 +116,8 @@ class NewsFeed extends Component {
 
 NewsFeed.propTypes = {
   news: PropTypes.arrayOf(PropTypes.object),
-  listStyles: View.propTypes.style
+  listStyles: View.propTypes.style,
+  onViewStory: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

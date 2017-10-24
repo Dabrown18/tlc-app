@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { 
-  View, 
+import {
+  Platform,
+  Button,
+  View,
   Text, 
   StyleSheet, 
   Image, 
@@ -12,18 +14,38 @@ import Reactions from '../reactions';
 const photo = require('../reactions/images/marriedCouple.jpg');
 
 export default class App extends Component {
+
+  static navigationOptions = ({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: '#faf8ec'
+    },
+    title: 'Story Details',
+    headerLeft:
+      <Button
+        title='Back'
+        onPress={() => { navigation.navigate('Story'); }}
+        backgroundColor='rgba(0,0,0,0)'
+        color='rgba(0,122,255,1)'
+      />,
+    style: {
+      marginTop: Platform.OS === 'android' ? 24 : 0
+    }
+  });
+
   render() {
+    const { story } = this.props.navigation.state.params;
+
     return (
       <View style={styles.container}>
 
         <ScrollView>
 
           <View style={styles.imageContainer}>
-            <Image source={photo} style={styles.photoStyle}/>
+            <Image source={{ uri: story.thumbnail.url}} style={styles.photoStyle}/>
           </View>
 
           <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>When The Water Runs Dry</Text>
+            <Text style={styles.titleText}>{story.title}</Text>
           </View>
 
           <View style={styles.usernameContainer}>
@@ -41,24 +63,7 @@ export default class App extends Component {
           </View>
 
           <View>
-            <Text style={styles.detailText}>
-              "My wife and I dated 7 years before got married. The 10th year anniversary 
-              is coming up next month. In total, we know each other for 17 years. We have two 
-              children 4 and 6. I think we just don’t like each other anymore. She criticized 
-              everything I did and I do the same to her — even small things like cleaning the 
-              dishes, putting clothes away, etc. We fought (verbally) often (3-5 times a week) 
-              on small things. From what I can tell, these small things are just symptoms of 
-              bigger problems.
-
-              The passion and love between us appear to be dead for a few years. I confronted 
-              her a few days ago asking her what she thinks the problems are: she told me 
-              because the little things bug her: not hanging the coats in the closet, not 
-              cleaning the washroom, not cleaning the floor, etc. To be honest, I do most of 
-              the cooking, dishes, laundry, etc. The only thing I don’t do in the house is 
-              clean the washroom (seldom) and sweep/mop the floor. I don’t think these are 
-              the problems. We had a cleaner for a year or so but it did not work out. We’re 
-              in the process of hiring another cleaner."
-            </Text>
+            <Text style={styles.detailText}>{story.details}</Text>
 
             <Reactions />
 

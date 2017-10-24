@@ -59,7 +59,10 @@ export const MainNavigator = TabNavigator({
         },
       },
       Home: {
-        screen: HomeScreen,
+        screen: StackNavigator({
+            Home: { screen: HomeScreen },
+            View: { screen: ViewStoryScreen }
+        }),
         navigationOptions: {
           tabBarLabel: 'Home',
           tabBarIcon: ({ tintColor }) => <Icon name="home" size={35} color={tintColor} />,

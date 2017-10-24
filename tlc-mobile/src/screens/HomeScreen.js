@@ -8,6 +8,12 @@ import Header from '../components/Header';
 import ShowStory from '../components/feed/ShowStory';
 
 export default class HomeScreen extends Component {
+
+  onViewStory = (story) => {
+    console.log(story);
+    this.props.navigation.navigate('View', {story});
+  };
+
   render() {
     return (
       <View style={styles.section}>
@@ -17,7 +23,7 @@ export default class HomeScreen extends Component {
         </View>
 
         <View style={styles.contentSection}>
-          <ShowStory />
+          <ShowStory onViewStory={this.onViewStory} />
         </View>
 
       </View>

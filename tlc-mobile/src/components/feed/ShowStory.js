@@ -17,6 +17,7 @@ export default class ShowStory extends Component {
     return (
       <View style={styles.container}>
         <NewsFeed
+          onViewStory={this.props.onViewStory}
           selected={this.state.tab === 'newsFeed'}
           onPress={() => this.setState({ tab: 'newsFeed' })}
         />
