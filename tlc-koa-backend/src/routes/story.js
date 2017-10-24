@@ -83,10 +83,43 @@ async function addStory(ctx) {
   }
 }
 
+async function addComment(ctx) {
+  try {
+    const { id } = ctx.params;
+    const { text } = ctx.request.body;
+
+    const story = await StoryService.getById(id);
+    if (!story) {
+      return ctx.notFound({
+        error: 'Story not found'
+      });
+    }
+
+    if (!text || text.length === 0) {
+      return ctx.notFound({
+        error: 'Comment text should not be empty'
+      });
+    }
+
+    const comment = await StoryService.addComment(id, ctx.user.id, text);
+
+    ctx.ok({
+      status: 1,
+      storyId: id,
+      comment
+    });
+  } catch( e ) {
+    ctx.log.error('Error on addComment()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
 
 router
   .get('/stories/:id', getStory)
-  .post('/stories', uploadMiddleware.fields(fields), addStory);
+  .post('/stories', uploadMiddleware.fields(fields), addStory)
+  .post('/stories/:id/comments', addComment);
 
 
 module.exports = router;

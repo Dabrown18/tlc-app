@@ -49,7 +49,7 @@ module.exports = {
           url: location
         }
       }
-    })
+    });
   },
 
   async getProfilePictureData(id) {
@@ -87,7 +87,39 @@ module.exports = {
     return storyJson;
   },
 
+  /**
+   *
+   * @param userId
+   * @returns {Query|Document}
+   */
   getUserStories(userId) {
-    return models.story.find({ user: userId });
+    return models.story.find({ user: userId })
+      .populate('user')
+      .populate('comments.author');
+  },
+
+  /**
+   *
+   * @param storyId
+   * @param userId
+   * @param text
+   * @returns {Promise}
+   */
+  async addComment(storyId, userId, text) {
+    const commentId = mongoose.Types.ObjectId();
+    const newComment = {
+      _id: commentId,
+      author: userId,
+      text,
+      creationDate: new Date()
+    };
+
+    await models.story.update({ _id: storyId }, {
+      $push: {
+        comments: newComment
+      }
+    });
+
+    return newComment;
   }
 };

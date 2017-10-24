@@ -17,7 +17,18 @@ const StorySchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
-  }
+  },
+  comments: [
+    {
+      _id:  mongoose.Schema.Types.ObjectId,
+      creationDate: Date,
+      text: String,
+      author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
+    }
+  ]
 });
 
 module.exports = mongoose.model('Story', StorySchema);
