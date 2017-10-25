@@ -163,6 +163,10 @@ export default typeToReducer({
       const { comment } = action.payload;
 
       return state.merge({
+        status: {
+          ...state.status,
+          isAddingComment: false
+        },
         selectedStory: {
           ...state.selectedStory,
           comments: state.selectedStory.comments.concat({

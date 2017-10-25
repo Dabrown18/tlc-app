@@ -6,6 +6,7 @@ import {
   TextInput
 } from 'react-native';
 import MyButton from '../../components/Button/index';
+import Spinner from '../Spinner';
 
 export default class CommentForm extends Component {
 
@@ -29,6 +30,7 @@ export default class CommentForm extends Component {
         value={this.state.text}
         onChangeText={text => this.setState({ text })}
       />
+      {this.props.isAddingComment && <Spinner size="small"/>}
       <MyButton
         info
         style={styles.btn}

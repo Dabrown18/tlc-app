@@ -86,7 +86,7 @@ export class ViewStoryScreen extends Component {
               <Text style={styles.commentText}>
                 Offer Your Thoughts
               </Text>
-              <CommentForm onPost={this.addComment} />
+              <CommentForm onPost={this.addComment} isAddingComment={this.props.isAddingComment} />
             </View>
 
           </View>
@@ -100,7 +100,8 @@ export class ViewStoryScreen extends Component {
 }
 
 const mapStateTopProps = (state) => ({
-  story: state.story.selectedStory
+  story: state.story.selectedStory,
+  isAddingComment: state.story.status.isAddingComment
 });
 
 export default connect(mapStateTopProps)(ViewStoryScreen);
