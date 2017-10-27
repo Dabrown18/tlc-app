@@ -61,17 +61,17 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
-    icon: {
-      tintColor: '#d6d3c5',
-      height: 30,
-      width: 30,
-    },
-    selected: {
-      tintColor: '#88b0d3',
-    },
-    counter: {
-      color: '#000',
-      fontSize: 15,
-      marginTop: 5,
-    }
+  icon: {
+    tintColor: '#d6d3c5',
+    height: 30,
+    width: 30,
+  },
+  selected: {
+    tintColor: '#88b0d3',
+  },
+  counter: {
+    color: '#000',
+    fontSize: 15,
+    marginTop: 5,
+  }
 });

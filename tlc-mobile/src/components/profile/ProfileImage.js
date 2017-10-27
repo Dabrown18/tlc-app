@@ -63,7 +63,7 @@ export default connect()(ProfileImage);
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-    	height: null,
-    	width: null,
+  	height: null,
+  	width: null,
 	}
 });
