@@ -105,5 +105,31 @@ module.exports = {
 
   async getProfilePictureData(userId) {
     return models.user.findOne({ _id: userId }, { _id: 1, profilePicture: 1 });
+  },
+
+  async followUser(userId, toBeFollowedUserId) {
+    return models.user.update({ _id: userId }, {
+      $push: { following: toBeFollowedUserId },
+      $inc: { followingCount: 1 }
+    });
+  },
+
+  async unFollowUser(userId, toBeUnfollowedUserId) {
+    return models.user.update({ _id: userId }, {
+      $pull: { following: toBeUnfollowedUserId },
+      $dec: { followingCount: 1 }
+    });
+  },
+
+  async isUserFollowing(userId, targetUserId) {
+
+  },
+
+  async getNumFollowers(userId) {
+
+  },
+
+  async getNumFollowing(userId) {
+
   }
 };
