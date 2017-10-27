@@ -121,5 +121,52 @@ module.exports = {
     });
 
     return newComment;
+  },
+
+  async removeComment(storyId, commentId) {
+    return models.story.update({ _id: storyId }, {
+      $pull: {
+        comments: {
+          _id: commentId
+        }
+      }
+    });
+  },
+
+  async getFeed(user) {
+    const projectSpec = {
+      isFollowingCategory: { $in: ['$category', user.categories] },
+      isFollowingUser: { $in: ['$user', user.following] },
+      creationDate: 1,
+      title: 1,
+      category: 1,
+      details: 1,
+      thumbnail: 1,
+      user: 1,
+    };
+
+    const sortSpec = {
+      isFollowingUser: -1,
+      creationDate: -1,
+      isFollowingCategory: -1
+    };
+
+    return models.story.aggregate([
+        { $project: projectSpec },
+        { $sort: sortSpec },
+        { $lookup: {
+          from: "users",
+          localField: "user",
+          foreignField: "_id",
+          as: "user"
+        }},
+        { $lookup: {
+          from: "users",
+          localField: "comments.author",
+          foreignField: "_id",
+          as: "comments."
+        }},
+        { $unwind: '$user' }
+    ]);
   }
 };
