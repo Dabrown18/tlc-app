@@ -75,6 +75,7 @@ class StoryDetailsScreen extends Component {
 
           <TextInput
             style={styles.input}
+            multiline
             onChangeText={text => this.setState({ text })}
           />
 

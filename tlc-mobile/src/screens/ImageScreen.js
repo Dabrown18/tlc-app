@@ -77,6 +77,7 @@ class ImageScreen extends Component {
 
   render() {
     let { image } = this.state;
+    const btnText = image ? 'Change Selected Image' : 'Select an Image';
 
     return (
       <View style={styles.container}>
@@ -88,12 +89,12 @@ class ImageScreen extends Component {
             style={styles.btn}
             onPress={this._pickImage}
           >
-            <Text style={styles.btnText}>Select an Image</Text>
+            <Text style={styles.btnText}>{btnText}</Text>
           </MyButton>
+          <View style={styles.imageContainer}>
+            {image && <Image source={{ uri: image }} style={styles.image} />}
+          </View>
         </Image>
-          {image &&
-            <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-        
       </View>
     );
   }
@@ -124,11 +125,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: 40
   },
-  image: {
-    width: 300,
-    height: 225,
-    alignItems: 'flex-start',
+  imageContainer: {
+    alignItems: 'center',
     justifyContent: 'center'
+  },
+  image: {
+    width: 200,
+    height: 200,
   },
   button: {
     marginTop: 10,

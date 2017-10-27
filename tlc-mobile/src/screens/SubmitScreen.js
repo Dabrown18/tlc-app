@@ -72,13 +72,13 @@ class SubmitScreen extends Component {
 
           <View style={styles.containerTwo}>
 
-            <Text style={styles.textStyle}>
-              Proof read before submitting
-            </Text>
+            {/*<Text style={styles.textStyle}>*/}
+              {/*Proof read before submitting*/}
+            {/*</Text>*/}
 
-            <Text style={styles.textStyle}>
-              {story.story.details}
-            </Text>
+            {/*<Text style={styles.textStyle}>*/}
+              {/*{story.story.details}*/}
+            {/*</Text>*/}
 
             <View style={styles.spinnerStyle}>
               {story.status.isSaving && <Spinner size="small" />}

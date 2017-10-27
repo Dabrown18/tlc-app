@@ -65,10 +65,23 @@ class CategoryScreen extends Component {
         backgroundColor='rgba(0,0,0,0)'
         color='rgba(0,122,255,1)'
       />,
+    headerRight:
+      <Button
+        title='Next'
+        onPress={() => navigation.state.params.nextHandler()}
+        backgroundColor='rgba(0,0,0,0)'
+        color='rgba(0,122,255,1)'
+      />,
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
   });
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      nextHandler: this.next
+    });
+  }
 
   next = () => {
     const { dispatch } = this.props;
