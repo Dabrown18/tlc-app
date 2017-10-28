@@ -34,7 +34,12 @@ const UserSchema = new mongoose.Schema({
     mimeType: String,
     size: Number
   },
-  categories: [String]
+  categories: [String],
+  followingCount: [Number],
+  following: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }]
 });
 
 module.exports = mongoose.model('User', UserSchema);

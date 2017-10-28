@@ -143,6 +143,7 @@ module.exports = {
       details: 1,
       thumbnail: 1,
       user: 1,
+      comments: 1
     };
 
     const sortSpec = {
@@ -160,13 +161,27 @@ module.exports = {
           foreignField: "_id",
           as: "user"
         }},
+        { $unwind: '$user' },
+        { $unwind: '$comments' },
         { $lookup: {
           from: "users",
           localField: "comments.author",
           foreignField: "_id",
-          as: "comments."
+          as: "comments.author"
         }},
-        { $unwind: '$user' }
+        {
+          $group: {
+            _id: '$_id',
+            title: { $first: '$title' },
+            category: { $first: '$category' },
+            details: { $first: '$details' },
+            thumbnail: { $first: '$thumbnail' },
+            creationDate: { $first: '$creationDate' },
+            isFollowingUser: { $first: '$isFollowingUser' },
+            isFollowingCategory: { $first: '$isFollowingCategory' },
+            comments: { $push: '$comments' }
+          }
+        }
     ]);
   }
 };
