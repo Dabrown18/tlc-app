@@ -183,7 +183,8 @@ module.exports = {
             creationDate: { $first: '$creationDate' },
             isFollowingUser: { $first: '$isFollowingUser' },
             isFollowingCategory: { $first: '$isFollowingCategory' },
-            comments: { $push: '$comments' }
+            user: { $first: '$user' },
+            comments: { $push: '$comments' },
           }
         },
         { $sort: sortSpec }
