@@ -13,17 +13,24 @@ export default class CommentsView extends Component {
       <View style={styles.comment}>
         <View><Text style={styles.text}>{comment.text}</Text></View>
         <View>
-          <Text style={styles.text}>{comment.author.username} - {moment(comment.creationDate).fromNow()}</Text>
+          <Text style={styles.text}>{comment.author[0].username} - {moment(comment.creationDate).fromNow()}</Text>
         </View>
       </View>
     );
+  };
+
+  hasComments = () => {
+    const { story } = this.props;
+
+    return !(!story.comments || story.comments.length === 0 ||
+      (story.comments.length === 1 && story.comments[0].author.length === 0))
   };
 
   render() {
     const { story } = this.props;
 
     return <View style={styles.container}>
-      { story.comments && story.comments.length > 0 && story.comments.map(this.renderComment) }
+      { this.hasComments() && story.comments.length > 0 && story.comments.map(this.renderComment) }
     </View>
   }
 }
