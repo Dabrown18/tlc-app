@@ -203,9 +203,9 @@ export default typeToReducer({
           ...state.selectedStory,
           comments: state.selectedStory.comments.concat({
             ...comment,
-            author: {
+            author: [{
               username: state.selectedStory.user.username
-            }
+            }]
           })
         }
       });
