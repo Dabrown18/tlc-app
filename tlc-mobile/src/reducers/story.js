@@ -140,6 +140,38 @@ export default typeToReducer({
     }
   },
 
+  [StoryActions.GET_FEED]: {
+    PENDING(state) {
+      return state.merge({
+        status: {
+          isLoadingStories: true,
+          error: false
+        }
+      });
+    },
+
+    REJECTED(state, action) {
+      const { error } = action.payload;
+      return state.merge({
+        status: {
+          isLoadingStories: false,
+          error
+        },
+      });
+    },
+
+    FULFILLED(state, action) {
+      return state.merge({
+        listing: action.payload.feed,
+        status: {
+          isLoadingStories: false,
+          error: false
+        },
+        result: action.payload.story
+      });
+    }
+  },
+
   [StoryActions.ADD_STORY_COMMENT]: {
     PENDING(state) {
       return state.merge({

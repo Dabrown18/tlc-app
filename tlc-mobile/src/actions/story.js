@@ -9,6 +9,7 @@ export const ADD_STORY = 'ADD_STORY';
 export const GET_USER_STORIES = 'GET_USER_STORIES';
 export const ADD_STORY_COMMENT = 'ADD_STORY_COMMENT';
 export const SELECT_STORY = 'SELECT_STORY';
+export const GET_FEED = 'GET_FEED';
 
 export default {
 
@@ -70,7 +71,23 @@ export default {
     }
   },
 
-  getStories() {
+  getUserStories(userId) {
+    return dispatch => {
+      return AsyncStorage.multiGet(['authToken'])
+        .then(result => {
+          const authToken = result[0][1];
+
+          const payload = Api.get(`/users/${userId}/stories`, authToken);
+
+          return dispatch({
+            type: GET_USER_STORIES,
+            payload
+          });
+        });
+    }
+  },
+
+  getCurrentUserStories() {
     return dispatch => {
       return AsyncStorage.multiGet(['authToken', 'userId'])
         .then(result => {
@@ -81,6 +98,22 @@ export default {
 
           return dispatch({
             type: GET_USER_STORIES,
+            payload
+          });
+        });
+    }
+  },
+
+  getFeed() {
+    return dispatch => {
+      return AsyncStorage.multiGet(['authToken', 'userId'])
+        .then(result => {
+          const authToken = result[0][1];
+
+          const payload = Api.get('/feed', authToken);
+
+          return dispatch({
+            type: GET_FEED,
             payload
           });
         });

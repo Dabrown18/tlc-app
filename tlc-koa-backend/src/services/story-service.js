@@ -148,13 +148,12 @@ module.exports = {
 
     const sortSpec = {
       isFollowingUser: -1,
-      creationDate: -1,
-      isFollowingCategory: -1
+      isFollowingCategory: -1,
+      creationDate: -1
     };
 
     return models.story.aggregate([
         { $project: projectSpec },
-        { $sort: sortSpec },
         { $lookup: {
           from: "users",
           localField: "user",
@@ -162,7 +161,12 @@ module.exports = {
           as: "user"
         }},
         { $unwind: '$user' },
-        { $unwind: '$comments' },
+        { $unwind: 
+          {
+            path: "$comments",
+            preserveNullAndEmptyArrays: true          
+          } 
+        },
         { $lookup: {
           from: "users",
           localField: "comments.author",
@@ -181,7 +185,8 @@ module.exports = {
             isFollowingCategory: { $first: '$isFollowingCategory' },
             comments: { $push: '$comments' }
           }
-        }
+        },
+        { $sort: sortSpec }
     ]);
   }
 };

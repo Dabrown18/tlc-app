@@ -36,7 +36,7 @@ class NewsFeed extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
 
-    dispatch(StoryActions.getStories());
+    dispatch(StoryActions.getFeed());
   }
 
   onModalClose() {

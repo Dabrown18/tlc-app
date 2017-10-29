@@ -44,7 +44,7 @@ class SubmitScreen extends Component {
     const { dispatch, story } = this.props;
     dispatch(StoryActions.addStory())
       .then(() => {
-        dispatch(StoryActions.getStories());
+        dispatch(StoryActions.getFeed());
 
         const resetAction = NavigationActions.reset({
           index: 0,
