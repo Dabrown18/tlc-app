@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const models   = require('../models');
-const SecurityService = require('./security-service');
+const UserService = require('./user-service');
 
 module.exports = {
 
@@ -105,11 +105,11 @@ module.exports = {
    * @param text
    * @returns {Promise}
    */
-  async addComment(storyId, userId, text) {
+  async addComment(storyId, user, text) {
     const commentId = mongoose.Types.ObjectId();
     const newComment = {
       _id: commentId,
-      author: userId,
+      author: user.id,
       text,
       creationDate: new Date()
     };
@@ -120,7 +120,9 @@ module.exports = {
       }
     });
 
-    return newComment;
+    return Object.assign({}, newComment, {
+      author: [UserService.stripSensitiveInfo(user)]
+    });
   },
 
   async removeComment(storyId, commentId) {

@@ -5,6 +5,7 @@ const multer   = require('koa-multer');
 const multerS3 = require('multer-s3');
 const uuid     = require('uuid/v4');
 const StoryService = require('../services/story-service');
+const UserService = require('../services/user-service');
 const config = require('../../config');
 
 const s3 = new AWS.S3();
@@ -101,7 +102,10 @@ async function addComment(ctx) {
       });
     }
 
-    const comment = await StoryService.addComment(id, ctx.user.id, text);
+    const user = await UserService.getById(ctx.user.id);
+    const comment = await StoryService.addComment(id, user, text);
+
+    console.log('co', comment);
 
     ctx.ok({
       status: 1,
