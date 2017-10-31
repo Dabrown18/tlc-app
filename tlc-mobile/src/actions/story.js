@@ -136,10 +136,10 @@ export default {
     }
   },
 
-  selectStory(story) {
+  selectStory(story, userId) {
     return {
       type: SELECT_STORY,
-      payload: { story }
+      payload: { story, userId }
     };
   }
 }

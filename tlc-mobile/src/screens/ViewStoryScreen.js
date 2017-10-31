@@ -44,7 +44,7 @@ export class ViewStoryScreen extends Component {
   };
 
   render() {
-    const { story } = this.props;
+    const { story, userId } = this.props;
 
     console.log('story', story);
 
@@ -80,7 +80,7 @@ export class ViewStoryScreen extends Component {
 
             <Reactions />
 
-            <CommentsView story={story} />
+            <CommentsView story={story} userId={userId} />
 
             <View style={styles.commentContainer}>
               <Text style={styles.commentText}>
@@ -101,6 +101,7 @@ export class ViewStoryScreen extends Component {
 
 const mapStateTopProps = (state) => ({
   story: state.story.selectedStory,
+  userId: state.story.userId,
   isAddingComment: state.story.status.isAddingComment
 });
 

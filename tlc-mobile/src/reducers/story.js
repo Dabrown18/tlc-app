@@ -13,6 +13,7 @@ const initialState = Immutable({
   listing: [],
 
   selectedStory: null,
+  userId: null,
 
   status: {
     isSaving: false,
@@ -68,9 +69,10 @@ export default typeToReducer({
   },
 
   [StoryActions.SELECT_STORY](state, action) {
-    const { story }  = action.payload;
+    const { story, userId }  = action.payload;
 
     return state.merge({
+      userId,
       selectedStory: {
         ...story,
         comments: story.comments || []

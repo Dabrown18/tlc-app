@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+  AsyncStorage,
   View,
   StyleSheet
 } from 'react-native';
@@ -14,8 +15,11 @@ class HomeScreen extends Component {
   onViewStory = (story) => {
     const { dispatch } = this.props;
 
-    dispatch(StoryActions.selectStory(story));
-    this.props.navigation.navigate('View');
+    AsyncStorage.getItem('userId')
+      .then(userId => {
+        dispatch(StoryActions.selectStory(story, userId));
+        this.props.navigation.navigate('View');
+      });
   };
 
   render() {
