@@ -120,10 +120,36 @@ async function addComment(ctx) {
   }
 }
 
+async function deleteComment(ctx) {
+  try {
+    const { storyId, commentId } = ctx.params;
+
+    const story = await StoryService.getById(storyId);
+
+    if (!StoryService.canUserDeleteComment(ctx.user.id, story, commentId)) {
+      return ctx.unauthorized({
+        error: 'User cannot delete the comment'
+      });
+    }
+
+    await StoryService.removeComment(storyId, commentId);
+
+    ctx.ok({
+      status: 1
+    });
+  } catch( e ) {
+    ctx.log.error('Error on removeComment()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
 router
   .get('/stories/:id', getStory)
   .post('/stories', uploadMiddleware.fields(fields), addStory)
-  .post('/stories/:id/comments', addComment);
+  .post('/stories/:id/comments', addComment)
+  .delete('/stories/:storyId/comments/:commentId', deleteComment);
 
 
 module.exports = router;

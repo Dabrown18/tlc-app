@@ -18,11 +18,15 @@
     "koa-respond": "^1.0.1",
     "koa-router": "^7.2.1",
     "koa-send": "^4.1.0",
+    "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "mongoose": "^4.11.9",
     "multer-s3": "^2.7.0",
     "sendgrid": "^5.2.3",
     "uid-safe": "^2.1.5",
     "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }

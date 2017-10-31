@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const mongoose = require('mongoose');
 const models   = require('../models');
 const UserService = require('./user-service');
@@ -191,5 +192,9 @@ module.exports = {
         },
         { $sort: sortSpec }
     ]);
+  },
+
+  async canUserDeleteComment(userId, story, commentId) {
+    return _.some(story.comments, c => c._id === commentId && c.author === userId);
   }
 };
