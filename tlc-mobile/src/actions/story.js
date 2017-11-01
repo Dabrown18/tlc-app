@@ -6,6 +6,7 @@ export const SET_STORY_CATEGORY = 'SET_STORY_CATEGORY';
 export const SET_STORY_THUMBNAIL = 'SET_STORY_THUMBNAIL';
 export const SET_STORY_DETAILS = 'SET_STORY_DETAILS';
 export const ADD_STORY = 'ADD_STORY';
+export const DELETE_STORY_COMMENT = 'DELETE_STORY_COMMENT';
 export const GET_USER_STORIES = 'GET_USER_STORIES';
 export const ADD_STORY_COMMENT = 'ADD_STORY_COMMENT';
 export const SELECT_STORY = 'SELECT_STORY';
@@ -141,5 +142,19 @@ export default {
       type: SELECT_STORY,
       payload: { story, userId }
     };
+  },
+
+  deleteComment(storyId, commentId) {
+    return dispatch => {
+      return AsyncStorage.getItem('authToken')
+        .then(authToken => {
+          const payload = Api.del(`/stories/${storyId}/comments/${commentId}` , authToken);
+
+          return dispatch({
+            type: DELETE_STORY_COMMENT,
+            payload
+          });
+        });
+    }
   }
 }

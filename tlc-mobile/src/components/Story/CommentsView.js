@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import {
   Alert,
@@ -7,8 +8,9 @@ import {
   Text,
   TouchableHighlight
 } from 'react-native';
+import StoryActions from '../../actions/story';
 
-export default class CommentsView extends Component {
+class CommentsView extends Component {
 
   renderComment = (comment) => {
     const canDelete = comment.author[0]._id === this.props.userId;
@@ -33,6 +35,12 @@ export default class CommentsView extends Component {
     ]);
   };
 
+  remove(comment) {
+    const { dispatch, story } = this.props;
+
+    dispatch(StoryActions.deleteComment(story._id, comment._id));
+  }
+
   hasComments = () => {
     const { story } = this.props;
 
@@ -48,6 +56,8 @@ export default class CommentsView extends Component {
     </View>
   }
 }
+
+export default connect()(CommentsView);
 
 const styles = StyleSheet.create({
   container: {

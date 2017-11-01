@@ -1,6 +1,7 @@
 import * as StoryActions from '../actions/story';
 import Immutable from 'seamless-immutable';
 import typeToReducer from 'type-to-reducer';
+import _ from 'lodash';
 
 const initialState = Immutable({
   story: {
@@ -12,7 +13,7 @@ const initialState = Immutable({
 
   listing: [],
 
-  selectedStory: null,
+  selectedStoryIndex: -1,
   userId: null,
 
   status: {
@@ -73,10 +74,7 @@ export default typeToReducer({
 
     return state.merge({
       userId,
-      selectedStory: {
-        ...story,
-        comments: story.comments || []
-      }
+      selectedStoryIndex: _.findIndex(state.listing, s => s._id === story._id)
     });
   },
 
@@ -201,10 +199,55 @@ export default typeToReducer({
           ...state.status,
           isAddingComment: false
         },
-        selectedStory: {
-          ...state.selectedStory,
-          comments: state.selectedStory.comments.concat(comment)
+        listing: state.listing.map(s => {
+          if (s._id === state.selectedStoryIndex) {
+            return {
+              ...s,
+              comments: s.comments.concat(comment)
+            }
+          }
+          return s;
+        })
+      });
+    },
+
+  },
+  [StoryActions.DELETE_STORY_COMMENT]: {
+    PENDING(state) {
+      return state.merge({
+        status: {
+          ...state.status,
+          isRemovingComment: true
         }
+      });
+    },
+
+    REJECTED(state) {
+      return state.merge({
+        status: {
+          ...state.status,
+          isRemovingComment: false
+        }
+      });
+    },
+
+    FULFILLED(state, action) {
+      const { storyId, commentId } = action.payload;
+
+      return state.merge({
+        status: {
+          ...state.status,
+          isRemovingComment: false
+        },
+        listing: state.listing.map(s => {
+          if (s._id === storyId) {
+            return {
+              ...s,
+              comments: s.comments.filter(c => c._id !== commentId)
+            }
+          }
+          return s;
+        })
       });
     },
 

@@ -99,11 +99,15 @@ export class ViewStoryScreen extends Component {
   }
 }
 
-const mapStateTopProps = (state) => ({
-  story: state.story.selectedStory,
-  userId: state.story.userId,
-  isAddingComment: state.story.status.isAddingComment
-});
+const mapStateTopProps = (state) => {
+  const { story } = state;
+  const { selectedStoryIndex } = story;
+  return {
+    story: selectedStoryIndex !== -1 ? story.listing[selectedStoryIndex] : null,
+    userId: story.userId,
+    isAddingComment: story.status.isAddingComment
+  }
+};
 
 export default connect(mapStateTopProps)(ViewStoryScreen);
 
