@@ -135,7 +135,9 @@ async function deleteComment(ctx) {
     await StoryService.removeComment(storyId, commentId);
 
     ctx.ok({
-      status: 1
+      status: 1,
+      storyId,
+      commentId
     });
   } catch( e ) {
     ctx.log.error('Error on removeComment()', e);
