@@ -192,22 +192,24 @@ export default typeToReducer({
     },
 
     FULFILLED(state, action) {
-      const { comment } = action.payload;
+      const { comment, storyId } = action.payload;
+
+      const listing = state.listing.map(s => {
+        if (s._id === storyId) {
+          return {
+            ...s,
+            comments: s.comments.concat(comment)
+          }
+        }
+        return s;
+      });
 
       return state.merge({
         status: {
           ...state.status,
           isAddingComment: false
         },
-        listing: state.listing.map(s => {
-          if (s._id === state.selectedStoryIndex) {
-            return {
-              ...s,
-              comments: s.comments.concat(comment)
-            }
-          }
-          return s;
-        })
+        listing
       });
     },
 
@@ -234,20 +236,22 @@ export default typeToReducer({
     FULFILLED(state, action) {
       const { storyId, commentId } = action.payload;
 
+      const listing = state.listing.map(s => {
+        if (s._id === storyId) {
+          return {
+            ...s,
+            comments: s.comments.filter(c => c._id !== commentId)
+          }
+        }
+        return s;
+      });
+
       return state.merge({
         status: {
           ...state.status,
           isRemovingComment: false
         },
-        listing: state.listing.map(s => {
-          if (s._id === storyId) {
-            return {
-              ...s,
-              comments: s.comments.filter(c => c._id !== commentId)
-            }
-          }
-          return s;
-        })
+        listing
       });
     },
 

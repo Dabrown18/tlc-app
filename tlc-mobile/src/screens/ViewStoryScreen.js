@@ -46,8 +46,6 @@ export class ViewStoryScreen extends Component {
   render() {
     const { story, userId } = this.props;
 
-    console.log('story', story);
-
     return (
       <View style={styles.container}>
 
