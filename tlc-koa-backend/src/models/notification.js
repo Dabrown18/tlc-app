@@ -8,6 +8,8 @@ const NotificationSchema = new mongoose.Schema({
     ref: "User"
   },
 
+  isRead: Boolean,
+
   // Currently can be user, story
   entity: String,
 

@@ -6,6 +6,7 @@ const multerS3 = require('multer-s3');
 const uuid     = require('uuid/v4');
 const StoryService = require('../services/story-service');
 const UserService = require('../services/user-service');
+const NotificationService = require('../services/notification-service');
 const config = require('../../config');
 
 const s3 = new AWS.S3();
@@ -70,11 +71,14 @@ async function addStory(ctx) {
     const { originalname, location, mimetype, size } = ctx.req.files['thumbnail'][0];
     const { title, details, category } = ctx.req.body;
 
-    const result = await StoryService.addStory(ctx.user.id, title, details, category, location, originalname, mimetype, size);
+    const story = await StoryService.addStory(ctx.user.id, title, details, category, location, originalname, mimetype, size);
+    const user = await UserService.getById(ctx.user.id);
+
+    await NotificationService.notifyNewStory(story, user);
 
     ctx.ok({
       status: 1,
-      result
+      result: story
     })
   } catch( e ) {
     ctx.log.error('Error on addStory()', e);
@@ -102,10 +106,10 @@ async function addComment(ctx) {
       });
     }
 
-    const user = await UserService.getById(ctx.user.id);
+    const user    = await UserService.getById(ctx.user.id);
     const comment = await StoryService.addComment(id, user, text);
 
-    console.log('co', comment);
+    await NotificationService.notifyNewComment(story, comment);
 
     ctx.ok({
       status: 1,
