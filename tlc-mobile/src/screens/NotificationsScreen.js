@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   Text,
@@ -8,42 +9,37 @@ import {
 } from 'react-native';
 
 import Header from '../components/Header';
+import NotificationActions from '../actions/notification';
 
-export default class NotificationsScreen extends Component {
-  state = {
-    array: [],
-    id: 0 
+class NotificationsScreen extends Component {
+
+  removeNotification(id) {
+    // let newArray = this.state.array.slice()
+    // const index = newArray.findIndex(item => item.id === id)
+    // if(index > -1) {
+    //   newArray.splice(index, 1)
+    // }
+    // LayoutAnimation.configureNext(LayoutAnimation.Presets.linear)
+    // this.setState({ array: newArray })
   }
 
-  addNotification() {
-    let newArray = this.state.array.slice()
-    const newId = this.state.id + 1
-    newArray.push({ id: newId })
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
-    this.setState({ array: newArray, id: newId })
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(NotificationActions.getUserNotifications());
   }
 
-  removeItem(id) {
-    let newArray = this.state.array.slice()
-    const index = newArray.findIndex(item => item.id === id)
-    if(index > -1) {
-      newArray.splice(index, 1)
-    }
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.linear)
-    this.setState({ array: newArray })
-  }
 
   render() {
-    const{array} = this.state
+    const { notification } = this.props;
 
-    const views = array.map((element, index) => {
+    const views = notification.listing.map(element => {
       return (
         <View key={element.id} style={styles.notification}>
-          <Text style={{ color: '#000', flex: 1, paddingLeft: 5}}>Hello {element.id}</Text>
-          <Text style={{ color: '#000', paddingRight: 5}} onPress={() => {this.removeItem(element.id)}}>X</Text>
+          <Text style={{ color: '#000', flex: 1, paddingLeft: 5}}>{element.title}</Text>
+          <Text style={{ color: '#000', paddingRight: 5}} onPress={() => {this.removeNotification(element._id)}}>X</Text>
         </View>
       )
-    })
+    });
 
     return (
       <View style={styles.section}>
@@ -52,19 +48,20 @@ export default class NotificationsScreen extends Component {
         </View>
         <View style={styles.contentSection}>
 
-          <Button title='Add' onPress={() => this.addNotification()}>
-            
-          </Button>
-
-          <View style={styles.container} >
-            {views}
-          </View>
-
+        <View style={styles.container} >
+          {views}
+        </View>
         </View>
       </View>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  notification: state.notification
+});
+
+export default connect(mapStateToProps)(NotificationsScreen);
 
 const styles = StyleSheet.create({
   section: {
