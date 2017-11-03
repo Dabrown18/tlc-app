@@ -87,5 +87,21 @@ module.exports = {
       NotificationConstants.ENTITY_USER,
       NotificationConstants.ACTION_FOLLOW,
       followerUser._id);
+  },
+
+  getById(id) {
+    return models.notification.findOne({ _id: id });
+  },
+
+  getUserNotifications(userId) {
+    return models.notification.find({ user: userId });
+  },
+
+  deleteNotification(id) {
+    return models.notification.remove({ _id: id });
+  },
+
+  markNotificationAsRead(notificationId) {
+    return models.notification.update({ _id: notificationId}, { $set: { isRead: true } });
   }
 };
