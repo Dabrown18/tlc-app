@@ -6,8 +6,9 @@ const NotificationConstants = require('../constants/notifications');
 
 module.exports = {
 
-  async addNotification(user, title, entity, actionType, refId) {
+  async addNotification(actionUser, user, title, entity, actionType, refId) {
     return models.notification.create({
+      actionUser,
       title,
       user,
       entity,
@@ -22,8 +23,10 @@ module.exports = {
     const { title, category } = story;
 
     let poster = await UserService.getById(story.user);
+    let actionUser = _.isObject(story.user) ? story.user._id : story.user;
 
-    return this.addNotification(user,
+    return this.addNotification(actionUser,
+      user,
       `${TextService.abbreviateText(title)} added in category ${category}, by ${poster.username}`,
       NotificationConstants.ENTITY_STORY,
       NotificationConstants.ACTION_ADD,
@@ -35,7 +38,8 @@ module.exports = {
     const { title } = story;
     const poster = _.isObject(story.user) ? story.user : (await UserService.getById(story.user));
 
-    return this.addNotification(user,
+    return this.addNotification(poster._id,
+      user,
       `New story: "${TextService.abbreviateText(title)}" added by ${poster.username}`,
       NotificationConstants.ENTITY_STORY,
       NotificationConstants.ACTION_ADD,
@@ -49,8 +53,10 @@ module.exports = {
 
     for (let i = 0; i < usersInterestedInCategory.length; i++) {
       const u = usersInterestedInCategory[i];
-      await this.notifyStoryInCategory(u, story);
-      notifiedUsersSoFar[u._id] = true;
+      if (u._id !== story.user) {
+        await this.notifyStoryInCategory(u, story);
+        notifiedUsersSoFar[u._id] = true;
+      }
     }
 
     const followingUsers = await models.user.find({ following: user._id });
@@ -71,7 +77,8 @@ module.exports = {
       const { username } = commentAuthor;
       const title = TextService.abbreviateText(story.title);
 
-      return this.addNotification(story.user,
+      return this.addNotification(commentAuthor._id,
+        story.user,
         `${username} posted a comment on ${title}`,
         NotificationConstants.ENTITY_COMMENT,
         NotificationConstants.ACTION_ADD,
@@ -82,7 +89,8 @@ module.exports = {
   },
 
   async notifyFollow(followerUser, followedUser) {
-    return this.addNotification(followedUser._id,
+    return this.addNotification(followerUser._id,
+      followedUser._id,
       `${followerUser.username} is following you`,
       NotificationConstants.ENTITY_USER,
       NotificationConstants.ACTION_FOLLOW,
@@ -94,7 +102,9 @@ module.exports = {
   },
 
   getUserNotifications(userId) {
-    return models.notification.find({ user: userId });
+    return models.notification.find({ user: userId })
+      .populate('user')
+      .populate('actionUser');
   },
 
   deleteNotification(id) {

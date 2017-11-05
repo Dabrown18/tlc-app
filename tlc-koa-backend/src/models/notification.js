@@ -3,7 +3,13 @@ const mongoose = require('mongoose');
 const NotificationSchema = new mongoose.Schema({
   title: String,
   creationDate: Date,
+
   user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+
+  actionUser: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
