@@ -151,11 +151,49 @@ async function deleteComment(ctx) {
   }
 }
 
+async function followStory(ctx) {
+  try {
+    const { storyId } = ctx.params;
+
+    await StoryService.followStory(ctx.user.id, storyId);
+
+    ctx.ok({
+      storyId,
+      status: 1
+    });
+  } catch( e ) {
+    ctx.log.error('Error on followStory()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
+async function unFollowStory(ctx) {
+  try {
+    const { storyId } = ctx.params;
+
+    await StoryService.unFollowStory(ctx.user.id, storyId);
+
+    ctx.ok({
+      storyId,
+      status: 1
+    });
+  } catch( e ) {
+    ctx.log.error('Error on followStory()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
 router
   .get('/stories/:id', getStory)
   .post('/stories', uploadMiddleware.fields(fields), addStory)
   .post('/stories/:id/comments', addComment)
-  .delete('/stories/:storyId/comments/:commentId', deleteComment);
+  .delete('/stories/:storyId/comments/:commentId', deleteComment)
+  .post('/stories/:storyId/followers', followStory)
+  .delete('/stories/:storyId/followers', unFollowStory);
 
 
 module.exports = router;

@@ -196,5 +196,22 @@ module.exports = {
 
   async canUserDeleteComment(userId, story, commentId) {
     return _.some(story.comments, c => c._id === commentId && c.author === userId);
-  }
+  },
+
+  async followStory(userId, storyId) {
+    return models.story.update({ _id: storyId }, { $push: {
+      followers: {
+        user: userId,
+        when: new Date()
+      }
+    }})
+  },
+
+  async unFollowStory(userId, storyId) {
+    return models.story.update({ _id: storyId }, { $pull: {
+      followers: {
+        user: userId
+      }
+    }});
+  },
 };

@@ -28,7 +28,15 @@ const StorySchema = new mongoose.Schema({
         ref: "User"
       }
     }
-  ]
+  ],
+  followers: [{
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+
+    when: Date
+  }]
 });
 
 module.exports = mongoose.model('Story', StorySchema);
