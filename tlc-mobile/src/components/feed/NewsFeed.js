@@ -132,7 +132,15 @@ const styles = StyleSheet.create({
     color: '#777'
   },
   newsItem: {
-    marginBottom: 20
+    marginBottom: 15,
+    marginLeft: 15,
+    marginRight: 15,
+    marginTop: 15,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: 'transparent',
+    backgroundColor: '#ccc',
+    overflow: 'hidden'
   },
   modalContent: {
     flex: 1,

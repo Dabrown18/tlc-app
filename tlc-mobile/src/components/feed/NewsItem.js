@@ -1,32 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    View,
-    TouchableOpacity,
-    StyleSheet,
-    ActionSheetIOS
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Text
 } from 'react-native';
-import Byline from './Byline';
-import AppText from './AppText';
-import Thumbnail from './Thumbnail';
-import Card from './Card';
-import * as globalStyles from './styles/global';
+import moment from 'moment';
 
 export default class NewsItem extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.onLongPress = this.onLongPress.bind(this);
-  }
-
-  onLongPress() {
-    ActionSheetIOS.showActionSheetWithOptions({
-      options: ['Bookmark', 'Cancel'],
-      cancelButtonIndex: 1,
-      title: this.props.title
-    }, buttonIndex => console.log('Button selected', buttonIndex));
-  }
 
   render() {
     const {
@@ -34,31 +17,27 @@ export default class NewsItem extends Component {
       category,
       thumbnail,
       title,
-      details,
-      creationDate,
-      location,
+      user,
       onPress
     } = this.props;
-    const accentColor = globalStyles.ACCENT_COLORS[
-      this.props.index % globalStyles.ACCENT_COLORS.length
-    ];
+
     return (
       <TouchableOpacity
         style={style}
         onLongPress={this.onLongPress}
         onPress={onPress}
       >
-        <Card>
-          <Thumbnail
-            url={thumbnail.url}
-            category={category}
-            details={details}
-            creationDate={creationDate}
-            titleText={title}
-            accentColor={accentColor}
-            style={styles.thumbnail}
-          />
-        </Card>
+        <View>
+          <Image source={{ uri: thumbnail.url }} style={styles.thumbnail}>
+            <Text style={styles.title}>{title}</Text>
+          </Image>
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>{moment().diff(user.birthDate, 'year')} year-old {user.gender} | {category}</Text>
+            <TouchableOpacity style={styles.bookmarkBtn}>
+              <Text style={styles.bookmarkBtnText}>Bookmark</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </TouchableOpacity>
     );
   }
@@ -78,7 +57,39 @@ NewsItem.propTypes = {
 
 const styles = StyleSheet.create({
   thumbnail: {
-    marginBottom: 5
+    height: 180,
+    padding: 10
+  },
+  title: {
+    color: '#fff',
+    backgroundColor: 'transparent',
+    fontWeight: 'bold',
+    fontStyle: 'italic'
+  },
+  footer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: '#99c0e3'
+  },
+  footerText: {
+    flex: 0.8,
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '700'
+  },
+  bookmarkBtn: {
+    flex: 0.2,
+    borderWidth: 1,
+    borderColor: 'transparent',
+    borderRadius: 5,
+    backgroundColor: '#66a0c3',
+    padding: 5,
+  },
+  bookmarkBtnText: {
+    fontSize: 11,
+    textAlign: 'center',
+    color: '#fff'
   },
   content: {
     paddingHorizontal: 5,
