@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   headerSection: {
-    flex: 1.08
+    flex: 1.08,
+    zIndex: 1000
   },
   contentSection: {
     flex: 8.7
