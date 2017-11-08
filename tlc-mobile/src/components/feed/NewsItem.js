@@ -30,13 +30,13 @@ export default class NewsItem extends Component {
         <View>
           <Image source={{ uri: thumbnail.url }} style={styles.thumbnail}>
             <Text style={styles.title}>{title}</Text>
+            <View style={styles.footer}>
+              <Text style={styles.footerText}>{moment().diff(user.birthDate, 'year')} year-old {user.gender} | {category}</Text>
+              <TouchableOpacity style={styles.bookmarkBtn}>
+                <Text style={styles.bookmarkBtnText}>Bookmark</Text>
+              </TouchableOpacity>
+            </View>
           </Image>
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>{moment().diff(user.birthDate, 'year')} year-old {user.gender} | {category}</Text>
-            <TouchableOpacity style={styles.bookmarkBtn}>
-              <Text style={styles.bookmarkBtnText}>Bookmark</Text>
-            </TouchableOpacity>
-          </View>
         </View>
       </TouchableOpacity>
     );
@@ -58,19 +58,24 @@ NewsItem.propTypes = {
 const styles = StyleSheet.create({
   thumbnail: {
     height: 180,
-    padding: 10
+    padding: 10,
   },
   title: {
     color: '#fff',
+    fontFamily: 'Helvetica Neue',
     backgroundColor: 'transparent',
     fontWeight: 'bold',
     fontStyle: 'italic'
   },
   footer: {
+    opacity: 0.9,
     flexDirection: 'row',
-    alignItems: 'center',
     padding: 10,
-    backgroundColor: '#99c0e3'
+    backgroundColor: '#99c0e3',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0
   },
   footerText: {
     flex: 0.8,
