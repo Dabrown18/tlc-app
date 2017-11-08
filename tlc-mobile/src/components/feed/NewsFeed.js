@@ -6,12 +6,8 @@ import {
   ListView,
   StyleSheet,
   View,
-  Modal,
-  TouchableOpacity,
-  WebView
 } from 'react-native';
 import NewsItem from './NewsItem';
-import SmallText from './SmallText';
 import * as globalStyles from './styles/global';
 import Spinner from '../Spinner';
 import StoryActions from '../../actions/story';
@@ -29,8 +25,6 @@ class NewsFeed extends Component {
     };
 
     this.renderRow = this.renderRow.bind(this);
-    this.onModalClose = this.onModalClose.bind(this);
-    this.onModalOpen = this.onModalOpen.bind(this);
   }
 
   componentDidMount() {
@@ -39,42 +33,6 @@ class NewsFeed extends Component {
     dispatch(StoryActions.getFeed());
   }
 
-  onModalClose() {
-    this.setState({
-      modalVisible: false,
-      modalUrl: undefined
-    });
-  }
-
-  onModalOpen(url) {
-    this.setState({
-      modalVisible: true,
-      modalUrl: url
-    });
-  }
-
-  renderModal() {
-    return (
-      <Modal
-        animationType="slide"
-        visible={this.state.modalVisible}
-        onRequestClose={this.onModalClose}
-      >
-        <View style={styles.modalContent}>
-          <TouchableOpacity
-            onPress={this.onModalClose}
-            style={styles.closeButton}
-          >
-            <SmallText>Close</SmallText>
-          </TouchableOpacity>
-          <WebView
-            scalesPageToFit
-            source={{ uri: this.state.modalUrl }}
-          />
-        </View>
-      </Modal>
-    );
-  }
 
   renderRow(rowData, ...rest) {
     const index = parseInt(rest[1], 10);
@@ -107,7 +65,6 @@ class NewsFeed extends Component {
       <View style={globalStyles.COMMON_STYLES.pageContainer}>
         {story.status.isLoadingStories && <Spinner/>}
         {listComponent}
-        {this.renderModal()}
       </View>
     );
   }
