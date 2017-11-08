@@ -6,7 +6,8 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } from 'react-native';
 import StoryActions from '../../actions/story';
 
@@ -17,12 +18,19 @@ class CommentsView extends Component {
 
     return (
       <View style={styles.comment}>
-        <View><Text style={styles.text}>{comment.text}</Text></View>
-        <View style={styles.footer}>
-          <Text style={styles.text}>{comment.author[0].username} - {moment(comment.creationDate).fromNow()}</Text>
-          { canDelete && <TouchableHighlight onPress={() => this.onRemove(comment)} style={styles.actions}>
-            <Text>Remove</Text>
-          </TouchableHighlight> }
+        <Image style={styles.userThumbnail} source={{uri: comment.author[0].profilePicture.url}} />
+        <View style={styles.commentData}>
+          <View>
+            <Text style={styles.text}>{comment.author[0].username} - {moment(comment.creationDate).fromNow()}</Text>
+          </View>
+          <View>
+            <Text style={styles.text}>{comment.text}</Text>
+          </View>
+          <View style={styles.footer}>
+            { canDelete && <TouchableHighlight onPress={() => this.onRemove(comment)} style={styles.actions}>
+              <Text>Remove</Text>
+            </TouchableHighlight> }
+          </View>
         </View>
       </View>
     );
@@ -61,14 +69,26 @@ export default connect()(CommentsView);
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: 'stretch'
+  },
+
+  userThumbnail: {
+    flex: 0.2,
+    height: 'auto'
   },
 
   comment: {
-    margin: 10,
-    padding: 5,
-    color: '#fff',
-    backgroundColor: 'rgba(189, 195, 199,1.0)'
+    flex: 1,
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
+    color: '#444'
+  },
+
+  commentData: {
+    flex: 0.8,
+    padding: 10
   },
 
   footer: {
@@ -77,7 +97,8 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color: '#fff',
+    color: '#444',
+    fontWeight: '700',
     flex: 0.5
   },
 
