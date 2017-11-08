@@ -66,12 +66,14 @@ class Reactions extends Component {
     const { style } = this.props;
     const { selected } = this.state;
 
+    const selectedComponent = selected ? <Text>{selected}</Text> : null;
+
     return (
       <View style={[style, styles.container]}>
         <TouchableOpacity onPress={this.toggleReactions}>
           <Image source={image} style={styles.icon} />
         </TouchableOpacity>
-        <Text>{selected}</Text>
+        {selectedComponent}
         {this.renderReactions()}
       </View>
     );
@@ -80,7 +82,6 @@ class Reactions extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
   },
   icon: {
     width: 30,

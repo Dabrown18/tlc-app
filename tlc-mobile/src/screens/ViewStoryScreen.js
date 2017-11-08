@@ -7,13 +7,15 @@ import {
   Text, 
   StyleSheet, 
   Image, 
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 
 import Reactions from '../reactions';
 import CommentForm from '../components/Story/CommentForm';
 import StoryActions from '../actions/story';
 import CommentsView from '../components/Story/CommentsView';
+import {formatDateTime} from '../util/format';
 
 const photo = require('../reactions/images/marriedCouple.jpg');
 
@@ -55,28 +57,41 @@ export class ViewStoryScreen extends Component {
             <Image source={{ uri: story.thumbnail.url}} style={styles.photoStyle}/>
           </View>
 
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>{story.title}</Text>
+          <View style={styles.storyMeta}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleText}>{story.title}</Text>
+            </View>
+
+            <View style={styles.usernameContainer}>
+              <Text style={styles.usernameText}>Author:</Text>
+              <Text style={styles.usernameValue}>{story.user.username}</Text>
+            </View>
+
+            <View style={styles.dateContainer}>
+              <Text style={styles.dateText}>Date:</Text>
+              <Text style={styles.dateValue}>{formatDateTime(story.creationDate)}</Text>
+            </View>
           </View>
 
-          <View style={styles.usernameContainer}>
-            <Text style={styles.usernameText}>
-              Username: 
-            </Text> 
-            <Text> JButler650</Text>
-          </View>
-
-          <View style={styles.dateContainer}>
-            <Text style={styles.dateText}>
-              Date: 
-            </Text> 
-            <Text> 6/22/2017</Text>
-          </View>
+          <Text style={styles.detailText}>{story.details}</Text>
 
           <View>
-            <Text style={styles.detailText}>{story.details}</Text>
+            <View style={styles.actionBtnContainer}>
+              <View style={styles.singleBtnContainer}>
+                <TouchableOpacity style={styles.actionBtn}>
+                  <Text style={styles.actionBtnText}>Bookmark</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.singleBtnContainer}>
+                <TouchableOpacity style={styles.actionBtn}>
+                  <Text style={styles.actionBtnText}>Follow</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
 
-            <Reactions />
+            <View style={styles.reactionsContainer}>
+              <Reactions />
+            </View>
 
             <CommentsView story={story} userId={userId} />
 
@@ -112,48 +127,63 @@ export default connect(mapStateTopProps)(ViewStoryScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'flex-start',
-    paddingTop: 40,
-    paddingLeft: 12
+    backgroundColor: '#fff'
   },
   imageContainer: {
-    paddingBottom: 10
+    padding: 10
   },
   photoStyle: {
-    width: 350,
+    flex: 1,
     height: 200,
     alignItems: 'flex-start',
     justifyContent: 'center',
     borderRadius: 8
   },
+  storyMeta: {
+    padding: 10,
+  },
   usernameContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start'
+    alignItems: 'center',
+    paddingVertical: 2
   },
   usernameText: {
+    color: '#444',
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  usernameValue: {
+    paddingHorizontal: 10,
     color: '#89b2e0',
-    fontSize: 17,
-    fontWeight: 'bold',
+    fontSize: 15,
   },
   dateContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    paddingBottom: 30
+    paddingVertical: 2,
+    fontSize: 15,
+    alignItems: 'center'
   },
   dateText: {
-    color: '#89b2e0',
-    fontSize: 17,
-    fontWeight: 'bold',
+    color: '#444',
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  dateValue: {
+    paddingHorizontal: 10,
+    color: '#666',
+    fontSize: 15,
   },
   titleContainer: {
     paddingBottom: 5
   },
   titleText: {
-    fontWeight: 'bold',
-    fontSize: 25
+    fontWeight: '600',
+    fontSize: 20,
+    fontFamily: 'Helvetica Neue',
+    fontStyle: 'italic'
   },
   detailText: {
-    paddingBottom: 10
+    padding: 10
   },
   commentContainer: {
     padding: 10,
@@ -165,5 +195,34 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 15,
     color: '#fff'
+  },
+  actionBtnContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  singleBtnContainer: {
+    flex: 0.5,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderColor: '#ccc',
+    borderWidth: 1,
+  },
+  actionBtn: {
+    borderWidth: 1,
+    borderColor: 'transparent',
+    borderRadius: 20,
+    backgroundColor: '#66a0c3',
+    padding: 5,
+  },
+  actionBtnText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 17
+  },
+  reactionsContainer: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10
   }
 });

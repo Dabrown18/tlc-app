@@ -10,7 +10,7 @@ const middleware = [
 ];
 
 if (__DEV__) {
-//  middleware.push(createLogger);
+  middleware.push(createLogger);
 }
 
 export default createStore(reducers, applyMiddleware(...middleware));
