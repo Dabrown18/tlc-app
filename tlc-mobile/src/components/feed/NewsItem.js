@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   footer: {
     opacity: 0.9,
     flexDirection: 'row',
-    padding: 10,
+    padding: 7,
     backgroundColor: '#99c0e3',
     position: 'absolute',
     bottom: 0,

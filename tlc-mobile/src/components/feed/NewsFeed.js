@@ -37,12 +37,14 @@ class NewsFeed extends Component {
   renderRow(rowData, ...rest) {
     const index = parseInt(rest[1], 10);
     return (
-      <NewsItem
-        onPress={() => this.props.onViewStory(rowData)}
-        style={styles.newsItem}
-        index={index}
-        {...rowData}
-      />
+      <View style={styles.itemContainer}>
+        <NewsItem
+          onPress={() => this.props.onViewStory(rowData)}
+          style={styles.newsItem}
+          index={index}
+          {...rowData}
+        />
+      </View>
     );
   }
 
@@ -95,19 +97,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
     borderRadius: 15,
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: '#ccc',
     backgroundColor: '#ccc',
     overflow: 'hidden'
   },
-  modalContent: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingTop: 20,
-    backgroundColor: globalStyles.BG_COLOR
-  },
-  closeButton: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    flexDirection: 'row'
+  itemContainer: {
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderColor: '#888'
   }
 });
