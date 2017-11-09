@@ -7,9 +7,10 @@ import {
   View,
   Text,
   TouchableHighlight,
-  Image
+  Image, TouchableOpacity
 } from 'react-native';
 import StoryActions from '../../actions/story';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class CommentsView extends Component {
 
@@ -20,16 +21,26 @@ class CommentsView extends Component {
       <View style={styles.comment}>
         <Image style={styles.userThumbnail} source={{uri: comment.author[0].profilePicture.url}} />
         <View style={styles.commentData}>
-          <View>
-            <Text style={styles.text}>{comment.author[0].username} - {moment(comment.creationDate).fromNow()}</Text>
+          <View style={styles.authorContainer}>
+            <Text style={styles.author}>{comment.author[0].firstName} {comment.author[0].lastName}</Text>
+            <Text style={styles.date}>{moment(comment.creationDate).fromNow()}</Text>
           </View>
           <View>
             <Text style={styles.text}>{comment.text}</Text>
           </View>
           <View style={styles.footer}>
-            { canDelete && <TouchableHighlight onPress={() => this.onRemove(comment)} style={styles.actions}>
-              <Text>Remove</Text>
-            </TouchableHighlight> }
+            <View style={styles.actionBtn}>
+              <TouchableOpacity>
+                <Icon size='33' name="flash" />
+              </TouchableOpacity>
+              <Text style={styles.statsValue}>{comment.numLikes || 0}</Text>
+            </View>
+            <View style={styles.actionBtn}>
+              <TouchableOpacity>
+                <Icon size='33' name="comment" />
+              </TouchableOpacity>
+              <Text style={styles.statsValue}>{comment.numComments || 0}</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -72,8 +83,11 @@ const styles = StyleSheet.create({
   },
 
   userThumbnail: {
-    flex: 0.2,
-    height: 'auto'
+    flex: 0.15,
+    height: 'auto',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ccc'
   },
 
   comment: {
@@ -87,7 +101,7 @@ const styles = StyleSheet.create({
   },
 
   commentData: {
-    flex: 0.8,
+    flex: 0.85,
     padding: 10
   },
 
@@ -96,13 +110,34 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
 
-  text: {
-    color: '#444',
-    fontWeight: '700',
-    flex: 0.5
+  authorContainer: {
+    flex: 1,
+    flexDirection: 'row'
   },
 
-  actions: {
-    flex: 0.5
+  author: {
+    color: '#444',
+    fontWeight: '700',
+  },
+
+  text: {
+    color: '#444',
+    fontSize: 15,
+    paddingVertical: 5,
+  },
+
+  date: {
+    color: '#999',
+    paddingHorizontal: 5,
+  },
+
+  actionBtn: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+
+  statsValue: {
+    paddingHorizontal: 10
   }
 });
