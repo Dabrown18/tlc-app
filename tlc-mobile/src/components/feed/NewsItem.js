@@ -57,7 +57,7 @@ NewsItem.propTypes = {
 
 const styles = StyleSheet.create({
   thumbnail: {
-    height: 180,
+    height: 230,
     padding: 10,
   },
   title: {
@@ -75,12 +75,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     left: 0,
-    right: 0
+    right: 0,
+    alignItems: 'center'
   },
   footerText: {
     flex: 0.8,
     color: '#fff',
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '700'
   },
   bookmarkBtn: {

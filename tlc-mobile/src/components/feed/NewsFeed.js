@@ -104,6 +104,6 @@ const styles = StyleSheet.create({
   itemContainer: {
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderColor: '#888'
+    borderColor: '#ccc'
   }
 });
