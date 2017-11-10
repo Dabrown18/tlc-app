@@ -68,10 +68,9 @@ const styles = StyleSheet.create({
     fontStyle: 'italic'
   },
   footer: {
-    opacity: 0.9,
     flexDirection: 'row',
     padding: 7,
-    backgroundColor: '#99c0e3',
+    backgroundColor: '#B6CAE2',
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -81,19 +80,20 @@ const styles = StyleSheet.create({
   footerText: {
     flex: 0.8,
     color: '#fff',
-    fontSize: 14,
-    fontWeight: '700'
+    fontSize: 15,
+    fontWeight: '500'
   },
   bookmarkBtn: {
     flex: 0.2,
     borderWidth: 1,
     borderColor: 'transparent',
     borderRadius: 5,
-    backgroundColor: '#66a0c3',
+    backgroundColor: '#7AA3DB',
     padding: 5,
   },
   bookmarkBtnText: {
     fontSize: 11,
+    fontWeight: '600',
     textAlign: 'center',
     color: '#fff'
   },
