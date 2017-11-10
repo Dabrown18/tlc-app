@@ -211,13 +211,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'transparent',
     borderRadius: 20,
-    backgroundColor: '#66a0c3',
+    backgroundColor: '#7aa3db',
     padding: 5,
   },
   actionBtnText: {
     textAlign: 'center',
     color: '#fff',
-    fontWeight: '700',
     fontSize: 17
   },
   reactionsContainer: {
