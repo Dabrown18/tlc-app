@@ -18,7 +18,7 @@ class CommentsView extends Component {
     const canDelete = comment.author[0]._id === this.props.userId;
 
     return (
-      <View style={styles.comment}>
+      <View key={comment._id} style={styles.comment}>
         <Image style={styles.userThumbnail} source={{uri: comment.author[0].profilePicture.url}} />
         <View style={styles.commentData}>
           <View style={styles.authorContainer}>
@@ -31,13 +31,13 @@ class CommentsView extends Component {
           <View style={styles.footer}>
             <View style={styles.actionBtn}>
               <TouchableOpacity>
-                <Icon size='33' name="flash" />
+                <Icon size={33} name="flash" />
               </TouchableOpacity>
               <Text style={styles.statsValue}>{comment.numLikes || 0}</Text>
             </View>
             <View style={styles.actionBtn}>
               <TouchableOpacity>
-                <Icon size='33' name="comment" />
+                <Icon size={33} name="comment" />
               </TouchableOpacity>
               <Text style={styles.statsValue}>{comment.numComments || 0}</Text>
             </View>
@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderBottomWidth: 1,
     borderColor: '#ccc',
-    color: '#444'
   },
 
   commentData: {

@@ -58,9 +58,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: 'red'
   },
-  btn: {
-    textAlign: 'center'
-  },
   btnText: {
     fontSize: 16,
     textAlign: 'center',

@@ -4,8 +4,7 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
-  LayoutAnimation
+  Image
 } from 'react-native';
 
 import Header from '../components/Header';
@@ -28,15 +27,19 @@ class NotificationsScreen extends Component {
     dispatch(NotificationActions.getUserNotifications());
   }
 
-
   render() {
     const { notification } = this.props;
 
     const views = notification.listing.map(element => {
       return (
-        <View key={element.id} style={styles.notification}>
-          <Text style={{ color: '#000', flex: 1, paddingLeft: 5}}>{element.title}</Text>
-          <Text style={{ color: '#000', paddingRight: 5}} onPress={() => {this.removeNotification(element._id)}}>X</Text>
+        <View key={element._id} style={styles.notification}>
+          <View>
+            {/*<Image source={{ uri: notification.actionUser.profilePicture.url}} />*/}
+          </View>
+          <View>
+            <Text style={{ color: '#000', flex: 1, paddingLeft: 5}}>{element.title}</Text>
+            <Text style={{ color: '#000', paddingRight: 5}} onPress={() => {this.removeNotification(element._id)}}>X</Text>
+          </View>
         </View>
       )
     });
@@ -74,10 +77,6 @@ const styles = StyleSheet.create({
     flex: 8.5
   },
   container: {
-    position: 'absolute', 
-    bottom: 0, 
-    left: 0, 
-    right: 0, 
     backgroundColor: 'rgba(137,178,224,0.5)'
   },
   notification: {

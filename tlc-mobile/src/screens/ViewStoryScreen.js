@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
   dateContainer: {
     flexDirection: 'row',
     paddingVertical: 2,
-    fontSize: 15,
     alignItems: 'center'
   },
   dateText: {
