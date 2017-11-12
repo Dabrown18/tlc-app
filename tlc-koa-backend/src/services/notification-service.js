@@ -27,7 +27,7 @@ module.exports = {
 
     return this.addNotification(actionUser,
       user,
-      `${TextService.abbreviateText(title)} added in category ${category}, by ${poster.username}`,
+      `added story "${TextService.abbreviateText(title)}" in category ${category}`,
       NotificationConstants.ENTITY_STORY,
       NotificationConstants.ACTION_ADD,
       story._id);
@@ -40,7 +40,7 @@ module.exports = {
 
     return this.addNotification(poster._id,
       user,
-      `New story: "${TextService.abbreviateText(title)}" added by ${poster.username}`,
+      `added a new story: "${TextService.abbreviateText(title)}"`,
       NotificationConstants.ENTITY_STORY,
       NotificationConstants.ACTION_ADD,
       story._id);
@@ -79,7 +79,7 @@ module.exports = {
 
       return this.addNotification(commentAuthor._id,
         story.user,
-        `${username} posted a comment on ${title}`,
+        `made a comment on ${title}`,
         NotificationConstants.ENTITY_COMMENT,
         NotificationConstants.ACTION_ADD,
         comment._id);
@@ -91,7 +91,7 @@ module.exports = {
   async notifyFollow(followerUser, followedUser) {
     return this.addNotification(followerUser._id,
       followedUser._id,
-      `${followerUser.username} is following you`,
+      'started following you',
       NotificationConstants.ENTITY_USER,
       NotificationConstants.ACTION_FOLLOW,
       followerUser._id);
