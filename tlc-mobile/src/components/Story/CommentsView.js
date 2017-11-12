@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
 
   userThumbnail: {
-    flex: 0.15,
+    flex: 0.25,
     height: 'auto',
     borderRadius: 10,
     borderWidth: 1,

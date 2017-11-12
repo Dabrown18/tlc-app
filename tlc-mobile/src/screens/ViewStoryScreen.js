@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import Reactions from '../reactions';
+import Header from '../components/Header';
 import CommentForm from '../components/Story/CommentForm';
 import StoryActions from '../actions/story';
 import CommentsView from '../components/Story/CommentsView';
@@ -22,6 +23,7 @@ const photo = require('../reactions/images/marriedCouple.jpg');
 export class ViewStoryScreen extends Component {
 
   static navigationOptions = ({ navigation }) => ({
+    header: <Header showBackButton onBack={() => navigation.goBack()} />,
     headerStyle: {
       backgroundColor: '#faf8ec'
     },

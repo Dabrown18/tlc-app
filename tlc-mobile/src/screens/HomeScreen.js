@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+  Platform,
   AsyncStorage,
   View,
   StyleSheet
@@ -11,6 +12,13 @@ import ShowStory from '../components/feed/ShowStory';
 import StoryActions from '../actions/story';
 
 class HomeScreen extends Component {
+
+  static navigationOptions = ({ navigation }) => ({
+    header: <Header />,
+    style: {
+      marginTop: Platform.OS === 'android' ? 24 : 0
+    }
+  });
 
   onViewStory = (story) => {
     const { dispatch } = this.props;
@@ -26,9 +34,9 @@ class HomeScreen extends Component {
     return (
       <View style={styles.section}>
 
-        <View style={styles.headerSection}>
-          <Header />
-        </View>
+        {/*<View style={styles.headerSection}>*/}
+          {/*<Header />*/}
+        {/*</View>*/}
 
         <View style={styles.contentSection}>
           <ShowStory onViewStory={this.onViewStory} />
