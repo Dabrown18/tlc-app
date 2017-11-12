@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import {
   View,
+  ScrollView,
   Text,
   StyleSheet,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native';
 
 import Header from '../components/Header';
@@ -32,29 +35,29 @@ class NotificationsScreen extends Component {
 
     const views = notification.listing.map(element => {
       return (
-        <View key={element._id} style={styles.notification}>
-          <View>
-            {/*<Image source={{ uri: notification.actionUser.profilePicture.url}} />*/}
+        <TouchableOpacity key={element._id} style={styles.notification}>
+          <Image
+            style={styles.thumbnail}
+            source={{uri: element.actionUser.profilePicture.url}} />
+          <View style={styles.notificationData}>
+            <Text style={styles.textContainer}>
+              <Text style={styles.author}> {element.actionUser.firstName} {element.actionUser.lastName} </Text>
+              <Text style={styles.text}>{element.title}.</Text>
+              <Text style={styles.date}> {moment(element.creationDate).fromNow()} </Text>
+            </Text>
           </View>
-          <View>
-            <Text style={{ color: '#000', flex: 1, paddingLeft: 5}}>{element.title}</Text>
-            <Text style={{ color: '#000', paddingRight: 5}} onPress={() => {this.removeNotification(element._id)}}>X</Text>
-          </View>
-        </View>
+        </TouchableOpacity>
       )
     });
 
     return (
       <View style={styles.section}>
-        <View style={styles.headerSection}>
-          <Header />
-        </View>
-        <View style={styles.contentSection}>
-
-        <View style={styles.container} >
-          {views}
-        </View>
-        </View>
+        <Header />
+        <ScrollView style={styles.contentSection}>
+          <View style={styles.container} >
+            {views}
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -71,22 +74,47 @@ const styles = StyleSheet.create({
     flex: 1
   },
   headerSection: {
-    flex: 1.08
+    flex: 1
   },
   contentSection: {
-    flex: 8.5
+    flex: 1
   },
   container: {
-    backgroundColor: 'rgba(137,178,224,0.5)'
+    // backgroundColor: 'rgba(137,178,224,0.5)'
   },
   notification: {
-    height: 60,
-    margin: 3,
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    flexDirection: 'row', 
-    padding: 5, 
-    borderRadius: 5,
-    backgroundColor: '#fff'
+    flex: 1,
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderColor: '#ccc'
+  },
+  thumbnail: {
+    width: 50,
+    height: 67,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ccc'
+  },
+  notificationData: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  author: {
+    paddingHorizontal: 5,
+    fontWeight: 'bold'
+  },
+  textContainer: {
+    paddingHorizontal: 5
+  },
+  text: {
+    color: '#444'
+  },
+  date: {
+    color: '#999',
+    paddingHorizontal: 10
   }
 });
