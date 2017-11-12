@@ -19,6 +19,8 @@ import CommentsView from '../components/Story/CommentsView';
 import {formatDateTime} from '../util/format';
 
 const photo = require('../reactions/images/marriedCouple.jpg');
+const bookmarkImage = require('../images/bookmark.png');
+const starImage = require('../images/star.png');
 
 export class ViewStoryScreen extends Component {
 
@@ -81,11 +83,19 @@ export class ViewStoryScreen extends Component {
             <View style={styles.actionBtnContainer}>
               <View style={styles.singleBtnContainer}>
                 <TouchableOpacity style={styles.actionBtn}>
+                  <Image
+                    style={styles.btnIcon}
+                    source={bookmarkImage}
+                    resizeMode="contain" />
                   <Text style={styles.actionBtnText}>Bookmark</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.singleBtnContainer}>
                 <TouchableOpacity style={styles.actionBtn}>
+                  <Image
+                    style={styles.btnIcon}
+                    source={starImage}
+                    resizeMode="contain" />
                   <Text style={styles.actionBtnText}>Follow</Text>
                 </TouchableOpacity>
               </View>
@@ -209,11 +219,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   actionBtn: {
+    flexDirection: 'row',
     borderWidth: 1,
     borderColor: 'transparent',
     borderRadius: 20,
     backgroundColor: '#7aa3db',
     padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   actionBtnText: {
     textAlign: 'center',
@@ -224,5 +237,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     padding: 10
+  },
+  btnIcon: {
+    width: 12,
+    height: 16,
+    paddingHorizontal: 10
   }
 });
