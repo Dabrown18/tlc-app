@@ -6,11 +6,12 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableHighlight,
   Image, TouchableOpacity
 } from 'react-native';
 import StoryActions from '../../actions/story';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
+const fireImage = require('../../images/fire.png');
+const commentImage = require('../../images/comment.png');
 
 class CommentsView extends Component {
 
@@ -31,13 +32,13 @@ class CommentsView extends Component {
           <View style={styles.footer}>
             <View style={styles.actionBtn}>
               <TouchableOpacity>
-                <Icon size={33} name="flash" />
+                <Image style={styles.image} source={fireImage} resizeMode="contain" />
               </TouchableOpacity>
               <Text style={styles.statsValue}>{comment.numLikes || 0}</Text>
             </View>
             <View style={styles.actionBtn}>
               <TouchableOpacity>
-                <Icon size={33} name="comment" />
+                <Image style={styles.image} source={commentImage} resizeMode="contain" />
               </TouchableOpacity>
               <Text style={styles.statsValue}>{comment.numComments || 0}</Text>
             </View>
@@ -80,6 +81,11 @@ export default connect()(CommentsView);
 
 const styles = StyleSheet.create({
   container: {
+  },
+
+  image: {
+    width: 25,
+    height: 50
   },
 
   userThumbnail: {
