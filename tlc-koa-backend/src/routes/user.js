@@ -32,7 +32,7 @@ async function getUser(ctx) {
   try {
     const { id } = ctx.params;
 
-    if (ctx.user.id !== id) {
+    if (!(await UserService.canUserViewUser(ctx.user.id, id))) {
       return ctx.unauthorized({
         error: 'You do not have permissions to view this user info'
       });

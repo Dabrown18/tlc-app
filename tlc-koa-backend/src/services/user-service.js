@@ -131,5 +131,9 @@ module.exports = {
 
   async getNumFollowing(userId) {
 
+  },
+
+  async canUserViewUser(viewerId, vieweeId) {
+    return true;
   }
 };
