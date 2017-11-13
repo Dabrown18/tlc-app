@@ -29,12 +29,18 @@ class ProfileScreen extends Component {
     style: {
       marginTop: Platform.OS === 'android' ? 24 : 0
     }
-  })
+  });
 
   componentWillMount() {
-    const { dispatch } = this.props;
+    const { dispatch, navigation } = this.props;
 
-    dispatch(ProfileActions.getCurrentUserProfile());
+    const params = navigation.state.params;
+
+    if (params && params.userId ) {
+      dispatch(ProfileActions.getUserProfile(params.userId));
+    } else {
+      dispatch(ProfileActions.getCurrentUserProfile());
+    }
   }
 
   render() {

@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import Api from '../util/api';
 
+export const GET_USER_PROFILE = 'GET_USER_PROFILE';
 export const GET_CURRENT_USER_PROFILE = 'GET_CURRENT_USER_PROFILE';
 export const UPDATE_CURRENT_USER_PROFILE = 'UPDATE_CURRENT_USER_PROFILE';
 export const UPDATE_CURRENT_USER_PROFILE_PICTURE = 'UPDATE_CURRENT_USER_PROFILE_PICTURE';
@@ -19,7 +20,21 @@ export default {
           const payload = Api.get(`/users/${userId}`, authToken);
 
           return dispatch({
-            type: GET_CURRENT_USER_PROFILE,
+            type: GET_USER_PROFILE,
+            payload
+          });
+        });
+    };
+  },
+
+  getUserProfile(userId) {
+    return dispatch => {
+      return AsyncStorage.getItem('authToken')
+        .then(authToken => {
+          const payload = Api.get(`/users/${userId}`, authToken);
+
+          return dispatch({
+            type: GET_USER_PROFILE,
             payload
           });
         });

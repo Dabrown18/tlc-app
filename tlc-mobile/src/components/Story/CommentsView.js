@@ -15,6 +15,10 @@ const commentImage = require('../../images/comment.png');
 
 class CommentsView extends Component {
 
+  gotoProfile = (userId) => {
+    this.props.gotoProfile(userId);
+  };
+
   renderComment = (comment) => {
     const canDelete = comment.author[0]._id === this.props.userId;
 
@@ -23,7 +27,7 @@ class CommentsView extends Component {
         <Image style={styles.userThumbnail} source={{uri: comment.author[0].profilePicture.url}} />
         <View style={styles.commentData}>
           <View style={styles.authorContainer}>
-            <Text style={styles.author}>{comment.author[0].firstName} {comment.author[0].lastName}</Text>
+            <Text style={styles.author} onPress={() => this.gotoProfile(comment.author[0]._id)}>{comment.author[0].firstName} {comment.author[0].lastName}</Text>
             <Text style={styles.date}>{moment(comment.creationDate).fromNow()}</Text>
           </View>
           <View>

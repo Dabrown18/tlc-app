@@ -61,7 +61,8 @@ export const MainNavigator = TabNavigator({
       Home: {
         screen: StackNavigator({
             Home: { screen: HomeScreen },
-            View: { screen: ViewStoryScreen }
+            View: { screen: ViewStoryScreen },
+            Profile: { screen: ProfileScreen }
         }),
         navigationOptions: {
           tabBarLabel: 'Home',

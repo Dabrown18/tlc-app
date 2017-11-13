@@ -49,6 +49,10 @@ export class ViewStoryScreen extends Component {
     return dispatch(StoryActions.addComment(story._id, text));
   };
 
+  gotoProfile = (userId) => {
+    this.props.navigation.navigate('Profile', { userId });
+  };
+
   render() {
     const { story, userId } = this.props;
 
@@ -68,7 +72,7 @@ export class ViewStoryScreen extends Component {
 
             <View style={styles.usernameContainer}>
               <Text style={styles.usernameText}>Author:</Text>
-              <Text style={styles.usernameValue}>{story.user.username}</Text>
+              <Text style={styles.usernameValue} onPress={() => this.gotoProfile(story.user._id)}>{story.user.username}</Text>
             </View>
 
             <View style={styles.dateContainer}>
@@ -105,7 +109,10 @@ export class ViewStoryScreen extends Component {
               <Reactions />
             </View>
 
-            <CommentsView story={story} userId={userId} />
+            <CommentsView
+              gotoProfile={this.gotoProfile}
+              story={story}
+              userId={userId} />
 
             <View style={styles.commentContainer}>
               <Text style={styles.commentText}>
