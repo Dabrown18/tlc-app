@@ -6,7 +6,11 @@ export default class ProfileContent extends Component {
 
   render() {
     return (
-      <ProfileImage profile={this.props.profile} />
+      <ProfileImage
+        isCurrentUser={this.props.isCurrentUser}
+        currentUserId={this.props.currentUserId}
+        profile={this.props.profile}
+      />
     );
   }
 }

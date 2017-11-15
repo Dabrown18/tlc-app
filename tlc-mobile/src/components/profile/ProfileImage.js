@@ -47,12 +47,17 @@ export class ProfileImage extends Component {
   }
 
   render() {
+  	const { profile, isCurrentUser, currentUserId } = this.props;
 		const profileImage = this.state.profileImage || PlaceHolderImage;
 
 		return (
 			<Image source={profileImage} style={styles.container}>
-				<PickImage onChooseImage={this.onChooseImage} />
-				<ProfileInfo profile={this.props.profile} />
+				<PickImage
+					profile={profile}
+					onChooseImage={this.onChooseImage}
+					isCurrentUser={isCurrentUser}
+					currentUserId={currentUserId} />
+				<ProfileInfo profile={profile} />
 			</Image>
 		);
 	}

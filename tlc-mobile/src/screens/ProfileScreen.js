@@ -19,7 +19,7 @@ class ProfileScreen extends Component {
 
     return {
       headerStyle: params.headerStyle,
-      title: params.title,
+      title: params.title || 'Profile',
       headerRight: params.headerRight,
       style: params.style
     };
@@ -61,9 +61,19 @@ class ProfileScreen extends Component {
   }
 
   render() {
-    const { profile } = this.props;
+    const { profile, navigation } = this.props;
+    const isCurrentUser = navigation.state.params && navigation.state.params.isCurrentUser;
+    const currentUserId = navigation.state.params && navigation.state.params.userId;
+
+    console.log('nav',  navigation.state.params);
+    console.log('currentUserId', currentUserId);
+
     return (
-      <ProfileContent profile={profile} />
+      <ProfileContent
+        isCurrentUser={isCurrentUser}
+        currentUserId={currentUserId}
+        profile={profile}
+      />
     );
   }
 }

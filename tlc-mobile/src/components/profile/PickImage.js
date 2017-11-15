@@ -12,15 +12,27 @@ export default class PickImage extends React.Component {
   };
 
   render() {
+    const { isCurrentUser, currentUserId, profile } = this.props;
+    let showChangeImage = isCurrentUser === undefined || isCurrentUser;
+    let showFollow = isCurrentUser !== undefined && !isCurrentUser;
+
+    console.log('profile', profile, this.props.navigation);
+    // if (profile.data) {
+    //   if (currentUserId !== profile.data._id) {
+    //     showChangeImage = true;
+    //     showFollow = true;
+    //   }
+    // }
+
     return (
       <View style={styles.container}>
         <View>
-          <TouchableOpacity onPress={this._pickImage}>
+          {showChangeImage && <TouchableOpacity onPress={this._pickImage}>
             <Image source={ChangeImage}/>
-          </TouchableOpacity>
+          </TouchableOpacity>}
         </View>
         <View>
-          <FollowButton />
+          { showFollow && <FollowButton /> }
         </View>
       </View>
     );
