@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Platform,
+  AsyncStorage,
   Button,
   View,
   Text, 
@@ -49,8 +50,14 @@ export class ViewStoryScreen extends Component {
     return dispatch(StoryActions.addComment(story._id, text));
   };
 
-  gotoProfile = (userId) => {
-    this.props.navigation.navigate('Profile', { userId });
+  gotoProfile = async (userId) => {
+    try {
+      const currentUserId = await AsyncStorage.getItem('userId');
+      const isCurrentUser = userId === currentUserId;
+      this.props.navigation.navigate('Profile', { userId, isCurrentUser });
+    } catch( e ) {
+      console.log('Unexpected error happened');
+    }
   };
 
   render() {

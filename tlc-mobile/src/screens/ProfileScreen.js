@@ -14,27 +14,44 @@ import ProfileActions from '../actions/profile';
 
 class ProfileScreen extends Component {
 
-  static navigationOptions = ({ navigation }) => ({
-    headerStyle: {
-       backgroundColor: '#faf8ec'
-    },
-    title: 'Profile',
-    headerRight:
-      <Button
-        title='Settings'
-        onPress={() => { navigation.navigate('Settings'); }}
-        backgroundColor='rgba(0,0,0,0)'
-        color='rgba(0,122,255,1)'
-      />,
-    style: {
-      marginTop: Platform.OS === 'android' ? 24 : 0
-    }
-  });
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
+
+    return {
+      headerStyle: params.headerStyle,
+      title: params.title,
+      headerRight: params.headerRight,
+      style: params.style
+    };
+  };
+
+  _setNavigationParams(params) {
+    const { navigation } = this.props;
+    const headerStyle = { backgroundColor: '#faf8ec' };
+    const title = 'Profile';
+    const style = { marginTop: Platform.OS === 'android' ? 24 : 0 };
+
+    const headerRight = <Button
+      title='Settings'
+      onPress={() => { navigation.navigate('Settings'); }}
+      backgroundColor='rgba(0,0,0,0)'
+      color='rgba(0,122,255,1)'
+    />;
+
+    navigation.setParams({
+      ...params,
+      headerStyle,
+      title,
+      style,
+      headerRight: params.isCurrentUser ? headerRight : null
+    });
+  }
 
   componentWillMount() {
     const { dispatch, navigation } = this.props;
-
     const params = navigation.state.params;
+
+    this._setNavigationParams(params || {});
 
     if (params && params.userId ) {
       dispatch(ProfileActions.getUserProfile(params.userId));
