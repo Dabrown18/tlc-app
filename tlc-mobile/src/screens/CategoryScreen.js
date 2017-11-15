@@ -17,6 +17,29 @@ import { iconSize } from '../constants';
 import StoryActions from '../actions/story';
 
 class CategoryScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: '#faf8ec'
+    },
+    title: 'Choose a Category',
+    headerLeft:
+      <Button
+        title='Back'
+        onPress={() => { navigation.navigate('Story'); }}
+        backgroundColor='rgba(0,0,0,0)'
+        color='rgba(0,122,255,1)'
+      />,
+    headerRight:
+      <Button
+        title='Next'
+        onPress={() => navigation.state.params.nextHandler()}
+        backgroundColor='rgba(0,0,0,0)'
+        color='rgba(0,122,255,1)'
+      />,
+    style: {
+      marginTop: Platform.OS === 'android' ? 24 : 0
+    }
+  });
 
   constructor(props) {
     super(props);
@@ -52,30 +75,6 @@ class CategoryScreen extends Component {
       </TouchableOpacity>
     )
   }
-
-  static navigationOptions = ({ navigation }) => ({
-    headerStyle: {
-       backgroundColor: '#faf8ec'
-    },
-    title: 'Choose a Category',
-    headerLeft:
-      <Button
-        title='Back'
-        onPress={() => { navigation.navigate('Story'); }}
-        backgroundColor='rgba(0,0,0,0)'
-        color='rgba(0,122,255,1)'
-      />,
-    headerRight:
-      <Button
-        title='Next'
-        onPress={() => navigation.state.params.nextHandler()}
-        backgroundColor='rgba(0,0,0,0)'
-        color='rgba(0,122,255,1)'
-      />,
-    style: {
-      marginTop: Platform.OS === 'android' ? 24 : 0
-    }
-  });
 
   componentDidMount() {
     this.props.navigation.setParams({
