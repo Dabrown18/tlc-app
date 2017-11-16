@@ -12,6 +12,7 @@ import {
 
 import Header from '../components/Header';
 import NotificationActions from '../actions/notification';
+import StoryActions from '../actions/story';
 
 class NotificationsScreen extends Component {
 
@@ -30,12 +31,31 @@ class NotificationsScreen extends Component {
     dispatch(NotificationActions.getUserNotifications());
   }
 
+  followNotification(notification) {
+    const { dispatch } = this.props;
+
+    switch( notification.entity ) {
+      case 'user':
+        break;
+
+      case 'story':
+        dispatch(StoryActions.viewStory(notification.refId));
+        this.props.navigation.navigate('View', {
+          storyId: notification.refId
+        });
+        break;
+
+      default:
+        console.log('Unknown notification entity');
+    }
+  }
+
   render() {
     const { notification } = this.props;
 
     const views = notification.listing.map(element => {
       return (
-        <TouchableOpacity key={element._id} style={styles.notification}>
+        <TouchableOpacity key={element._id} style={styles.notification} onPress={this.followNotification(element)}>
           <Image
             style={styles.thumbnail}
             source={{uri: element.actionUser.profilePicture.url}} />
