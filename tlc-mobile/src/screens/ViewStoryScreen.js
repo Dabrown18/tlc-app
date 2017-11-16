@@ -23,6 +23,19 @@ const photo = require('../reactions/images/marriedCouple.jpg');
 const bookmarkImage = require('../images/bookmark.png');
 const starImage = require('../images/star.png');
 
+/**
+ * Given component props, determines wether the screen has been opened from HomeScreen
+ * or another screen (eg. from NotificationScreen).
+ * @param props
+ * @returns {boolean}
+ */
+const comingFromHomeScreen = (props) => {
+  const { navigation } = props;
+  const params = navigation.state.params;
+
+  return !(params && params.storyId);
+};
+
 export class ViewStoryScreen extends Component {
 
   static navigationOptions = ({ navigation }) => ({
@@ -59,6 +72,10 @@ export class ViewStoryScreen extends Component {
       console.log('Unexpected error happened');
     }
   };
+
+  componentWillMount() {
+
+  }
 
   render() {
     const { story, userId } = this.props;
@@ -138,11 +155,22 @@ export class ViewStoryScreen extends Component {
   }
 }
 
-const mapStateTopProps = (state) => {
+const mapStateTopProps = (state, props) => {
   const { story } = state;
   const { selectedStoryIndex } = story;
+
+  let viewStory = null;
+  const fromHomeScreen = comingFromHomeScreen(props);
+
+  if (fromHomeScreen) {
+    viewStory = selectedStoryIndex !== -1 ? story.listing[selectedStoryIndex] : null;
+  } else {
+    viewStory = story.viewStory;
+  }
+
   return {
-    story: selectedStoryIndex !== -1 ? story.listing[selectedStoryIndex] : null,
+    fromHomeScreen,
+    story: viewStory,
     userId: story.userId,
     isAddingComment: story.status.isAddingComment
   }
