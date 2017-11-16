@@ -11,6 +11,7 @@ export const GET_USER_STORIES = 'GET_USER_STORIES';
 export const ADD_STORY_COMMENT = 'ADD_STORY_COMMENT';
 export const SELECT_STORY = 'SELECT_STORY';
 export const GET_FEED = 'GET_FEED';
+export const GET_STORY = 'GET_STORY';
 
 export default {
 
@@ -152,6 +153,20 @@ export default {
 
           return dispatch({
             type: DELETE_STORY_COMMENT,
+            payload
+          });
+        });
+    }
+  },
+
+  viewStory(storyId) {
+    return dispatch => {
+      return AsyncStorage.getItem('authToken')
+        .then(authToken => {
+          const payload = Api.get(`/stories/${storyId}` , authToken);
+
+          return dispatch({
+            type: GET_STORY,
             payload
           });
         });

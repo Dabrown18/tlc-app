@@ -16,10 +16,13 @@ const initialState = Immutable({
   selectedStoryIndex: -1,
   userId: null,
 
+  viewStory: null,
+
   status: {
     isSaving: false,
     isAddingComment: false,
     isLoadingStories: false,
+    isLoadingViewStory: false,
     error: false
   }
 });
@@ -214,6 +217,7 @@ export default typeToReducer({
     },
 
   },
+
   [StoryActions.DELETE_STORY_COMMENT]: {
     PENDING(state) {
       return state.merge({
@@ -255,6 +259,38 @@ export default typeToReducer({
       });
     },
 
+  },
+
+  [StoryActions.GET_STORY]: {
+    PENDING(state) {
+      return state.merge({
+        status: {
+          ...state.status,
+          isLoadingViewStory: true
+        }
+      });
+    },
+
+    REJECTED(state) {
+      return state.merge({
+        status: {
+          ...state.status,
+          isLoadingViewStory: false,
+          error: true
+        }
+      });
+    },
+
+    FULFILLED(state, action) {
+      return state.merge({
+        viewStory: action.payload.story,
+        status: {
+          ...state.status,
+          isLoadingViewStory: false,
+          error: false
+        }
+      });
+    }
   }
 }, initialState);
 

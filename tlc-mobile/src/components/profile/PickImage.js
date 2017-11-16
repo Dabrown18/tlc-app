@@ -13,6 +13,10 @@ export default class PickImage extends React.Component {
 
   render() {
     const { isCurrentUser, currentUserId, profile } = this.props;
+
+    // Note: isCurrentUser is undefined when the ProfileScreen is triggered by the current user,
+    // most probably by going to Profile tab.
+    // So, this component is viewed by the current user if isCurrentUser is undefined or it is "true".
     let showChangeImage = isCurrentUser === undefined || isCurrentUser;
     let showFollow = isCurrentUser !== undefined && !isCurrentUser;
 
