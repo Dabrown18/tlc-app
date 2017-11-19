@@ -89,9 +89,9 @@ export const MainNavigator = TabNavigator({
           tabBarIcon: ({ tintColor }) => <Icon name="notifications" size={35} color={tintColor} />,
         },
        },
-      Profile: {
+      CurrentUserProfile: {
         screen: StackNavigator({
-          Profile: { screen: ProfileScreen },
+          CurrentUserProfile: { screen: ProfileScreen },
           Followers: { screen: FollowersScreen },
           Likes: { screen: LikesScreen },
           Comments: { screen: CommentsScreen },

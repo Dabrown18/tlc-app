@@ -4,13 +4,26 @@ import {
   Image,
   Button,
   Platform,
-  Linking
+  Linking,
+  View
 } from 'react-native';
 
 import { StatNavigation } from '../util/router';
 
 import ProfileContent from '../components/profile/ProfileContent';
 import ProfileActions from '../actions/profile';
+
+function getCurrentRouteName(navigationState) {
+  if (!navigationState) {
+    return null;
+  }
+  const route = navigationState.routes[navigationState.index];
+  // dive into nested navigators
+  if (route.routes) {
+    return getCurrentRouteName(route);
+  }
+  return route.routeName;
+}
 
 class ProfileScreen extends Component {
 
@@ -43,11 +56,19 @@ class ProfileScreen extends Component {
       headerStyle,
       title,
       style,
-      headerRight: params.isCurrentUser ? headerRight : null
+      headerRight: (params.isCurrentUser === true || typeof(params.isCurrentUser) === 'undefined') ? headerRight : null
     });
   }
 
-  componentWillMount() {
+  componentWillReceiveProps(nextProps) {
+    console.log('r', getCurrentRouteName(nextProps.nav))
+      if (getCurrentRouteName(nextProps.nav) === 'CurrentUserProfile' && getCurrentRouteName(this.props.nav) !== 'CurrentUserProfile') {
+        console.log('GETTING IN SCREEN');
+        this.prepareScreenAndLoadProfile();
+      }
+  }
+
+  prepareScreenAndLoadProfile = () => {
     const { dispatch, navigation } = this.props;
     const params = navigation.state.params;
 
@@ -58,6 +79,10 @@ class ProfileScreen extends Component {
     } else {
       dispatch(ProfileActions.getCurrentUserProfile());
     }
+  };
+
+  componentWillMount() {
+    //this.prepareScreenAndLoadProfile();
   }
 
   render() {
@@ -79,7 +104,8 @@ class ProfileScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  profile: state.profile
+  profile: state.profile,
+  nav: state.nav
 });
 
 export default connect(mapStateToProps)(ProfileScreen);
