@@ -38,7 +38,7 @@ export class Settings extends Component {
     return (
       <ScrollView>
         <SettingsList>
-          <SettingsList.Header headerText='ACCOUNT SETTINGS' headerStyle={{color:'#000', marginTop:15}}/>
+          <SettingsList.Header headerText='ACCOUNT SETTINGS' headerStyle={{color:'#95989A', marginTop:15}}/>
           <SettingsList.Item 
             title='Edit Profile'
             onPress={this.editProfile} />
@@ -49,7 +49,8 @@ export class Settings extends Component {
           <SettingsList.Header headerStyle={{marginTop:15}}/>
           <SettingsList.Item 
             title='Sign Out'
-            onPress={() => this.showSettingsAlert()} />
+            onPress={() => this.showSettingsAlert()}
+            hasNavArrow={false} />
         </SettingsList>
       </ScrollView>
     );
