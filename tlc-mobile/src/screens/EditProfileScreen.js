@@ -8,20 +8,8 @@ import {
 	StyleSheet,
 	TouchableHighlight,
 } from 'react-native';
+import { FormLabel, FormInput } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
-import {
-	Username,
-	FirstName,
-	LastName,
-	Occupation,
-	WebAddress,
-	Facebook,
-	Instagram,
-	Twitter,
-	Patreon,
-	Snapchat
-} from '../components/Edit';
 
 import Spinner from '../components/Spinner';
 import ProfileActions from '../actions/profile';
@@ -86,17 +74,27 @@ export class EditProfileScreen extends Component {
 		return (
 			<KeyboardAwareScrollView style={{ backgroundColor: '#fff'}} >
         {this.state.isLoaded ?
-					<View style={styles.inputContainer}>
-						<Username value={this.state.username} onChangeText={username => this.setState({ username })} />
-						<FirstName value={this.state.firstName} onChangeText={firstName => this.setState({ firstName })} />
-						<LastName value={this.state.lastName} onChangeText={lastName => this.setState({ lastName })} />
-						<Occupation value={this.state.occupation} onChangeText={occupation => this.setState({ occupation })} />
-						<WebAddress value={this.state.webAddress} onChangeText={webAddress => this.setState({ webAddress })} />
-						<Facebook value={this.state.facebook} onChangeText={facebook => this.setState({ facebook })} />
-						<Instagram value={this.state.instagram} onChangeText={instagram => this.setState({ instagram })} />
-						<Twitter value={this.state.twitter} onChangeText={twitter => this.setState({ twitter })} />
-						<Patreon value={this.state.patreon} onChangeText={patreon => this.setState({ patreon })} />
-						<Snapchat value={this.state.snapchat} onChangeText={snapchat => this.setState({ snapchat })} />
+					<View>
+						<FormLabel>Username</FormLabel>
+						<FormInput value={this.state.username} onChangeText={username => this.setState({ username })}  />
+						<FormLabel>FirstName</FormLabel>
+						<FormInput  value={this.state.firstName} onChangeText={firstName => this.setState({ firstName })} />
+						<FormLabel>LastName</FormLabel>
+						<FormInput value={this.state.lastName} onChangeText={lastName => this.setState({ lastName })}  />
+						<FormLabel>Occupation</FormLabel>
+						<FormInput value={this.state.occupation} onChangeText={occupation => this.setState({ occupation })}  />
+						<FormLabel>Web Address</FormLabel>
+						<FormInput value={this.state.webAddress} onChangeText={webAddress => this.setState({ webAddress })}  />
+						<FormLabel>Facebook</FormLabel>
+						<FormInput value={this.state.facebook} onChangeText={facebook => this.setState({ facebook })}  />
+						<FormLabel>Instagram</FormLabel>
+						<FormInput value={this.state.instagram} onChangeText={instagram => this.setState({ instagram })}  />
+						<FormLabel>Twitter</FormLabel>
+						<FormInput value={this.state.twitter} onChangeText={twitter => this.setState({ twitter })}  />
+						<FormLabel>Patreon</FormLabel>
+						<FormInput value={this.state.patreon} onChangeText={patreon => this.setState({ patreon })}  />
+						<FormLabel>Snapchat</FormLabel>
+						<FormInput value={this.state.snapchat} onChangeText={snapchat => this.setState({ snapchat })}  />
 					</View>
 					: <Spinner />
         }
@@ -153,12 +151,10 @@ const styles = StyleSheet.create({
     color: "#fff"
 	},
 	button: {
-		alignSelf: 'stretch',
-  	margin: 20,
-  	padding: 20,
-  	borderColor: '#fff',
+		flex: 1,
+		padding: 20,
+		marginBottom: 20,
   	backgroundColor: '#89b2e0',
-  	borderRadius: 8
 	},
 	logo: {
 		width: 350,
