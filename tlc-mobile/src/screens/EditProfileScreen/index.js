@@ -5,14 +5,21 @@ import {
 	View,
 	Text,
 	Platform,
+	Image,
 	StyleSheet,
 	TouchableHighlight,
 } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import Spinner from '../components/Spinner';
-import ProfileActions from '../actions/profile';
+import Spinner from '../../components/Spinner';
+import ProfileActions from '../../actions/profile';
+
+const Facebook = require('./images/facebook.png');
+const Instagram = require('./images/instagram.png');
+const Patreon = require('./images/patreon.png');
+const Snapchat = require('./images/snapchat.png');
+const Twitter = require('./images/twitter.png');
 
 export class EditProfileScreen extends Component {
 
@@ -85,15 +92,15 @@ export class EditProfileScreen extends Component {
 						<FormInput value={this.state.occupation} onChangeText={occupation => this.setState({ occupation })}  />
 						<FormLabel>Web Address</FormLabel>
 						<FormInput value={this.state.webAddress} onChangeText={webAddress => this.setState({ webAddress })}  />
-						<FormLabel>Facebook</FormLabel>
+						<Image source={Facebook} style={{ marginLeft: 20, marginTop: 15 }} />
 						<FormInput value={this.state.facebook} onChangeText={facebook => this.setState({ facebook })}  />
-						<FormLabel>Instagram</FormLabel>
+						<Image source={Instagram} style={{ marginLeft: 20, marginTop: 15 }} />
 						<FormInput value={this.state.instagram} onChangeText={instagram => this.setState({ instagram })}  />
-						<FormLabel>Twitter</FormLabel>
+						<Image source={Twitter} style={{ marginLeft: 20, marginTop: 15 }} />
 						<FormInput value={this.state.twitter} onChangeText={twitter => this.setState({ twitter })}  />
-						<FormLabel>Patreon</FormLabel>
+						<Image source={Patreon} style={{ marginLeft: 20, marginTop: 15 }} />
 						<FormInput value={this.state.patreon} onChangeText={patreon => this.setState({ patreon })}  />
-						<FormLabel>Snapchat</FormLabel>
+						<Image source={Snapchat} style={{ marginLeft: 20, marginTop: 15 }} />
 						<FormInput value={this.state.snapchat} onChangeText={snapchat => this.setState({ snapchat })}  />
 					</View>
 					: <Spinner />
