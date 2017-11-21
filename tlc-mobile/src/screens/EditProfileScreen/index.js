@@ -5,26 +5,21 @@ import {
 	View,
 	Text,
 	Platform,
+	Image,
 	StyleSheet,
 	TouchableHighlight,
 } from 'react-native';
+import { FormLabel, FormInput } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import {
-	Username,
-	FirstName,
-	LastName,
-	Occupation,
-	WebAddress,
-	Facebook,
-	Instagram,
-	Twitter,
-	Patreon,
-	Snapchat
-} from '../components/Edit';
+import Spinner from '../../components/Spinner';
+import ProfileActions from '../../actions/profile';
 
-import Spinner from '../components/Spinner';
-import ProfileActions from '../actions/profile';
+const Facebook = require('./images/facebook.png');
+const Instagram = require('./images/instagram.png');
+const Patreon = require('./images/patreon.png');
+const Snapchat = require('./images/snapchat.png');
+const Twitter = require('./images/twitter.png');
 
 export class EditProfileScreen extends Component {
 
@@ -86,17 +81,27 @@ export class EditProfileScreen extends Component {
 		return (
 			<KeyboardAwareScrollView style={{ backgroundColor: '#fff'}} >
         {this.state.isLoaded ?
-					<View style={styles.inputContainer}>
-						<Username value={this.state.username} onChangeText={username => this.setState({ username })} />
-						<FirstName value={this.state.firstName} onChangeText={firstName => this.setState({ firstName })} />
-						<LastName value={this.state.lastName} onChangeText={lastName => this.setState({ lastName })} />
-						<Occupation value={this.state.occupation} onChangeText={occupation => this.setState({ occupation })} />
-						<WebAddress value={this.state.webAddress} onChangeText={webAddress => this.setState({ webAddress })} />
-						<Facebook value={this.state.facebook} onChangeText={facebook => this.setState({ facebook })} />
-						<Instagram value={this.state.instagram} onChangeText={instagram => this.setState({ instagram })} />
-						<Twitter value={this.state.twitter} onChangeText={twitter => this.setState({ twitter })} />
-						<Patreon value={this.state.patreon} onChangeText={patreon => this.setState({ patreon })} />
-						<Snapchat value={this.state.snapchat} onChangeText={snapchat => this.setState({ snapchat })} />
+					<View>
+						<FormLabel>Username</FormLabel>
+						<FormInput value={this.state.username} onChangeText={username => this.setState({ username })}  />
+						<FormLabel>FirstName</FormLabel>
+						<FormInput  value={this.state.firstName} onChangeText={firstName => this.setState({ firstName })} />
+						<FormLabel>LastName</FormLabel>
+						<FormInput value={this.state.lastName} onChangeText={lastName => this.setState({ lastName })}  />
+						<FormLabel>Occupation</FormLabel>
+						<FormInput value={this.state.occupation} onChangeText={occupation => this.setState({ occupation })}  />
+						<FormLabel>Web Address</FormLabel>
+						<FormInput value={this.state.webAddress} onChangeText={webAddress => this.setState({ webAddress })}  />
+						<Image source={Facebook} style={{ marginLeft: 20, marginTop: 15 }} />
+						<FormInput value={this.state.facebook} onChangeText={facebook => this.setState({ facebook })}  />
+						<Image source={Instagram} style={{ marginLeft: 20, marginTop: 15 }} />
+						<FormInput value={this.state.instagram} onChangeText={instagram => this.setState({ instagram })}  />
+						<Image source={Twitter} style={{ marginLeft: 20, marginTop: 15 }} />
+						<FormInput value={this.state.twitter} onChangeText={twitter => this.setState({ twitter })}  />
+						<Image source={Patreon} style={{ marginLeft: 20, marginTop: 15 }} />
+						<FormInput value={this.state.patreon} onChangeText={patreon => this.setState({ patreon })}  />
+						<Image source={Snapchat} style={{ marginLeft: 20, marginTop: 15 }} />
+						<FormInput value={this.state.snapchat} onChangeText={snapchat => this.setState({ snapchat })}  />
 					</View>
 					: <Spinner />
         }
@@ -153,12 +158,10 @@ const styles = StyleSheet.create({
     color: "#fff"
 	},
 	button: {
-		alignSelf: 'stretch',
-  	margin: 20,
-  	padding: 20,
-  	borderColor: '#fff',
+		flex: 1,
+		padding: 20,
+		marginBottom: 20,
   	backgroundColor: '#89b2e0',
-  	borderRadius: 8
 	},
 	logo: {
 		width: 350,

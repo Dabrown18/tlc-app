@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from 'react-native';
+import SettingsList from 'react-native-settings-list';
 import { List, ListItem } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation'
 import Router from '../actions/router';
@@ -36,23 +37,21 @@ export class Settings extends Component {
   render() {
     return (
       <ScrollView>
-        <List title="Account">
-          <TouchableOpacity>
-            <ListItem
-              title="Edit Profile"
-              onPress={this.editProfile}
-            />
-          </TouchableOpacity>
-        </List>
-        <List>
-          <TouchableOpacity>
-            <ListItem
-              title="Sign Out"
-              rightIcon={{ name: 'cancel' }}
-              onPress={() => this.showSettingsAlert()}
-            />
-          </TouchableOpacity>
-        </List>
+        <SettingsList>
+          <SettingsList.Header headerText='ACCOUNT SETTINGS' headerStyle={{color:'#95989A', marginTop:15}}/>
+          <SettingsList.Item 
+            title='Edit Profile'
+            onPress={this.editProfile} />
+          <SettingsList.Item 
+            title='Switch to Business Account'
+            hasNavArrow={false}
+            hasSwitch={true} />
+          <SettingsList.Header headerStyle={{marginTop:15}}/>
+          <SettingsList.Item 
+            title='Sign Out'
+            onPress={() => this.showSettingsAlert()}
+            hasNavArrow={false} />
+        </SettingsList>
       </ScrollView>
     );
   }
