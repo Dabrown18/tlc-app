@@ -8,6 +8,7 @@ import {
   SearchScreen,
   HomeScreen,
   ProfileScreen,
+  LoggedUserProfileScreen,
   RegisterScreen,
   RegisterScreenTwo,
   RegisterScreenThree,
@@ -89,9 +90,9 @@ export const MainNavigator = TabNavigator({
           tabBarIcon: ({ tintColor }) => <Icon name="notifications" size={35} color={tintColor} />,
         },
        },
-      CurrentUserProfile: {
+      LoggedUserProfile: {
         screen: StackNavigator({
-          CurrentUserProfile: { screen: ProfileScreen },
+          LoggedUserProfile: { screen: LoggedUserProfileScreen },
           Followers: { screen: FollowersScreen },
           Likes: { screen: LikesScreen },
           Comments: { screen: CommentsScreen },

@@ -20,7 +20,7 @@ export default {
           const payload = Api.get(`/users/${userId}`, authToken);
 
           return dispatch({
-            type: GET_USER_PROFILE,
+            type: GET_CURRENT_USER_PROFILE,
             payload
           });
         });

@@ -12,6 +12,7 @@ import LikesScreen from './LikesScreen';
 import LoginScreen from './LoginScreen';
 import NotificationsScreen from './NotificationsScreen';
 import ProfileScreen from './ProfileScreen';
+import LoggedUserProfileScreen from './LoggedUserProfileScreen';
 import RegisterScreen from './RegisterScreen';
 import RegisterScreenTwo from './RegisterScreenTwo';
 import RegisterScreenThree from './RegisterScreenThree';
@@ -38,6 +39,7 @@ export {
 	LoginScreen,
 	NotificationsScreen,
 	ProfileScreen,
+  LoggedUserProfileScreen,
 	RegisterScreen,
 	RegisterScreenTwo,
 	RegisterScreenThree,

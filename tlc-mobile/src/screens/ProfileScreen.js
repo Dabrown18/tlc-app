@@ -52,58 +52,49 @@ class ProfileScreen extends Component {
     />;
 
     navigation.setParams({
-      ...params,
+      //...params,
       headerStyle,
       title,
       style,
-      headerRight: (params.isCurrentUser === true || typeof(params.isCurrentUser) === 'undefined') ? headerRight : null
+      headerRight: params.isCurrentUser ? headerRight : null
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('r', getCurrentRouteName(nextProps.nav))
-      if (getCurrentRouteName(nextProps.nav) === 'CurrentUserProfile' && getCurrentRouteName(this.props.nav) !== 'CurrentUserProfile') {
-        console.log('GETTING IN SCREEN');
-        this.prepareScreenAndLoadProfile();
-      }
   }
 
-  prepareScreenAndLoadProfile = () => {
-    const { dispatch, navigation } = this.props;
+  prepareScreenAndLoadProfile = (props) => {
+    const { navigation, session } = props;
     const params = navigation.state.params;
+    const isCurrentUser = params.userId === session.userId;
 
-    this._setNavigationParams(params || {});
+    this._setNavigationParams({
+      ...params,
+      isCurrentUser
+    });
 
-    if (params && params.userId ) {
-      dispatch(ProfileActions.getUserProfile(params.userId));
-    } else {
-      dispatch(ProfileActions.getCurrentUserProfile());
-    }
+    this.props.dispatch(ProfileActions.getUserProfile(params.userId));
   };
 
   componentWillMount() {
-    //this.prepareScreenAndLoadProfile();
+    this.prepareScreenAndLoadProfile(this.props);
   }
 
   render() {
-    const { profile, navigation } = this.props;
-    const isCurrentUser = navigation.state.params && navigation.state.params.isCurrentUser;
-    const currentUserId = navigation.state.params && navigation.state.params.userId;
-
-    console.log('nav',  navigation.state.params);
-    console.log('currentUserId', currentUserId);
+    const { profile, navigation, session } = this.props;
+    const isCurrentUser = navigation.state.params.userId === session.userId;
 
     return (
       <ProfileContent
         isCurrentUser={isCurrentUser}
-        currentUserId={currentUserId}
-        profile={profile}
+        profile={profile.other}
       />
     );
   }
 }
 
 const mapStateToProps = (state) => ({
+  session: state.session,
   profile: state.profile,
   nav: state.nav
 });

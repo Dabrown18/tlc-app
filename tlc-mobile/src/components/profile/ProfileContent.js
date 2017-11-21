@@ -8,7 +8,6 @@ export default class ProfileContent extends Component {
     return (
       <ProfileImage
         isCurrentUser={this.props.isCurrentUser}
-        currentUserId={this.props.currentUserId}
         profile={this.props.profile}
       />
     );
