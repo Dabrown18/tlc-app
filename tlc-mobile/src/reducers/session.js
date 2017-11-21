@@ -1,8 +1,12 @@
 import * as AuthActions from '../actions/authentication';
+import * as SessionActions from '../actions/session';
 import Immutable from 'seamless-immutable';
 import typeToReducer from 'type-to-reducer';
 
 const initialState = Immutable({
+  authToken: null,
+  userId: null,
+
   status: {
     isLoggingIn: false,
     error: false
@@ -40,5 +44,14 @@ export default typeToReducer({
         data: action.payload
       });
     }
+  },
+
+  [SessionActions.SET_AUTH_DETAILS](state, action) {
+    const { authToken, userId } = action.payload;
+
+    return state.merge({
+      authToken,
+      userId
+    });
   }
 }, initialState);

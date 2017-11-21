@@ -6,6 +6,11 @@ import { Avenir, DidotItalic } from './fonts'
 const { width, height } = Dimensions.get('window');
 
 module.exports = StyleSheet.create({
+  centerXY: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   background: {
     backgroundColor: WHITE,
   },
