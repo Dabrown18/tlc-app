@@ -257,15 +257,56 @@ async function getUserStories(ctx) {
   }
 }
 
+async function followUser(ctx) {
+  try {
+    const { id } = ctx.params;
+
+    if ((await UserService.canFollowUser(ctx.user.id, id))) {
+      const updatedUser = await UserService.followUser(ctx.user.id, id);
+      ctx.ok({
+        status: 1,
+        user: UserService.stripSensitiveInfo(updatedUser)
+      });
+    } else {
+      ctx.badRequest({
+        error: 'Cannot follow this user at this time'
+      });
+    }
+  } catch( e ) {
+    ctx.log.error('Error on followUser()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
+async function unFollowUser(ctx) {
+  try {
+    const { id } = ctx.params;
+
+    const updatedUser = await UserService.unFollowUser(ctx.user.id, id);
+    ctx.ok({
+      status: 1,
+      user: UserService.stripSensitiveInfo(updatedUser)
+    });
+  } catch( e ) {
+    ctx.log.error('Error on unFollowUser()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
 router
   .get('/users/:id', getUser)
   .put('/users/:id/profile', updateUser)
   .post('/users/:id/profile/picture', uploadMiddleware.single('profilePicture'), updateProfilePicture)
   .put('/users/:id/profile/categories', updateUserCategories)
-  .get('/users/:id/stories', getUserStories);
+  .get('/users/:id/stories', getUserStories)
+  .post('/users/:id/follow', followUser)
+  .delete('/users/:id/unfollow', unFollowUser);
 
-
-// TODO: This should either active on DEV or removed in the future. SHOULD NOT BE ENABLED ON PRODUCTION
+// TODO: This should be either active on DEV or removed in the future. SHOULD NOT BE ENABLED ON PRODUCTION
 if (config.DEV) {
   router.get('/temp-delete-user/:username', tempDeleteUser);
 }

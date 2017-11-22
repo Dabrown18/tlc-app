@@ -107,18 +107,30 @@ module.exports = {
     return models.user.findOne({ _id: userId }, { _id: 1, profilePicture: 1 });
   },
 
+  /**
+   * Checks whether or not a user is allowed to follow another user.
+   * For now, it always returns true.
+   *
+   * @param userId
+   * @param toBeFollowedUserId
+   * @returns {Promise<boolean>}
+   */
+  async canFollowUser(userId, toBeFollowedUserId) {
+    return true;
+  },
+
   async followUser(userId, toBeFollowedUserId) {
-    return models.user.update({ _id: userId }, {
+    return models.user.findOneAndUpdate({ _id: userId }, {
       $push: { following: toBeFollowedUserId },
       $inc: { followingCount: 1 }
-    });
+    }, { new: true });
   },
 
   async unFollowUser(userId, toBeUnfollowedUserId) {
-    return models.user.update({ _id: userId }, {
+    return models.user.findOneAndUpdate({ _id: userId }, {
       $pull: { following: toBeUnfollowedUserId },
-      $dec: { followingCount: 1 }
-    });
+      $inc: { followingCount: -1 }
+    }, { new: true });
   },
 
   async isUserFollowing(userId, targetUserId) {
