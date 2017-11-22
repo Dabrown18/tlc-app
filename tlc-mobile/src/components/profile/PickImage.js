@@ -8,11 +8,16 @@ const ChangeImage = require('./images/change-photo.png');
 
 export default class PickImage extends React.Component {
   static propTypes = {
-    onChooseImage: PropTypes.func.isRequired
+    onChooseImage: PropTypes.func.isRequired,
+    onToggleFollow: PropTypes.func.isRequired,
   };
 
   render() {
-    const { isCurrentUser } = this.props;
+    const {
+      isCurrentUser,
+      onToggleFollow,
+      isFollowing,
+      isFollowingOrUnfollowingInProgress } = this.props;
 
     let showChangeImage = isCurrentUser;
     let showFollow = !isCurrentUser;
@@ -25,7 +30,11 @@ export default class PickImage extends React.Component {
           </TouchableOpacity>}
         </View>
         <View>
-          { showFollow && <FollowButton /> }
+          { showFollow &&
+            <FollowButton
+              isFollowingOrUnfollowingInProgress={isFollowingOrUnfollowingInProgress}
+              onPress={onToggleFollow}
+              isFollowing={isFollowing} /> }
         </View>
       </View>
     );

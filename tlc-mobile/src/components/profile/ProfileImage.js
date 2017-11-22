@@ -9,6 +9,7 @@ import {
 
 import ProfileInfo from './ProfileInfo';
 import PickImage from './PickImage';
+import UserActions from '../../actions/user';
 
 const PlaceHolderImage = require('./images/user-profile.jpg');
 
@@ -34,6 +35,26 @@ export class ProfileImage extends Component {
 			});
 	};
 
+	isFollowing = () => {
+		const { mainProfile, profile } = this.props;
+
+    if (!mainProfile.data || !profile.data) return null;
+
+    return mainProfile.data.following.indexOf(profile.data._id) !== -1;
+	};
+
+	toggleFollow = () => {
+    const { dispatch, isCurrentUser, profile } = this.props;
+
+    if (isCurrentUser) return;
+
+    if (this.isFollowing()) {
+      dispatch(UserActions.unFollowUser(profile.data._id));
+		} else {
+      dispatch(UserActions.followUser(profile.data._id));
+		}
+  };
+
   componentWillReceiveProps(nextProps) {
 		if (this.props.profile !== nextProps.profile) {
 			if (nextProps.profile && nextProps.profile.data && nextProps.profile.data.profilePicture) {
@@ -47,7 +68,7 @@ export class ProfileImage extends Component {
   }
 
   render() {
-  	const { profile, isCurrentUser } = this.props;
+  	const { profile, mainProfile, isCurrentUser } = this.props;
 		const profileImage = this.state.profileImage || PlaceHolderImage;
 
 		return (
@@ -55,6 +76,9 @@ export class ProfileImage extends Component {
 				<PickImage
 					profile={profile}
 					onChooseImage={this.onChooseImage}
+					onToggleFollow={this.toggleFollow}
+					isFollowingOrUnfollowingInProgress={mainProfile.isFollowingOrUnfollowing}
+					isFollowing={this.isFollowing()}
 					isCurrentUser={isCurrentUser} />
 				<ProfileInfo profile={profile} />
 			</Image>
@@ -62,7 +86,11 @@ export class ProfileImage extends Component {
 	}
 }
 
-export default connect()(ProfileImage);
+const mapStateToProps = (state) => ({
+	mainProfile: state.profile.main
+});
+
+export default connect(mapStateToProps)(ProfileImage);
 
 const styles = StyleSheet.create({
 	container: {

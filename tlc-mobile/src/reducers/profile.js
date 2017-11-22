@@ -1,9 +1,11 @@
 import * as ProfileActions from '../actions/profile';
 import Immutable from 'seamless-immutable';
 import typeToReducer from 'type-to-reducer';
+import * as UserActions from '../actions/user';
 
 const initialState = Immutable({
   main: {
+    isFollowingOrUnfollowing: false,
     isFetching: false,
     isUpdating: false,
     error: false,
@@ -142,5 +144,72 @@ export default typeToReducer({
         }
       });
     }
+  },
+
+  [UserActions.FOLLOW_USER]: {
+    PENDING(state) {
+      return state.merge({
+        main: {
+          ...state.main,
+          isFollowingOrUnfollowing: true,
+          error: false
+        }
+      });
+    },
+
+    REJECTED(state, action) {
+      const { error } = action.payload;
+      return state.merge({
+        main: {
+          ...state.main,
+          isFollowingOrUnfollowing: false,
+          error
+        }
+      });
+    },
+
+    FULFILLED(state, action) {
+      return state.merge({
+        main: {
+          ...state.main,
+          isFollowingOrUnfollowing: false,
+          data: action.payload.user
+        }
+      });
+    }
+  },
+
+  [UserActions.UNFOLLOW_USER]: {
+    PENDING(state) {
+      return state.merge({
+        main: {
+          ...state.main,
+          isFollowingOrUnfollowing: true,
+          error: false
+        }
+      });
+    },
+
+    REJECTED(state, action) {
+      const { error } = action.payload;
+      return state.merge({
+        main: {
+          ...state.main,
+          isFollowingOrUnfollowing: false,
+          error
+        }
+      });
+    },
+
+    FULFILLED(state, action) {
+      return state.merge({
+        main: {
+          ...state.main,
+          isFollowingOrUnfollowing: false,
+          data: action.payload.user
+        }
+      });
+    }
   }
+
 }, initialState);
