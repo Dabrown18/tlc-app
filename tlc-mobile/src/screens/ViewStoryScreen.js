@@ -110,7 +110,7 @@ export class ViewStoryScreen extends Component {
 
         <View style={styles.usernameContainer}>
           <Text style={styles.usernameText}>Author:</Text>
-          <Text style={styles.usernameValue} onPress={() => this.gotoProfile(story.user._id)}>{story.user.username}</Text>
+          <Text style={styles.usernameValue}>{story.user.username}</Text>
         </View>
 
         <View style={styles.dateContainer}>
