@@ -26,7 +26,9 @@ module.exports = {
   },
 
   async getById(_id) {
-    return await models.story.findOne({ _id });
+    return await models.story.findOne({ _id })
+      .populate('user')
+      .populate('comments.author');
   },
 
   async updateStory(_id, story) {
