@@ -187,13 +187,71 @@ async function unFollowStory(ctx) {
   }
 }
 
+async function bookmarkStory(ctx) {
+  try {
+    const { storyId } = ctx.params;
+
+    const bookmark = await StoryService.bookmarkStory(ctx.user.id, storyId);
+
+    ctx.ok({
+      storyId,
+      status: 1,
+      bookmark
+    });
+  } catch( e ) {
+    ctx.log.error('Error on bookmarkStory()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
+async function unBookmarkStory(ctx) {
+  try {
+    const { storyId } = ctx.params;
+
+    await StoryService.unBookmarkStory(ctx.user.id, storyId);
+
+    ctx.ok({
+      storyId,
+      status: 1
+    });
+  } catch( e ) {
+    ctx.log.error('Error on unBookmarkStory()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
+async function isBookmarked(ctx) {
+  try {
+    const { storyId } = ctx.params;
+
+    const bookmark = await StoryService.getBookmark(ctx.user.id, storyId);
+
+    ctx.ok({
+      storyId,
+      status: 1,
+      bookmarked: bookmark !== null
+    });
+  } catch( e ) {
+    ctx.log.error('Error on isBookmarked()', e);
+    ctx.badRequest({
+      error: 'Unexpected error'
+    });
+  }
+}
+
 router
   .get('/stories/:id', getStory)
   .post('/stories', uploadMiddleware.fields(fields), addStory)
   .post('/stories/:id/comments', addComment)
   .delete('/stories/:storyId/comments/:commentId', deleteComment)
   .post('/stories/:storyId/followers', followStory)
-  .delete('/stories/:storyId/followers', unFollowStory);
-
+  .delete('/stories/:storyId/followers', unFollowStory)
+  .post('/stories/:storyId/bookmark', bookmarkStory)
+  .delete('/stories/:storyId/bookmark', unBookmarkStory)
+  .get('/stories/:storyId/isbookmarked', isBookmarked);
 
 module.exports = router;

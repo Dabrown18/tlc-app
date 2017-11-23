@@ -150,9 +150,9 @@ module.exports = {
     };
 
     const sortSpec = {
+      creationDate: -1,
       isFollowingUser: -1,
       isFollowingCategory: -1,
-      creationDate: -1
     };
 
     return models.story.aggregate([
@@ -214,4 +214,55 @@ module.exports = {
       }
     }});
   },
+
+  /**
+   * Returns the bookmark object associated with given userId and storyId.
+   * Null is returned if there is no bookmark for that story by the user.
+   *
+   * @param userId
+   * @param storyId
+   * @returns {Promise<object>}
+   */
+  async getBookmark(userId, storyId) {
+    return models.bookmark.findOne({ user: userId, story: storyId });
+  },
+
+  /**
+   *
+   * @param userId
+   * @param storyId
+   * @returns {Promise.<void>}
+   */
+  async bookmarkStory(userId, storyId) {
+    return models.bookmark.findOneAndUpdate(
+      {
+        user: userId,
+        story: storyId,
+      },
+      {
+        $set: {
+          user: userId,
+          story: storyId,
+          creationDate: new Date()
+        }
+      },
+      {
+        new: 1,
+        upsert: 1
+      }
+    );
+  },
+  /**
+   *
+   * @param userId
+   * @param storyId
+   * @returns {Promise.<void>}
+   */
+  async unBookmarkStory(userId, storyId) {
+    return models.bookmark.remove({
+      user: userId,
+      story: storyId
+    });
+  },
+
 };
