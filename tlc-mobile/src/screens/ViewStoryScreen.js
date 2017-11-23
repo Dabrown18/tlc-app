@@ -17,6 +17,7 @@ import CommentForm from '../components/Story/CommentForm';
 import StoryActions from '../actions/story';
 import CommentsView from '../components/Story/CommentsView';
 import {formatDateTime} from '../util/format';
+import Spinner from '../components/Spinner';
 
 const photo = require('../reactions/images/marriedCouple.jpg');
 const bookmarkImage = require('../images/bookmark.png');
@@ -70,78 +71,107 @@ export class ViewStoryScreen extends Component {
 
   }
 
+  toggleBookmark = () => {
+    const { viewStory, isLoadingViewStory, dispatch } = this.props;
+    
+    if (!viewStory || isLoadingViewStory) return;
+    
+    if (viewStory.bookmarked) {
+      dispatch(StoryActions.unBookmarkStory(viewStory._id));
+    } else {
+      dispatch(StoryActions.bookmarkStory(viewStory._id));
+    }
+  }
+
+  toggleFollow() {
+
+  }
+
   render() {
-    const { story, userId } = this.props;
+    const { cachedStory, viewStory, userId, isLoadingViewStory } = this.props;
+
+    let story = cachedStory;
+    let bookmarkBtnText = '...';
+
+    if (!isLoadingViewStory && viewStory) {
+      story = viewStory;
+      bookmarkBtnText = viewStory.bookmarked ? 'Unbookmark' : 'Bookmark';
+    }
+
+    const content = (<ScrollView>
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: story.thumbnail.url}} style={styles.photoStyle}/>
+      </View>
+
+      <View style={styles.storyMeta}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.titleText}>{story.title}</Text>
+        </View>
+
+        <View style={styles.usernameContainer}>
+          <Text style={styles.usernameText}>Author:</Text>
+          <Text style={styles.usernameValue} onPress={() => this.gotoProfile(story.user._id)}>{story.user.username}</Text>
+        </View>
+
+        <View style={styles.dateContainer}>
+          <Text style={styles.dateText}>Date:</Text>
+          <Text style={styles.dateValue}>{formatDateTime(story.creationDate)}</Text>
+        </View>
+      </View>
+
+      <Text style={styles.detailText}>{story.details}</Text>
+
+      <View>
+        <View style={styles.actionBtnContainer}>
+          <View style={styles.singleBtnContainer}>
+            <TouchableOpacity style={styles.actionBtn} onPress={this.toggleBookmark}>
+              <Image
+                style={styles.btnIcon}
+                source={bookmarkImage}
+                resizeMode="contain" />
+              <Text style={styles.actionBtnText}>{bookmarkBtnText}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.singleBtnContainer}>
+            <TouchableOpacity style={styles.actionBtn} onPress={this.toggleFollow}>
+              <Image
+                style={styles.btnIcon}
+                source={starImage}
+                resizeMode="contain" />
+              <Text style={styles.actionBtnText}>Follow</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.reactionsContainer}>
+          <Reactions />
+        </View>
+
+        {isLoadingViewStory && <Spinner />}
+
+        {!isLoadingViewStory &&
+          <CommentsView
+            isLoadingViewStory={isLoadingViewStory}
+            gotoProfile={this.gotoProfile}
+            story={story}
+            userId={userId}/>
+        }
+
+        {!isLoadingViewStory &&
+          <View style={styles.commentContainer}>
+            <Text style={styles.commentText}>
+              Offer Your Thoughts
+            </Text>
+            <CommentForm onPost={this.addComment} isAddingComment={this.props.isAddingComment}/>
+          </View>
+        }
+      </View>
+
+    </ScrollView>);
 
     return (
       <View style={styles.container}>
-
-        <ScrollView>
-
-          <View style={styles.imageContainer}>
-            <Image source={{ uri: story.thumbnail.url}} style={styles.photoStyle}/>
-          </View>
-
-          <View style={styles.storyMeta}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.titleText}>{story.title}</Text>
-            </View>
-
-            <View style={styles.usernameContainer}>
-              <Text style={styles.usernameText}>Author:</Text>
-              <Text style={styles.usernameValue} onPress={() => this.gotoProfile(story.user._id)}>{story.user.username}</Text>
-            </View>
-
-            <View style={styles.dateContainer}>
-              <Text style={styles.dateText}>Date:</Text>
-              <Text style={styles.dateValue}>{formatDateTime(story.creationDate)}</Text>
-            </View>
-          </View>
-
-          <Text style={styles.detailText}>{story.details}</Text>
-
-          <View>
-            <View style={styles.actionBtnContainer}>
-              <View style={styles.singleBtnContainer}>
-                <TouchableOpacity style={styles.actionBtn}>
-                  <Image
-                    style={styles.btnIcon}
-                    source={bookmarkImage}
-                    resizeMode="contain" />
-                  <Text style={styles.actionBtnText}>Bookmark</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.singleBtnContainer}>
-                <TouchableOpacity style={styles.actionBtn}>
-                  <Image
-                    style={styles.btnIcon}
-                    source={starImage}
-                    resizeMode="contain" />
-                  <Text style={styles.actionBtnText}>Follow</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.reactionsContainer}>
-              <Reactions />
-            </View>
-
-            <CommentsView
-              gotoProfile={this.gotoProfile}
-              story={story}
-              userId={userId} />
-
-            <View style={styles.commentContainer}>
-              <Text style={styles.commentText}>
-                Offer Your Thoughts
-              </Text>
-              <CommentForm onPost={this.addComment} isAddingComment={this.props.isAddingComment} />
-            </View>
-
-          </View>
-
-        </ScrollView>
-
+        {isLoadingViewStory && !cachedStory ? <Spinner /> : content}
       </View>
 
     );
@@ -151,21 +181,21 @@ export class ViewStoryScreen extends Component {
 const mapStateTopProps = (state, props) => {
   const { story } = state;
   const { selectedStoryIndex } = story;
+  let cachedStory = null;
 
-  let viewStory = null;
   const fromHomeScreen = comingFromHomeScreen(props);
 
   if (fromHomeScreen) {
-    viewStory = selectedStoryIndex !== -1 ? story.listing[selectedStoryIndex] : null;
-  } else {
-    viewStory = story.viewStory;
+    cachedStory = selectedStoryIndex !== -1 ? story.listing[selectedStoryIndex] : null;
   }
 
   return {
     fromHomeScreen,
-    story: viewStory,
+    cachedStory,
+    viewStory: story.viewStory,
     userId: story.userId,
-    isAddingComment: story.status.isAddingComment
+    isAddingComment: story.status.isAddingComment,
+    isLoadingViewStory: story.status.isLoadingViewStory
   }
 };
 

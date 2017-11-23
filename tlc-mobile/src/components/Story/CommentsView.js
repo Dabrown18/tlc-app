@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import _ from 'lodash';
 import {
   Alert,
   StyleSheet,
@@ -13,6 +14,10 @@ import StoryActions from '../../actions/story';
 const fireImage = require('../../images/fire.png');
 const commentImage = require('../../images/comment.png');
 
+function normalizeAuthor(author) {
+  return _.isArray(author) ? author[0] : author;
+}
+
 class CommentsView extends Component {
 
   gotoProfile = (userId) => {
@@ -20,14 +25,15 @@ class CommentsView extends Component {
   };
 
   renderComment = (comment) => {
-    const canDelete = comment.author[0]._id === this.props.userId;
+    const author = normalizeAuthor(comment.author);
+    const canDelete = author._id === this.props.userId;
 
     return (
       <View key={comment._id} style={styles.comment}>
-        <Image style={styles.userThumbnail} source={{uri: comment.author[0].profilePicture.url}} />
+        <Image style={styles.userThumbnail} source={{uri: author.profilePicture.url}} />
         <View style={styles.commentData}>
           <View style={styles.authorContainer}>
-            <Text style={styles.author} onPress={() => this.gotoProfile(comment.author[0]._id)}>{comment.author[0].firstName} {comment.author[0].lastName}</Text>
+            <Text style={styles.author} onPress={() => this.gotoProfile(author._id)}>{author.firstName} {author.lastName}</Text>
             <Text style={styles.date}>{moment(comment.creationDate).fromNow()}</Text>
           </View>
           <View>

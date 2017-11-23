@@ -23,6 +23,7 @@ const initialState = Immutable({
     isAddingComment: false,
     isLoadingStories: false,
     isLoadingViewStory: false,
+    isTogglingBookmark: false,
     error: false
   }
 });
@@ -283,11 +284,87 @@ export default typeToReducer({
 
     FULFILLED(state, action) {
       return state.merge({
-        viewStory: action.payload.story,
+        viewStory: {
+          ...action.payload[0].story,
+          bookmarked: action.payload[1].bookmarked
+        },
         status: {
           ...state.status,
           isLoadingViewStory: false,
-          error: false
+          error: false,
+        }
+      });
+    }
+  },
+
+  [StoryActions.BOOKMARK_STORY]: {
+    PENDING(state) {
+      return state.merge({
+        status: {
+          ...state.status,
+          isTogglingBookmark: true
+        }
+      });
+    },
+
+    REJECTED(state) {
+      return state.merge({
+        status: {
+          ...state.status,
+          isTogglingBookmark: false,
+          error: true
+        }
+      });
+    },
+
+    FULFILLED(state, action) {
+      console.log('view', action);
+
+
+      return state.merge({
+        viewStory: {
+          ...state.viewStory,
+          bookmarked: true
+        },
+        status: {
+          ...state.status,
+          isTogglingBookmark: false,
+          error: false,
+        }
+      });
+    }
+  },
+
+  [StoryActions.UNBOOKMARK_STORY]: {
+    PENDING(state) {
+      return state.merge({
+        status: {
+          ...state.status,
+          isTogglingBookmark: true
+        }
+      });
+    },
+
+    REJECTED(state) {
+      return state.merge({
+        status: {
+          ...state.status,
+          isTogglingBookmark: false,
+          error: true
+        }
+      });
+    },
+
+    FULFILLED(state, action) {
+      return state.merge({
+        viewStory: {
+          ...state.viewStory,
+          bookmarked: false
+        },
+        status: {
+          ...state.status,
+          isTogglingBookmark: false,
+          error: false,
         }
       });
     }

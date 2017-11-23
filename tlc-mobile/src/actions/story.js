@@ -12,6 +12,8 @@ export const ADD_STORY_COMMENT = 'ADD_STORY_COMMENT';
 export const SELECT_STORY = 'SELECT_STORY';
 export const GET_FEED = 'GET_FEED';
 export const GET_STORY = 'GET_STORY';
+export const BOOKMARK_STORY = 'BOOKMARK_STORY';
+export const UNBOOKMARK_STORY = 'UNBOOKMARK_STORY';
 
 export default {
 
@@ -160,16 +162,47 @@ export default {
   },
 
   viewStory(storyId) {
+    return (dispatch, getState) => {
+      const { authToken } = getState().session;
+
+      const payload = Promise.all([
+          Api.get(`/stories/${storyId}`, authToken),
+          Api.get(`/stories/${storyId}/isbookmarked`, authToken)
+        ]);
+
+      return dispatch({
+        type: GET_STORY,
+        payload
+      });
+    }
+  },
+
+  bookmarkStory(storyId) {
     return dispatch => {
       return AsyncStorage.getItem('authToken')
         .then(authToken => {
-          const payload = Api.get(`/stories/${storyId}` , authToken);
+          const payload = Api.post(`/stories/${storyId}/bookmark`, {}, authToken);
 
           return dispatch({
-            type: GET_STORY,
+            type: BOOKMARK_STORY,
             payload
           });
         });
     }
-  }
+  },
+
+  unBookmarkStory(storyId) {
+    return dispatch => {
+      return AsyncStorage.getItem('authToken')
+        .then(authToken => {
+          const payload = Api.del(`/stories/${storyId}/bookmark`, authToken);
+
+          return dispatch({
+            type: UNBOOKMARK_STORY,
+            payload
+          });
+        });
+    }
+  },
+
 }

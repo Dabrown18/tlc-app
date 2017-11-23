@@ -25,8 +25,9 @@ class HomeScreen extends Component {
 
     AsyncStorage.getItem('userId')
       .then(userId => {
+        dispatch(StoryActions.viewStory(story._id));
         dispatch(StoryActions.selectStory(story, userId));
-        this.props.navigation.navigate('View');
+        setTimeout(() => this.props.navigation.navigate('View'), 0);
       });
   };
 
