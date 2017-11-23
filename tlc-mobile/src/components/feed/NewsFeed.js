@@ -6,6 +6,7 @@ import {
   ListView,
   StyleSheet,
   View,
+  RefreshControl
 } from 'react-native';
 import NewsItem from './NewsItem';
 import * as globalStyles from './styles/global';
@@ -48,6 +49,20 @@ class NewsFeed extends Component {
     );
   }
 
+  _onRefresh = () => {
+    const { dispatch } = this.props;
+
+    this.setState({ refreshing: true });
+
+    dispatch(StoryActions.getFeed())
+      .then(() => {
+        this.setState({ refreshing: false });
+      })
+      .catch(() => {
+        this.setState({ refreshing: false });
+      });
+  };
+
   render() {
     const { story } = this.props;
     let listComponent = null;
@@ -60,12 +75,18 @@ class NewsFeed extends Component {
         dataSource={this.ds.cloneWithRows(story.listing)}
         renderRow={this.renderRow}
         style={this.props.listStyles}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh.bind(this)}
+          />
+        }
       />;
     }
 
     return (
       <View style={globalStyles.COMMON_STYLES.pageContainer}>
-        {story.status.isLoadingStories && <Spinner/>}
+        {story.status.isLoadingStories && !this.state.refreshing && <Spinner/>}
         {listComponent}
       </View>
     );
