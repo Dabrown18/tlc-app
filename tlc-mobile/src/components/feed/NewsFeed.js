@@ -22,7 +22,8 @@ class NewsFeed extends Component {
     });
     this.state = {
       //dataSource: this.ds.cloneWithRows(props.news),
-      modalVisible: false
+      modalVisible: false,
+      refreshing: false
     };
 
     this.renderRow = this.renderRow.bind(this);
