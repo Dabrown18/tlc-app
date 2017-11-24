@@ -17,4 +17,4 @@ export const SUBMIT_COMMENT = 'SUBMIT_COMMENT'
 // other app constants
 export const USER_TOKEN = 'USER_TOKEN';
 
-export const API_BASE_URL = __DEV__ ? 'http://192.168.43.198:3000' : 'http://34.213.225.108';
+export const API_BASE_URL = __DEV__ ? 'http://34.213.225.108' : 'http://34.213.225.108';
