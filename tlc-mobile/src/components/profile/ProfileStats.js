@@ -7,8 +7,8 @@ import {
 } from 'react-native';
 
 import Followers from './Followers';
-import Likes from './Likes';
-import Comments from './Comments';
+import Books from './Books';
+import Messages from './Messages';
 import Videos from './Videos';
 import Bookmarks from './Bookmarks';
 
@@ -20,12 +20,12 @@ export default class ProfileStats extends Component {
     this.props.navigation.navigate('FollowersScreen');
   };
 
-  likes = () => {
-    this.props.navigation.navigate('Likes');
+  books = () => {
+    this.props.navigation.navigate('Books');
   };
 
-  comments = () => {
-    this.props.navigation.navigate('Comments');
+  messages = () => {
+    this.props.navigation.navigate('Messages');
   };
 
   videos = () => {
@@ -40,9 +40,9 @@ export default class ProfileStats extends Component {
     return (
       <View style={styles.stats}>
         <Followers onPress={this.followers}/>
-        <Likes onPress={this.likes}/>
-        <Comments onPress={this.comments}/>
+        <Messages onPress={this.messages}/>
         <Videos onPress={this.comments}/>
+        <Books onPress={this.books}/>
         <Bookmarks onPress={this.comments}/>
       </View>
     );
