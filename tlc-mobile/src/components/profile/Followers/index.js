@@ -39,7 +39,7 @@ export default class Followers extends Component {
 
 		return (
 			<View style={styles.stats}>
-			{this.renderStat({ icon: followersIcon,value: followers, selected: true })}
+			{this.renderStat({ icon: followersIcon,value: followers })}
 			</View>
 		);
 	}
