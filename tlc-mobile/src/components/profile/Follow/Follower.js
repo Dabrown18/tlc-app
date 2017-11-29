@@ -19,6 +19,7 @@ export default class Follower extends Component {
 const styles = StyleSheet.create({
 	content: {
 		flexDirection: 'row',
+		paddingRight: 10
 	},
 	numberStyle: {
 		color: '#fff',

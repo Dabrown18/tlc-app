@@ -22,8 +22,6 @@ export default class Follow extends Component {
 const styles = StyleSheet.create({
 	content: {
 		flexDirection: 'row',
-		justifyContent: 'space-between',
-		paddingRight: 175,
  	marginTop: 10,
  	marginBottom: -12,
 	}
