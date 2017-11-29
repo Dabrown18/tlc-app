@@ -5,6 +5,7 @@ import {
 	StyleSheet
 } from 'react-native';
 
+import Follow from './Follow';
 import Social from './Social';
 import Spinner from '../Spinner';
 
@@ -24,6 +25,7 @@ export default class ProfilePersonal extends Component {
 					<Text style={styles.name}>{profile.data.firstName} {profile.data.lastName}</Text>
 					<Text style={styles.occupation}>{(occupation || '').toUpperCase()}</Text>
 					<Social profile={profile} />
+					<Follow />
 				</View>
 		);
 	}
