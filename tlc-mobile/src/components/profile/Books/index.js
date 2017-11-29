@@ -7,16 +7,12 @@ import {
 	StyleSheet
 } from 'react-native';
 
-const followersIcon = require('../images/profile.png');
+const booksIcon = require('../images/books.png');
 
-export default class Followers extends Component {
+export default class books extends Component {
 
 	state = {
-	   followers: '1,200'
-  };
-
-  followers = () => {
-    this.props.navigation.navigate('Followers');
+	   books: '4',
   };
 
   renderStat(options) {
@@ -34,12 +30,12 @@ export default class Followers extends Component {
 	render() {
 
 		const {
-  		followers,
+  		books,
     } = this.state;
 
 		return (
 			<View style={styles.stats}>
-			{this.renderStat({ icon: followersIcon,value: followers })}
+			{this.renderStat({ icon: booksIcon,value: books })}
 			</View>
 		);
 	}
