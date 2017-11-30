@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import CircleTransition from '../components/OnBoarding/CircleTransition';
 import Swipe from '../components/OnBoarding/Swipe';
+import MagnifierIcon from '../images/WelcomeScreen/MagnifyingGlassBlue.png';
 
 const { width: windowWidth } = Dimensions.get('window');
 
@@ -19,19 +20,19 @@ const screens = [{
   id: 0,
   title: 'Share Your Story',
   subtitle: 'A major component of the application is self-authorship. Sharing an experience not only helps the writer and helps the community',
-  icon: require('../../assets/images/hotels.png'),
+  icon: require('../images/WelcomeScreen/book.png'),
   bgcolor: '#698FB2'
 }, {
   id: 1,
   title: 'Get Advice',
   subtitle: 'Sometimes our friends and family do not have the quality of life that we want for ourselves. Share an experience with someone who can better understand your situation',
-  icon: require('../../assets/images/bank.png'),
+  icon: require('../images/WelcomeScreen/ear.png'),
   bgcolor: '#68B0B3'
 }, {
   id: 2,
   title: 'Help Others',
   subtitle: 'A major component of the application is self-authorship. Sharing an experience not only helps the writer and helps the community',
-  icon: require('../../assets/images/stores.png'),
+  icon: require('../images/WelcomeScreen/hands.png'),
   bgcolor: '#9B91BA'
 }];
 
@@ -177,6 +178,7 @@ export default class WelcomeScreen extends Component {
           <Image
             source={this.state.currentIcon}
             style={styles.pageIcon}
+            resizeMode="stretch"
           />
 
           <Text style={[styles.title, Platform.OS === 'ios' && {
