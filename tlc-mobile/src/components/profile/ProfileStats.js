@@ -6,7 +6,7 @@ import {
   StyleSheet
 } from 'react-native';
 
-import Followers from './Followers';
+import Store from './Store';
 import Books from './Books';
 import Messages from './Messages';
 import Videos from './Videos';
@@ -16,8 +16,8 @@ import FollowersScreen from '../../screens/FollowersScreen';
 
 export default class ProfileStats extends Component {
 
-  followers = () => {
-    this.props.navigation.navigate('FollowersScreen');
+  store = () => {
+    this.props.navigation.navigate('Store');
   };
 
   books = () => {
@@ -39,7 +39,7 @@ export default class ProfileStats extends Component {
   render() {
     return (
       <View style={styles.stats}>
-        <Followers onPress={this.followers}/>
+        <Store onPress={this.store}/>
         <Messages onPress={this.messages}/>
         <Videos onPress={this.comments}/>
         <Books onPress={this.books}/>

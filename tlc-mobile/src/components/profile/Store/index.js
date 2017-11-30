@@ -7,12 +7,16 @@ import {
 	StyleSheet
 } from 'react-native';
 
-const likesIcon = require('../images/plain-heart.png');
+const storeIcon = require('../images/store.png');
 
-export default class Likes extends Component {
+export default class Store extends Component {
 
 	state = {
-	   likes: '2,491',
+	   store: '2'
+  };
+
+  store = () => {
+    this.props.navigation.navigate('Store');
   };
 
   renderStat(options) {
@@ -30,12 +34,12 @@ export default class Likes extends Component {
 	render() {
 
 		const {
-  		likes,
+  		store,
     } = this.state;
 
 		return (
 			<View style={styles.stats}>
-			{this.renderStat({ icon: likesIcon,value: likes })}
+			{this.renderStat({ icon: storeIcon,value: store })}
 			</View>
 		);
 	}
