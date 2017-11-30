@@ -19,19 +19,19 @@ const screens = [{
   id: 0,
   title: 'Share Your Story',
   subtitle: 'A major component of the application is self-authorship. Sharing an experience not only helps the writer and helps the community',
-  icon: require('../../assets/images/hotels.png'),
+  icon: require('../images/WelcomeScreen/ShareYourStory.png'),
   bgcolor: '#698FB2'
 }, {
   id: 1,
   title: 'Get Advice',
   subtitle: 'Sometimes our friends and family do not have the quality of life that we want for ourselves. Share an experience with someone who can better understand your situation',
-  icon: require('../../assets/images/bank.png'),
+  icon: require('../images/WelcomeScreen/GetAdvice.png'),
   bgcolor: '#68B0B3'
 }, {
   id: 2,
   title: 'Help Others',
   subtitle: 'A major component of the application is self-authorship. Sharing an experience not only helps the writer and helps the community',
-  icon: require('../../assets/images/stores.png'),
+  icon: require('../images/WelcomeScreen/HelpOthers.png'),
   bgcolor: '#9B91BA'
 }];
 
