@@ -120,6 +120,7 @@ export default typeToReducer({
     PENDING(state) {
       return state.merge({
         main: {
+          ...state.main,
           isUpdating: true,
           error: false
         }
@@ -130,6 +131,7 @@ export default typeToReducer({
       const { error } = action.payload;
       return state.merge({
         main: {
+          ...state.main,
           isUpdating: false,
           error
         }
@@ -139,6 +141,7 @@ export default typeToReducer({
     FULFILLED(state, action) {
       return state.merge({
         main: {
+          ...state.main,
           isUpdating: false,
           data: action.payload.user
         }

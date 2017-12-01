@@ -159,7 +159,7 @@ export default class WelcomeScreen extends Component {
   }
 
   onBoardingComplete = () => {
-    this.props.navigation.navigate('Login');
+    this.props.navigation.navigate('LoggedUserProfile');
   };
 
   renderMain() {

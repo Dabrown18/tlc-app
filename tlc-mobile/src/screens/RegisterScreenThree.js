@@ -16,6 +16,7 @@ import MyButton from '../components/Button/index';
 import BirthdaySelector from '../components/BirthdaySelector';
 import backgroundImage from '../images/login-background.png';
 import RegisterActions from '../actions/register';
+import ProfileActions from '../actions/profile';
 
 export class RegisterScreenThree extends Component {
 	static navigationOptions = ({ navigation }) => ({
@@ -57,6 +58,7 @@ export class RegisterScreenThree extends Component {
 
         AsyncStorage.multiSet(keyValues)
           .then(() => {
+            dispatch(ProfileActions.getCurrentUserProfile());
             this.props.navigation.navigate('Choose');
           });
       });

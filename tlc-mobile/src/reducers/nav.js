@@ -1,7 +1,7 @@
 import { MainNavigator } from '../util/router';
 import * as RouterActions from '../actions/router';
 
-const initialNavState = MainNavigator.router.getStateForAction(MainNavigator.router.getActionForPathAndParams('Welcome'));
+const initialNavState = MainNavigator.router.getStateForAction(MainNavigator.router.getActionForPathAndParams('Login'));
 console.log('state', initialNavState);
 
 export default (state = initialNavState, action) => {

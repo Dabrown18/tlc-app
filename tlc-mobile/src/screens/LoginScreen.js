@@ -16,6 +16,10 @@ const logo = require('../images/logo.png');
 
 export default class LoginScreen extends Component {
 
+  state = {
+    fetchingLoginState: true
+  };
+
   register = () => {
     this.props.navigation.navigate('Register');
   };
@@ -39,7 +43,20 @@ export default class LoginScreen extends Component {
       });
   };
 
+  componentWillMount() {
+    AsyncStorage.getItem('authToken')
+      .then(authToken => {
+        this.setState({ fetchingLoginState: false });
+
+        if (authToken && authToken.length > 0) {
+          this.props.navigation.navigate('Home');
+        }
+      });
+  }
+
+
   render() {
+    if (this.state.fetchingLoginState) return null;
 
     return (
       <View style={styles.container}>

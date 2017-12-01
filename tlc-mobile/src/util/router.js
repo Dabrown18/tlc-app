@@ -31,18 +31,18 @@ import {
 } from '../screens';
 
 export const MainNavigator = TabNavigator({
+  Login: { screen: LoginScreen },
   Welcome: { screen: WelcomeScreen },
-  Choose: { 
+  Choose: {
     screen: StackNavigator({
       Choose: { screen: ChooseScreen }
     })
   },
-  Login: { screen: LoginScreen },
   Register: {
     screen: StackNavigator({
       Register: { screen: RegisterScreen },
       PartTwo: { screen: RegisterScreenTwo },
-      PartThree: { screen: RegisterScreenThree }
+      PartThree: { screen: RegisterScreenThree },
     })
   },       
   Help: {

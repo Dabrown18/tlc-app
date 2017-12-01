@@ -59,6 +59,8 @@ class LoggedUserProfileScreen extends Component {
   render() {
     const { profile } = this.props;
 
+    console.log('lop', profile);
+
     return (
       <ProfileContent
         isCurrentUser
