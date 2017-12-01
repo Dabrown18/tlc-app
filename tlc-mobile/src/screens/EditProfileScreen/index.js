@@ -120,7 +120,7 @@ export class EditProfileScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-	profile: state.profile
+	profile: state.profile.main
 });
 
 export default connect(mapStateToProps)(EditProfileScreen);
