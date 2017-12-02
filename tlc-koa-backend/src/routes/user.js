@@ -214,7 +214,8 @@ async function updateUserCategories(ctx) {
     const user = await UserService.updateUser(id, { categories });
 
     ctx.body = {
-      status: 1
+      status: 1,
+      user: UserService.stripSensitiveInfo(user)
     };
   } catch( e ) {
     ctx.log.error('Error on updateUserCategories()', e);

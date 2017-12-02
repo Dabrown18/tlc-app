@@ -8,22 +8,10 @@ import {
   View
 } from 'react-native';
 
-import { StatNavigation } from '../util/router';
+import {getCurrentRouteName, StatNavigation} from '../util/router';
 
 import ProfileContent from '../components/profile/ProfileContent';
 import ProfileActions from '../actions/profile';
-
-function getCurrentRouteName(navigationState) {
-  if (!navigationState) {
-    return null;
-  }
-  const route = navigationState.routes[navigationState.index];
-  // dive into nested navigators
-  if (route.routes) {
-    return getCurrentRouteName(route);
-  }
-  return route.routeName;
-}
 
 class LoggedUserProfileScreen extends Component {
 
@@ -40,12 +28,9 @@ class LoggedUserProfileScreen extends Component {
   });
 
   componentWillReceiveProps(nextProps) {
-    // console.log('r', getCurrentRouteName(nextProps.nav))
-    //   if ((getCurrentRouteName(nextProps.nav) === 'CurrentUserProfile' && getCurrentRouteName(this.props.nav) !== 'CurrentUserProfile') ||
-    //     (getCurrentRouteName(nextProps.nav) === 'Profile' && getCurrentRouteName(this.props.nav) !== 'Profile')) {
-    //     console.log('GETTING IN SCREEN');
-    //     this.prepareScreenAndLoadProfile(nextProps);
-    //   }
+    if ((getCurrentRouteName(nextProps.nav) === 'LoggedUserProfile' && getCurrentRouteName(this.props.nav) !== 'LoggedUserProfile')) {
+      this.loadProfile();
+    }
   }
 
   loadProfile = () => {
