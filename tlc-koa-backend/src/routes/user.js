@@ -38,10 +38,21 @@ async function getUser(ctx) {
       });
     }
 
-    const user = await UserService.getById(id);
+    let user = await UserService.getById(id);
+
+    if (!user) {
+      return ctx.notFound({
+        error: 'User does not exist'
+      });
+    }
+
+    user = user.toObject();
+
+    console.log('user', user);
+
     ctx.body = {
       status: 1,
-      user: UserService.stripSensitiveInfo(user)
+      user: await UserService.stripSensitiveInfo(user)
     };
   } catch( e ) {
     ctx.log.error('Error on getUser()', e);
@@ -140,7 +151,7 @@ async function updateUser(ctx) {
 
     ctx.body = {
       status: 1,
-      user: UserService.stripSensitiveInfo(user)
+      user: await UserService.stripSensitiveInfo(user)
     };
   } catch( e ) {
     ctx.log.error('Error on updateUser()', e);
@@ -215,7 +226,7 @@ async function updateUserCategories(ctx) {
 
     ctx.body = {
       status: 1,
-      user: UserService.stripSensitiveInfo(user)
+      user: await UserService.stripSensitiveInfo(user)
     };
   } catch( e ) {
     ctx.log.error('Error on updateUserCategories()', e);
@@ -243,7 +254,7 @@ async function getUserStories(ctx) {
     }
 
     const stories = (await StoryService.getUserStories(id))
-      .map(s => StoryService.stripSensitiveInfo(s));
+      .map(async s => await StoryService.stripSensitiveInfo(s));
 
     ctx.ok({
       status: 1,
@@ -264,9 +275,11 @@ async function followUser(ctx) {
 
     if ((await UserService.canFollowUser(ctx.user.id, id))) {
       const updatedUser = await UserService.followUser(ctx.user.id, id);
+
+
       ctx.ok({
         status: 1,
-        user: UserService.stripSensitiveInfo(updatedUser)
+        user: await UserService.stripSensitiveInfo(updatedUser)
       });
     } else {
       ctx.badRequest({
@@ -288,7 +301,7 @@ async function unFollowUser(ctx) {
     const updatedUser = await UserService.unFollowUser(ctx.user.id, id);
     ctx.ok({
       status: 1,
-      user: UserService.stripSensitiveInfo(updatedUser)
+      user: await UserService.stripSensitiveInfo(updatedUser)
     });
   } catch( e ) {
     ctx.log.error('Error on unFollowUser()', e);
