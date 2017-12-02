@@ -10,10 +10,12 @@ import Following from './Following';
 
 export default class Follow extends Component {
 	render() {
+		const { profile } = this.props;
+
 		return (
 			<View style={styles.content}>
-					<Follower />
-					<Following />
+					<Follower profile={profile} />
+					<Following profile={profile} />
 			</View>
 		);
 	}

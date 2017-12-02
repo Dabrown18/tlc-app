@@ -25,7 +25,7 @@ export default class ProfilePersonal extends Component {
 					<Text style={styles.name}>{profile.data.firstName} {profile.data.lastName}</Text>
 					<Text style={styles.occupation}>{(occupation || '').toUpperCase()}</Text>
 					<Social profile={profile} />
-					<Follow />
+					<Follow profile={profile} />
 				</View>
 		);
 	}

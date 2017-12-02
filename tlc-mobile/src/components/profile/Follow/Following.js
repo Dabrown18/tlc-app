@@ -7,9 +7,12 @@ import {
 
 export default class Following extends Component {
 	render() {
+    const { profile } = this.props;
+    const following = profile && profile.data ? profile.data.stats.following : '...';
+
 		return (
 			<TouchableOpacity {...this.props} style={styles.content}>
-				<Text style={styles.numberStyle}>20</Text>
+				<Text style={styles.numberStyle}>{following}</Text>
 				<Text style={styles.textStyle}> Following</Text>
 			</TouchableOpacity>
 		);
