@@ -18,7 +18,7 @@ const { width: windowWidth } = Dimensions.get('window');
 const screens = [{
   id: 0,
   title: 'Share Your Story',
-  subtitle: 'A major component of the application is self-authorship. Sharing an experience not only helps the writer and helps the community',
+  subtitle: 'A major component of the application is self-authorship. Sharing an experience not only helps the writer, it helps the community.',
   icon: require('../images/WelcomeScreen/ShareYourStory.png'),
   bgcolor: '#698FB2'
 }, {

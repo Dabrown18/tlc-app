@@ -22,7 +22,7 @@ export class RegisterScreenThree extends Component {
     headerStyle: {
        backgroundColor: '#faf8ec'
     },
-    title: 'Gender & Birthday',
+    title: 'Sex & Birthday',
     headerLeft:
         <Button
             title='Back'
