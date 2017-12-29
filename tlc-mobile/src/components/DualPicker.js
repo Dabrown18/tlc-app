@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     flexDirection: 'row',
     justifyContent: 'center',
-    borderRadius: 8
+    borderRadius: 25
   },
   PickerOption: {
     flex: 1

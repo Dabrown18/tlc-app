@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderColor: '#fff',
     backgroundColor: '#89b2e0',
-    borderRadius: 8
+    borderRadius: 25
 	},
 	text: {
 		fontSize: 20,
