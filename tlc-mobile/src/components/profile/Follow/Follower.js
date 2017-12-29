@@ -7,10 +7,13 @@ import {
 
 export default class Follower extends Component {
 	render() {
+		const { profile } = this.props;
+		const followers = profile && profile.data ? profile.data.stats.followers : '...';
+
 		return (
 			<TouchableOpacity {...this.props} style={styles.content}>
-				<Text style={styles.numberStyle}>14k</Text>
-				<Text style={styles.textStyle}> Followers</Text>
+				<Text style={styles.numberStyle}>{followers}</Text>
+				<Text style={styles.textStyle}> Follower{followers > 1 ? 's' : ''}</Text>
 			</TouchableOpacity>
 		);
 	}

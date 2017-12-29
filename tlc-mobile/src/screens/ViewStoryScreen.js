@@ -57,10 +57,10 @@ export class ViewStoryScreen extends Component {
   });
 
   addComment = (text) => {
-    const { story } = this.props;
+    const { viewStory } = this.props;
     const { dispatch } = this.props;
 
-    return dispatch(StoryActions.addComment(story._id, text));
+    return dispatch(StoryActions.addComment(viewStory._id, text));
   };
 
   gotoProfile = (userId) => {

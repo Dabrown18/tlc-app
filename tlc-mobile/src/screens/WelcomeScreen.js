@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import CircleTransition from '../components/OnBoarding/CircleTransition';
 import Swipe from '../components/OnBoarding/Swipe';
+import MagnifierIcon from '../images/WelcomeScreen/MagnifyingGlassBlue.png';
 
 const { width: windowWidth } = Dimensions.get('window');
 
@@ -158,7 +159,7 @@ export default class WelcomeScreen extends Component {
   }
 
   onBoardingComplete = () => {
-    this.props.navigation.navigate('Login');
+    this.props.navigation.navigate('LoggedUserProfile');
   };
 
   renderMain() {
@@ -177,6 +178,7 @@ export default class WelcomeScreen extends Component {
           <Image
             source={this.state.currentIcon}
             style={styles.pageIcon}
+            resizeMode="stretch"
           />
 
           <Text style={[styles.title, Platform.OS === 'ios' && {

@@ -25,6 +25,7 @@ module.exports = {
       twitter,
       patreon,
       snapchat,
+      followingCount: 0,
       creationDate: new Date()
     });
   },
@@ -41,7 +42,7 @@ module.exports = {
     return await models.user.findOne({ username: username.trim().toLowerCase() });
   },
 
-  stripSensitiveInfo(user) {
+  async stripSensitiveInfo(user) {
     const userJson = user && user.toObject ? user.toObject() : user;
 
     if (userJson) {
@@ -49,6 +50,11 @@ module.exports = {
       delete userJson.passwordResetRequestDate;
       delete userJson.password;
       delete userJson.__v;
+
+      userJson.stats = {
+        followers: await this.countFollowers(user._id),
+        following: user.following.length
+      };
     }
     return userJson;
   },
@@ -124,6 +130,17 @@ module.exports = {
       $push: { following: toBeFollowedUserId },
       $inc: { followingCount: 1 }
     }, { new: true });
+  },
+
+  /**
+   * The user model captures info about the followed users by the user.
+   * This method returns the number of users that are following a particular user.
+   *
+   * @param userId
+   * @returns {Promise.<Number>}
+   */
+  async countFollowers(userId) {
+    return models.user.count({ following: userId });
   },
 
   async unFollowUser(userId, toBeUnfollowedUserId) {

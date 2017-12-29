@@ -31,18 +31,18 @@ import {
 } from '../screens';
 
 export const MainNavigator = TabNavigator({
+  Login: { screen: LoginScreen },
   Welcome: { screen: WelcomeScreen },
-  Choose: { 
+  Choose: {
     screen: StackNavigator({
       Choose: { screen: ChooseScreen }
     })
   },
-  Login: { screen: LoginScreen },
   Register: {
     screen: StackNavigator({
       Register: { screen: RegisterScreen },
       PartTwo: { screen: RegisterScreenTwo },
-      PartThree: { screen: RegisterScreenThree }
+      PartThree: { screen: RegisterScreenThree },
     })
   },       
   Help: {
@@ -131,3 +131,14 @@ export const MainNavigator = TabNavigator({
   lazy: true
 });
 
+export function getCurrentRouteName(navigationState) {
+  if (!navigationState) {
+    return null;
+  }
+  const route = navigationState.routes[navigationState.index];
+  // dive into nested navigators
+  if (route.routes) {
+    return getCurrentRouteName(route);
+  }
+  return route.routeName;
+}

@@ -26,7 +26,7 @@ async function login(ctx) {
     }
 
     return ctx.ok({
-      user: UserService.stripSensitiveInfo(user),
+      user: await UserService.stripSensitiveInfo(user),
       token: SecurityService.generateJwtToken({
         id: user._id,
         email: user.email

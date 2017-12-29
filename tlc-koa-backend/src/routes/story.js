@@ -56,7 +56,7 @@ async function getStory(ctx) {
 
     ctx.body = {
       status: 1,
-      story: StoryService.stripSensitiveInfo(story)
+      story: await StoryService.stripSensitiveInfo(story)
     };
   } catch( e ) {
     ctx.log.error('Error on getStory()', e);

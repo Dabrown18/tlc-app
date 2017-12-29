@@ -13,6 +13,7 @@ import {
 import Header from '../components/Header';
 import NotificationActions from '../actions/notification';
 import StoryActions from '../actions/story';
+import {getCurrentRouteName} from '../util/router';
 
 class NotificationsScreen extends Component {
 
@@ -26,9 +27,19 @@ class NotificationsScreen extends Component {
     // this.setState({ array: newArray })
   }
 
-  componentDidMount() {
+  fetchNotifications() {
     const { dispatch } = this.props;
     dispatch(NotificationActions.getUserNotifications());
+  }
+
+  componentDidMount() {
+    this.fetchNotifications();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if ((getCurrentRouteName(nextProps.nav) === 'Notifications' && getCurrentRouteName(this.props.nav) !== 'Notifications')) {
+      this.fetchNotifications();
+    }
   }
 
   followNotification(notification) {
@@ -84,7 +95,8 @@ class NotificationsScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  notification: state.notification
+  notification: state.notification,
+  nav: state.nav
 });
 
 export default connect(mapStateToProps)(NotificationsScreen);

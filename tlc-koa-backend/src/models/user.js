@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
     size: Number
   },
   categories: [String],
-  followingCount: [Number],
+  followingCount: Number,
   following: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"

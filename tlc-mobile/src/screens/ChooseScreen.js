@@ -86,7 +86,7 @@ class ChooseScreen extends Component {
     if (selectedCategories.length >= 5) {
       dispatch(ProfileActions.updateCurrentUserCategories(selectedCategories))
         .then(() => {
-          this.props.navigation.navigate('Profile');
+          this.props.navigation.navigate('Welcome');
         });
     } else {
       const remainingCategories = 5 - selectedCategories.length;

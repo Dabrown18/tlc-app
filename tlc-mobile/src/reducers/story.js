@@ -208,12 +208,20 @@ export default typeToReducer({
         return s;
       });
 
+      let { viewStory } = state;
+      if (viewStory && viewStory._id === storyId) {
+        viewStory = viewStory.merge({
+          comments: viewStory.comments.concat(comment)
+        });
+      }
+
       return state.merge({
         status: {
           ...state.status,
           isAddingComment: false
         },
-        listing
+        listing,
+        viewStory
       });
     },
 
