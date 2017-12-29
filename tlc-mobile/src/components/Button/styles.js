@@ -16,7 +16,7 @@ const Base = StyleSheet.create({
 const Login = StyleSheet.create({
 	main: {
 		backgroundColor: '#89b2e0',
-		borderRadius: 8,
+		borderRadius: 25,
 		justifyContent: 'center',
 		alignItems: 'center'
 	}
@@ -35,7 +35,7 @@ const Next = StyleSheet.create({
 	  	padding: 20,
 	  	borderColor: '#fff',
 	  	backgroundColor: '#89b2e0',
-	  	borderRadius: 8,
+	  	borderRadius: 35,
 	  	justifyContent: 'center',
 	  	alignItems: 'center'
 	}

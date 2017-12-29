@@ -123,22 +123,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(137,178,224,0.5)',
     borderRadius: 8
   },
-  input: {
-    fontSize: 16,
-    height: 40,
-    padding: 10,
-    marginBottom: 10,
-    backgroundColor: 'rgba(255,255,255,1)',
-    textAlign: 'center',
-    borderRadius: 8
-  },
-  buttonContainer: {
-    marginBottom: 8,
-    padding: 8,
-    borderColor: '#fff',
-    backgroundColor: '#89b2e0',
-    borderRadius: 8
-  },
   errorTextStyle: {
     fontSize: 20,
     alignSelf: 'center',
@@ -149,8 +133,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: "#fff",
     fontWeight: 'bold'
-  },
-  btn: {
-    margin: 10
   }
 });
