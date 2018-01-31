@@ -62,11 +62,8 @@ export default class LoginScreen extends Component {
       <View style={styles.container}>
 
         <Image source={backgroundImage} style={styles.backgroundImage}>
-
-            <Image source={logo} style={styles.logo}/>
-
+            
             <LoginForm onLogin={this.onLoginSuccess} />
-
             <MyButton 
               next 
               style={styles.btn} 
